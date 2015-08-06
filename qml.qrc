@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/MainListView.qml</file>
+        <file>qml/MainListViewTower.qml</file>
+        <file>qml/MainPage.qml</file>
+        <file>qml/MainHeader.qml</file>
+        <file>qml/HeaderBluredBackground.qml</file>
+        <file>qml/img/img.jpg</file>
+    </qresource>
+</RCC>
