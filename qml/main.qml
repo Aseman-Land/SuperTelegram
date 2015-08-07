@@ -22,6 +22,10 @@ AsemanMain {
         id: menu
         anchors.fill: parent
         source: main_page
+        menuTopMargin: standardTitleBarHeight + View.statusBarHeight
+        component: Item {
+            anchors.fill: parent
+        }
     }
 
     HeaderMenuButton {
