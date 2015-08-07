@@ -21,8 +21,22 @@ Rectangle {
 
         Rectangle {
             anchors.fill: parent
-            opacity: (1-header.ratio)/2
-            color: analizer.color
+            opacity: (1-header.ratio)*1
+            color: {
+                var clr = analizer.color
+                var ratio = 1.1
+                var oRatio = 0.7
+                if(clr.r > clr.g && clr.r > clr.b)
+                    clr = Qt.rgba(clr.r*ratio, clr.g*oRatio, clr.b*oRatio)
+                else
+                if(clr.g > clr.r && clr.g > clr.b)
+                    clr = Qt.rgba(clr.r*oRatio, clr.g*ratio, clr.b*oRatio)
+                else
+                if(clr.b > clr.g && clr.b > clr.r)
+                    clr = Qt.rgba(clr.r*oRatio, clr.g*oRatio, clr.b*ratio)
+
+                return clr
+            }
 
             ImageColorAnalizor {
                 id: analizer
@@ -45,7 +59,7 @@ Rectangle {
     }
 
     Text {
-        text: "Rosabell Sellers"
+        text: "Alexandra Stan"
         font.pixelSize: 14*Devices.fontDensity
         color: "#ffffff"
         y: {

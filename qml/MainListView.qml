@@ -59,6 +59,12 @@ Item {
         anchors.topMargin: headerHeight
     }
 
+    Timer {
+        interval: 300
+        onTriggered: listv.positionViewAtBeginning()
+        Component.onCompleted: start()
+    }
+
     Component.onCompleted: {
         for(var i=0; i<12; i++)
             listv.model.insert(i, {"idx": i})
