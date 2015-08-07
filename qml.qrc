@@ -7,5 +7,6 @@
         <file>qml/MainHeader.qml</file>
         <file>qml/HeaderBluredBackground.qml</file>
         <file>qml/img/img.jpg</file>
+        <file>qml/HeaderMenuButton.qml</file>
     </qresource>
 </RCC>

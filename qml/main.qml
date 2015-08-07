@@ -7,8 +7,35 @@ AsemanMain {
     width: 480
     height: 640
     visible: true
+    color: main_page.headerColor
+
+    property real standardTitleBarHeight: Devices.standardTitleBarHeight*1.2
 
     MainPage {
-        anchors.fill: parent
+        id: main_page
+        width: parent.width
+        height: parent.height
+        headerSidePad: menu_btn.width - 10*Devices.density
     }
+
+    MenuController {
+        id: menu
+        anchors.fill: parent
+        source: main_page
+    }
+
+    HeaderMenuButton {
+        id: menu_btn
+        y: View.statusBarHeight
+        x: View.layoutDirection==Qt.LeftToRight? 0 : parent.width - width
+        ratio: menu.ratio
+        onClicked: {
+            if(menu.isVisible)
+                menu.close()
+            else
+                menu.show()
+        }
+    }
+
+//    Component.onCompleted: View.layoutDirection = Qt.RightToLeft
 }

@@ -7,15 +7,19 @@ Rectangle {
     height: 62
     color: "#fefefe"
 
+    property alias headerSidePad: profile.sidePad
+    property alias headerColor: profile.headerColor
+
     MainListView {
         id: listv
         anchors.fill: parent
         headerHeight: profile.maxHeaderHeight
+        scrollColor: profile.headerColor
     }
 
     MainHeader {
         id: profile
-        minHeaderHeight: Devices.standardTitleBarHeight*1.2 + View.statusBarHeight
+        minHeaderHeight: standardTitleBarHeight + View.statusBarHeight
         maxHeaderHeight: mpage.height*0.6
         statusBarHeight: View.statusBarHeight
         width: parent.width

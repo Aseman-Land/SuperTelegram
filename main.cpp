@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Aseman");
 
     AsemanQuickView view(AsemanQuickView::AllExceptLogger);
+    view.setBackController(true);
     view.setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     view.show();
 

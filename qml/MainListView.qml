@@ -11,6 +11,8 @@ Item {
     property real headerHeight: 200
     property alias originY: listv.originY
 
+    property alias scrollColor: scrollbar.color
+
     ListView {
         id: listv
         width: parent.width
@@ -24,6 +26,14 @@ Item {
             }
         }
         clip: true
+
+        property bool atBegin: atYBeginning
+        onAtBeginChanged: {
+            if(atBegin)
+                BackHandler.removeHandler(listv)
+            else
+                BackHandler.pushHandler(listv, listv.gotoBegin)
+        }
 
         header: Item {
             width: parent.width
@@ -51,12 +61,21 @@ Item {
                 }
             }
         }
+
+        NumberAnimation { id: anim; target: listv; easing.type: Easing.OutCubic; property: "contentY"; duration: 400 }
+
+        function gotoBegin() {
+            anim.from = contentY;
+            anim.to = -headerHeight;
+            anim.running = true;
+        }
     }
 
     ScrollBar {
+        id: scrollbar
         scrollArea: listv; height: listv.height-headerHeight; width: 6*Devices.density
-        anchors.left: listv.left; anchors.top: listv.top; color: "#333333"
-        anchors.topMargin: headerHeight
+        anchors.topMargin: headerHeight; anchors.top: listv.top; color: "#333333"
+        x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
     }
 
     Timer {

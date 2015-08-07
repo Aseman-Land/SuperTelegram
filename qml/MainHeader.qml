@@ -10,8 +10,23 @@ Rectangle {
     property real maxHeaderHeight: 100
     property real statusBarHeight: 0
 
+    property real sidePad: 0
+
     property real ratio: (header.height-minHeaderHeight)/(maxHeaderHeight-minHeaderHeight)
     property alias source: img.source
+
+    property alias headerColor: tbar.color
+
+    Rectangle {
+        height: 3*Devices.density
+        width: parent.width
+        anchors.top: parent.bottom
+        opacity: 1-parent.ratio
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#55000000" }
+            GradientStop { position: 1.0; color: "#00000000" }
+        }
+    }
 
     HeaderBluredBackground {
         anchors.fill: parent
@@ -20,6 +35,7 @@ Rectangle {
         source: img.source
 
         Rectangle {
+            id: tbar
             anchors.fill: parent
             opacity: (1-header.ratio)*1
             color: {
@@ -69,7 +85,10 @@ Rectangle {
             return second + delta*Math.pow(header.ratio, 0.5)
         }
         x: {
-            var second = minHeaderHeight + 14*Devices.density - statusBarHeight
+            var second = minHeaderHeight + 8*Devices.density - statusBarHeight + sidePad
+            if(View.layoutDirection == Qt.RightToLeft)
+                second = parent.width - width - second
+
             var first = parent.width/2 - width/2
             var delta = first-second
             return second + delta*Math.pow(header.ratio, 1)
@@ -81,9 +100,17 @@ Rectangle {
         width: height
         height: (parent.height-statusBarHeight)*(1 - 0.5*header.ratio) - 14*Devices.density
         radius: height/2
-        x: 10*Devices.density + (parent.width/2 - width/2 - 10*Devices.density)*header.ratio
         color: mpage.color
         y: parent.height/2 - height/2 + statusBarHeight/2
+        x: {
+            var second = 10*Devices.density + sidePad
+            if(View.layoutDirection == Qt.RightToLeft)
+                second = parent.width - width - second
+
+            var first = parent.width/2 - width/2
+            var delta = first-second
+            return second + delta*header.ratio
+        }
 
         RoundedImage {
             id: img
