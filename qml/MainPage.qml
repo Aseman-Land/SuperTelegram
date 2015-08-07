@@ -25,6 +25,12 @@ Item {
         scrollColor: profile.headerColor
     }
 
+    MouseArea {
+        anchors.fill: profile
+        onClicked: listv.gotoBegin()
+        visible: profile.ratio == 0
+    }
+
     MainHeader {
         id: profile
         minHeaderHeight: standardTitleBarHeight + View.statusBarHeight

@@ -161,12 +161,12 @@ void AsemanTools::deleteItemDelay(QObject *o, int ms)
 
 qreal AsemanTools::colorHue(const QColor &clr)
 {
-    return clr.hue()/255.0;
+    return clr.hue()/359.0;
 }
 
 qreal AsemanTools::colorLightness(const QColor &clr)
 {
-    return 2*clr.lightness()/255.0 - 1;
+    return clr.lightness()/255.0;
 }
 
 qreal AsemanTools::colorSaturation(const QColor &clr)

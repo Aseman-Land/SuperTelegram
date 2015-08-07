@@ -23,8 +23,9 @@ AsemanMain {
         anchors.fill: parent
         source: main_page
         menuTopMargin: standardTitleBarHeight + View.statusBarHeight
-        component: Item {
+        component: MenuList {
             anchors.fill: parent
+            anchors.topMargin: 30*Devices.density
         }
     }
 

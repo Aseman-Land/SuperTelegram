@@ -84,6 +84,10 @@ Item {
         Component.onCompleted: start()
     }
 
+    function gotoBegin() {
+        listv.gotoBegin()
+    }
+
     Component.onCompleted: {
         for(var i=0; i<12; i++)
             listv.model.insert(i, {"idx": i})

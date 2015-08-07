@@ -5,15 +5,14 @@ import QtGraphicalEffects 1.0
 Item {
     width: 100
     height: 62
-    clip: true
 
     property alias source: back_img.source
     property alias imageHeight: back_img.height
+    property alias color: topRect.color
 
     Image {
         id: back_img
         width: parent.width
-        height: 100
         anchors.verticalCenter: parent.verticalCenter
         clip: true
         visible: false
@@ -27,6 +26,7 @@ Item {
         radius: 64
 
         Rectangle {
+            id: topRect
             anchors.fill: parent
             opacity: 0.2
         }

@@ -37,6 +37,7 @@ Item {
             clip: true
             imageHeight: maxHeaderHeight
             source: img.source
+            color: "#ffffff"
 
             Rectangle {
                 id: tbar
@@ -45,7 +46,7 @@ Item {
                 color: {
                     var clr = analizer.color
                     var ratio = 1.1
-                    var oRatio = 0.7
+                    var oRatio = 0.8
                     if(clr.r > clr.g && clr.r > clr.b)
                         clr = Qt.rgba(clr.r*ratio, clr.g*oRatio, clr.b*oRatio)
                     else
@@ -55,7 +56,15 @@ Item {
                     if(clr.b > clr.g && clr.b > clr.r)
                         clr = Qt.rgba(clr.r*oRatio, clr.g*oRatio, clr.b*ratio)
 
-                    return clr
+                    var saturation = Tools.colorSaturation(clr)
+                    var lightness = Tools.colorLightness(clr)
+                    var hue = Tools.colorHue(clr)
+                    if(saturation > 0.6)
+                        saturation = 0.6
+                    if(lightness < 0.5)
+                        lightness = 0.5
+
+                    return Qt.hsla(hue, saturation, lightness, 1)
                 }
 
                 ImageColorAnalizor {
@@ -106,7 +115,7 @@ Item {
         width: height
         height: (parent.height-statusBarHeight)*(1 - 0.5*header.ratio) - 14*Devices.density
         radius: height/2
-        color: mpage.color
+        color: "#ffffff"
         y: parent.height/2 - height/2 + statusBarHeight/2
         x: {
             var second = 10*Devices.density + sidePad
