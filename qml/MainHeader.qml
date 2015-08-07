@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 
-Rectangle {
+Item {
     id: header
     width: 100
     height: 62
@@ -28,49 +28,55 @@ Rectangle {
         }
     }
 
-    HeaderBluredBackground {
+    Item {
         anchors.fill: parent
         clip: true
-        imageHeight: maxHeaderHeight
-        source: img.source
 
-        Rectangle {
-            id: tbar
+        HeaderBluredBackground {
             anchors.fill: parent
-            opacity: (1-header.ratio)*1
-            color: {
-                var clr = analizer.color
-                var ratio = 1.1
-                var oRatio = 0.7
-                if(clr.r > clr.g && clr.r > clr.b)
-                    clr = Qt.rgba(clr.r*ratio, clr.g*oRatio, clr.b*oRatio)
-                else
-                if(clr.g > clr.r && clr.g > clr.b)
-                    clr = Qt.rgba(clr.r*oRatio, clr.g*ratio, clr.b*oRatio)
-                else
-                if(clr.b > clr.g && clr.b > clr.r)
-                    clr = Qt.rgba(clr.r*oRatio, clr.g*oRatio, clr.b*ratio)
+            clip: true
+            imageHeight: maxHeaderHeight
+            source: img.source
 
-                return clr
-            }
+            Rectangle {
+                id: tbar
+                anchors.fill: parent
+                opacity: (1-header.ratio)*1
+                color: {
+                    var clr = analizer.color
+                    var ratio = 1.1
+                    var oRatio = 0.7
+                    if(clr.r > clr.g && clr.r > clr.b)
+                        clr = Qt.rgba(clr.r*ratio, clr.g*oRatio, clr.b*oRatio)
+                    else
+                    if(clr.g > clr.r && clr.g > clr.b)
+                        clr = Qt.rgba(clr.r*oRatio, clr.g*ratio, clr.b*oRatio)
+                    else
+                    if(clr.b > clr.g && clr.b > clr.r)
+                        clr = Qt.rgba(clr.r*oRatio, clr.g*oRatio, clr.b*ratio)
 
-            ImageColorAnalizor {
-                id: analizer
-                source: img.source
-                method: ImageColorAnalizor.MoreSaturation
+                    return clr
+                }
+
+                ImageColorAnalizor {
+                    id: analizer
+                    source: img.source
+                    method: ImageColorAnalizor.MoreSaturation
+                }
             }
         }
-    }
 
-    Rectangle {
-        id: shadow_rct
-        height: 80*Devices.density
-        width: parent.width
-        anchors.bottom: parent.bottom
-        opacity: header.ratio
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#00000000" }
-            GradientStop { position: 0.9; color: mpage.color }
+        Rectangle {
+            id: shadow_rct
+            height: 80*Devices.density
+            width: parent.width
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: -2*Devices.density
+            opacity: header.ratio
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#00000000" }
+                GradientStop { position: 0.9; color: mpage.color }
+            }
         }
     }
 
