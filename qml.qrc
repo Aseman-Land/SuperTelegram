@@ -12,5 +12,17 @@
         <file>qml/PageManager.qml</file>
         <file>qml/PageSeparator.qml</file>
         <file>qml/PageManagerItem.qml</file>
+        <file>qml/features/TimerMessage.qml</file>
+        <file>qml/features/icons/timer-message.png</file>
+        <file>qml/features/icons/auto-checkin.png</file>
+        <file>qml/features/icons/auto-message.png</file>
+        <file>qml/features/icons/content-sens-message.png</file>
+        <file>qml/features/icons/mute-timer.png</file>
+        <file>qml/features/icons/profile-pic-changer.png</file>
+        <file>qml/features/icons/save-avatars.png</file>
+        <file>qml/features/icons/send-to-all.png</file>
+        <file>qml/features/icons/sticker-manager.png</file>
+        <file>qml/features/icons/usage-info.png</file>
+        <file>qml/features/icons/backup.png</file>
     </qresource>
 </RCC>

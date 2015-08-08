@@ -1,14 +1,19 @@
 import QtQuick 2.0
 
-Rectangle {
+Item {
     width: 100
     height: 62
 
     property real startLen: 20
     property real endLen: 200
-    property color fillColor: "#000000"
+    property color startFillColor: "#000000"
+    property color endFillColor: "#0d80ec"
 
-    onFillColorChanged: picker.requestPaint()
+    property color startBackColor: "#ffffff"
+    property color endBackColor: "#ffffff"
+
+    onStartFillColorChanged: picker.requestPaint()
+    onEndFillColorChanged: picker.requestPaint()
     onStartLenChanged: picker.requestPaint()
     onEndLenChanged: picker.requestPaint()
 
@@ -21,14 +26,19 @@ Rectangle {
             var ctx = picker.getContext("2d");
             ctx.save();
 
-            ctx.fillStyle = fillColor
-            ctx.lineWidth = 1*Devices.density
-            ctx.beginPath();
+            var backGrad = ctx.createLinearGradient(0, 0, width, 0);
+            backGrad.addColorStop(0, startBackColor);
+            backGrad.addColorStop(1, endBackColor);
+
+            ctx.fillStyle = backGrad
+            ctx.fillRect(0,0,width,height)
+
 
             var delta = endLen - startLen
             var midY = startLen + delta/2
             var midX = width/2
 
+            ctx.beginPath();
             ctx.moveTo(0, startLen);
             ctx.quadraticCurveTo(midX*0.6, startLen, midX, midY);
             ctx.moveTo(midX, midY);
@@ -37,6 +47,12 @@ Rectangle {
             ctx.lineTo(0,0);
             ctx.lineTo(0,startLen);
 
+            var headerGrad = ctx.createLinearGradient(0, 0, width, 0);
+            headerGrad.addColorStop(0, startFillColor);
+            headerGrad.addColorStop(1, endFillColor);
+
+            ctx.fillStyle = headerGrad
+            ctx.lineWidth = 1*Devices.density
             ctx.fill()
         }
     }

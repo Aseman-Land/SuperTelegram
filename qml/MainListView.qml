@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import AsemanTools 1.0
+import "features/"
 
 Item {
     id: mainlv
@@ -30,6 +31,7 @@ Item {
         }
         clip: true
 
+        property real itemsHeight: 64*Devices.density
         property bool atBegin: atYBeginning
         onAtBeginChanged: {
             if(atBegin)
@@ -43,31 +45,78 @@ Item {
             height: headerHeight
         }
 
+        footer: Item {
+            width: parent.width
+            height: {
+                var res = mainlv.height-listv.count*listv.itemsHeight-standardTitleBarHeight
+                if(res < 0)
+                    return 0
+                else
+                    return res
+            }
+        }
+
         delegate: Item {
             width: listv.width
-            height: 64*Devices.density
+            height: listv.itemsHeight
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: 6*Devices.density
+                radius: 4*Devices.density
+                color: "#0d80ec"
+                opacity: marea.pressed? 0.2 : 0
+            }
 
             Row {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.margins: 20*Devices.density
+                layoutDirection: View.layoutDirection
+                spacing: 10*Devices.density
 
                 Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
-                    border.color: Qt.rgba(Math.random(), Math.random(), Math.random())
+                    border.color: "#d5d5d5"
                     border.width: 1*Devices.density
                     height: 46*Devices.density
-                    color: "#00000000"
+                    color: "#e5e5e5"
                     width: height
                     radius: width/2
+
+                    Image {
+                        anchors.fill: parent
+                        anchors.margins: 8*Devices.density
+                        source: icon
+                        sourceSize: Qt.size(width, height)
+                    }
+                }
+
+                Column {
+                    spacing: 2*Devices.density
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    Text {
+                        text: name
+                        font.pixelSize: 11*Devices.fontDensity
+                        color: "#333333"
+                        horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
+                    }
+
+                    Text {
+                        text: description
+                        font.pixelSize: 9*Devices.fontDensity
+                        color: "#aaaaaa"
+                        horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
+                    }
                 }
             }
 
             MouseArea {
                 id: marea
                 anchors.fill: parent
-                onClicked: mainlv.selected(0)
+                onClicked: mainlv.selected(component)
             }
         }
 
@@ -98,8 +147,22 @@ Item {
     }
 
     Component.onCompleted: {
-        for(var i=0; i<12; i++)
-            listv.model.insert(i, {"idx": i})
+        listv.model.append({"name": qsTr("Timer message")            , "icon": "features/icons/timer-message.png"        ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Auto message")             , "icon": "features/icons/auto-message.png"         ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Content sensitive message"), "icon": "features/icons/content-sens-message.png" ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Backup")                   , "icon": "features/icons/backup.png"               ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Sticker manager")          , "icon": "features/icons/sticker-manager.png"      ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Profile picture changer")  , "icon": "features/icons/profile-pic-changer.png"  ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Mute timer")               , "icon": "features/icons/mute-timer.png"           ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Save avatars")             , "icon": "features/icons/save-avatars.png"         ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Usage info")               , "icon": "features/icons/usage-info.png"           ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Auto check-in")            , "icon": "features/icons/auto-checkin.png"         ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Send to all")              , "icon": "features/icons/send-to-all.png"          ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+    }
+
+    Component {
+        id: time_msg_component
+        TimerMessage {}
     }
 }
 

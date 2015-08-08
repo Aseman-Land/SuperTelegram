@@ -36,7 +36,7 @@ AsemanMain {
                 height: main.height
                 headerSidePad: menu_btn.width - 10*Devices.density
                 onHeaderColorChanged: main.color = headerColor
-                onSelected: page_manager.append(test_component)
+                onSelected: page_manager.append(component)
             }
         }
 
@@ -96,26 +96,6 @@ AsemanMain {
         property real animatedRatio: page_manager.count? 1 : 0
         Behavior on animatedRatio {
             NumberAnimation{easing.type: Easing.OutCubic; duration: 500}
-        }
-    }
-
-    Component {
-        id: test_component
-        PageManagerItem {
-            id: testtt
-            headerY: 300
-            anchors.fill: parent
-
-            Rectangle {
-                color: "#fefefe"
-                anchors.fill: parent
-            }
-
-            Rectangle {
-                width: parent.width
-                height: testtt.headerY
-                color: main.color
-            }
         }
     }
 }

@@ -71,8 +71,8 @@ Item {
             property variant itemObject
             property alias startLen: separator.startLen
             property alias endLen: separator.endLen
-            property alias headerColor: separator.fillColor
-            property alias background: separator.color
+            property alias headerColor: separator.startFillColor
+            property alias background: separator.startBackColor
 
             Behavior on x {
                 NumberAnimation{easing.type: easingType; duration: animationDuration}
@@ -82,7 +82,9 @@ Item {
                 id: separator
                 height: parent.height
                 width: separatorsWidth
-                endLen: item_scene.itemObject? item_scene.itemObject.headerY : 0
+                endLen: item.itemObject? item.itemObject.headerY : 0
+                endFillColor: item.itemObject? item.itemObject.headColor : startFillColor
+                endBackColor: item.itemObject? item.itemObject.backgroundColor : startFillColor
             }
 
             Item {
