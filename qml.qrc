@@ -9,5 +9,8 @@
         <file>qml/img/img.jpg</file>
         <file>qml/HeaderMenuButton.qml</file>
         <file>qml/MenuList.qml</file>
+        <file>qml/PageManager.qml</file>
+        <file>qml/PageSeparator.qml</file>
+        <file>qml/PageManagerItem.qml</file>
     </qresource>
 </RCC>

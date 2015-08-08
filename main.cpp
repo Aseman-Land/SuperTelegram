@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 
     AsemanQuickView view(AsemanQuickView::AllExceptLogger);
     view.setBackController(true);
+//    view.setLayoutDirection(Qt::RightToLeft);
     view.setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     view.show();
 

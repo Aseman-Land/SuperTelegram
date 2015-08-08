@@ -10,8 +10,11 @@ Item {
     property alias contentY: listv.contentY
     property real headerHeight: 200
     property alias originY: listv.originY
+    property alias interactive: listv.interactive
 
     property alias scrollColor: scrollbar.color
+
+    signal selected(variant component)
 
     ListView {
         id: listv
@@ -42,7 +45,7 @@ Item {
 
         delegate: Item {
             width: listv.width
-            height: 70*Devices.density
+            height: 64*Devices.density
 
             Row {
                 anchors.verticalCenter: parent.verticalCenter
@@ -54,11 +57,17 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     border.color: Qt.rgba(Math.random(), Math.random(), Math.random())
                     border.width: 1*Devices.density
-                    height: 50*Devices.density
+                    height: 46*Devices.density
                     color: "#00000000"
                     width: height
                     radius: width/2
                 }
+            }
+
+            MouseArea {
+                id: marea
+                anchors.fill: parent
+                onClicked: mainlv.selected(0)
             }
         }
 

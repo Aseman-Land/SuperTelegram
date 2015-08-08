@@ -1,14 +1,18 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 
-Item {
+PageManagerItem {
     id: mpage
-    width: 100
-    height: 62
+    headerY: profile.height
+    backgroundColor: color
+    headColor: headerColor
 
     property alias headerSidePad: profile.sidePad
     property alias headerColor: profile.headerColor
     property alias color: back.color
+    property alias interactive: listv.interactive
+
+    signal selected(variant component)
 
     Rectangle {
         id: back
@@ -23,6 +27,7 @@ Item {
         anchors.fill: parent
         headerHeight: profile.maxHeaderHeight
         scrollColor: profile.headerColor
+        onSelected: mpage.selected(component)
     }
 
     MouseArea {

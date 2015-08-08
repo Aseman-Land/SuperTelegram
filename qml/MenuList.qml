@@ -1,8 +1,11 @@
 import QtQuick 2.0
 
 Item {
+    id: mlist
     width: 100
     height: 62
+
+    signal selected(int index, variant component)
 
     ListView {
         id: listv
@@ -61,6 +64,7 @@ Item {
             MouseArea {
                 id: marea
                 anchors.fill: parent
+                onClicked: mlist.selected(index,0)
             }
         }
 
