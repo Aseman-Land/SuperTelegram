@@ -98,4 +98,8 @@ AsemanMain {
             NumberAnimation{easing.type: Easing.OutCubic; duration: 500}
         }
     }
+
+    LoginScreen {
+        anchors.fill: parent
+    }
 }

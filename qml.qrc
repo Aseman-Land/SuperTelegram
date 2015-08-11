@@ -24,5 +24,10 @@
         <file>qml/features/icons/sticker-manager.png</file>
         <file>qml/features/icons/usage-info.png</file>
         <file>qml/features/icons/backup.png</file>
+        <file>qml/LoginScreen.qml</file>
+        <file>qml/img/login-back.jpg</file>
+        <file>qml/img/stg.png</file>
+        <file>qml/img/stg.svg</file>
+        <file>qml/LoginScreenCountrySelect.qml</file>
     </qresource>
 </RCC>

@@ -22,6 +22,7 @@ Item {
         width: parent.width
         height: parent.height - y
         model: ListModel{}
+        maximumFlickVelocity: View.flickVelocity
         boundsBehavior: Flickable.StopAtBounds
         rebound: Transition {
             NumberAnimation {
@@ -77,6 +78,7 @@ Item {
                 spacing: 10*Devices.density
 
                 Rectangle {
+                    id: profile_pic_frame
                     anchors.verticalCenter: parent.verticalCenter
                     border.color: "#d5d5d5"
                     border.width: 1*Devices.density
@@ -96,8 +98,10 @@ Item {
                 Column {
                     spacing: 2*Devices.density
                     anchors.verticalCenter: parent.verticalCenter
+                    width: parent.width - parent.spacing - profile_pic_frame.width
 
                     Text {
+                        width: parent.width
                         text: name
                         font.pixelSize: 11*Devices.fontDensity
                         color: "#333333"
@@ -105,9 +109,13 @@ Item {
                     }
 
                     Text {
+                        width: parent.width
                         text: description
                         font.pixelSize: 9*Devices.fontDensity
                         color: "#aaaaaa"
+                        wrapMode: Text.WrapAnywhere
+                        elide: Text.ElideRight
+                        maximumLineCount: 1
                         horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                     }
                 }
@@ -148,16 +156,16 @@ Item {
 
     Component.onCompleted: {
         listv.model.append({"name": qsTr("Timer message")            , "icon": "features/icons/timer-message.png"        ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Auto message")             , "icon": "features/icons/auto-message.png"         ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Content sensitive message"), "icon": "features/icons/content-sens-message.png" ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Backup")                   , "icon": "features/icons/backup.png"               ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Sticker manager")          , "icon": "features/icons/sticker-manager.png"      ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Profile picture changer")  , "icon": "features/icons/profile-pic-changer.png"  ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Mute timer")               , "icon": "features/icons/mute-timer.png"           ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Save avatars")             , "icon": "features/icons/save-avatars.png"         ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Usage info")               , "icon": "features/icons/usage-info.png"           ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Auto check-in")            , "icon": "features/icons/auto-checkin.png"         ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
-        listv.model.append({"name": qsTr("Send to all")              , "icon": "features/icons/send-to-all.png"          ,"component": time_msg_component, "description": qsTr("Send a message in the selected time to any user")})
+        listv.model.append({"name": qsTr("Auto message")             , "icon": "features/icons/auto-message.png"         ,"component": time_msg_component, "description": qsTr("Send a message automatically when you have incomming messages.")})
+        listv.model.append({"name": qsTr("Content sensitive message"), "icon": "features/icons/content-sens-message.png" ,"component": time_msg_component, "description": qsTr("Send word sensitive messages automatically.")})
+        listv.model.append({"name": qsTr("Backup")                   , "icon": "features/icons/backup.png"               ,"component": time_msg_component, "description": qsTr("Backup from a special contacts.")})
+        listv.model.append({"name": qsTr("Sticker manager")          , "icon": "features/icons/sticker-manager.png"      ,"component": time_msg_component, "description": qsTr("Manage your installed sticker sets.")})
+        listv.model.append({"name": qsTr("Profile picture changer")  , "icon": "features/icons/profile-pic-changer.png"  ,"component": time_msg_component, "description": qsTr("Change your profile picture frequently.")})
+        listv.model.append({"name": qsTr("Mute timer")               , "icon": "features/icons/mute-timer.png"           ,"component": time_msg_component, "description": qsTr("Mute a contact in the special day time.")})
+        listv.model.append({"name": qsTr("Save avatars")             , "icon": "features/icons/save-avatars.png"         ,"component": time_msg_component, "description": qsTr("Save contact avatars automatically.")})
+        listv.model.append({"name": qsTr("Usage info")               , "icon": "features/icons/usage-info.png"           ,"component": time_msg_component, "description": qsTr("Your usage informations.")})
+        listv.model.append({"name": qsTr("Auto check-in")            , "icon": "features/icons/auto-checkin.png"         ,"component": time_msg_component, "description": qsTr("Send your geo position to selected contacts automatically.")})
+        listv.model.append({"name": qsTr("Send to all")              , "icon": "features/icons/send-to-all.png"          ,"component": time_msg_component, "description": qsTr("Send a message to all or selected contacts.")})
     }
 
     Component {

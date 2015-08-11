@@ -96,7 +96,10 @@ Item {
             Timer {
                 id: destroy_timer
                 interval: animationDuration
-                onTriggered: item.destroy()
+                onTriggered: {
+                    item.itemObject.destroy()
+                    item.destroy()
+                }
             }
 
             function back() {
@@ -104,21 +107,13 @@ Item {
 
                 x = View.layoutDirection==Qt.RightToLeft? -width : pmanager.width
                 list.lastItem().x = 0
-                destroy_timer.destroy()
+                destroy_timer.restart()
             }
 
             Component.onCompleted: {
                 x = View.layoutDirection==Qt.RightToLeft? 0 : -separator.width
                 BackHandler.pushHandler(item, item.back)
             }
-        }
-    }
-
-    Component {
-        id: seprator_component
-        PageSeparator {
-            height: parent.height
-            width: separatorsWidth
         }
     }
 }

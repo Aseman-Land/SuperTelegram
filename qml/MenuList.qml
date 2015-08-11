@@ -12,6 +12,7 @@ Item {
         anchors.fill: parent
         clip: true
         model: ListModel{}
+        maximumFlickVelocity: View.flickVelocity
         boundsBehavior: Flickable.StopAtBounds
         rebound: Transition {
             NumberAnimation {
@@ -36,7 +37,7 @@ Item {
 
         delegate: Item {
             width: listv.width
-            height: 42*Devices.density
+            height: 38*Devices.density
 
             Rectangle {
                 anchors.fill: parent
@@ -57,7 +58,7 @@ Item {
                 Text {
                     color: "#ffffff"
                     text: name
-                    font.pixelSize: 12*Devices.fontDensity
+                    font.pixelSize: 11*Devices.fontDensity
                 }
             }
 
