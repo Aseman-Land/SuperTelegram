@@ -45,25 +45,65 @@ Rectangle {
         id: white_glass
         anchors.fill: parent
         anchors.topMargin: minHeaderHeight
-        opacity: (1-header.ratio)*0.8
+        opacity: (1-header.ratio)*0.8*ls_country.opacity
     }
 
     Rectangle {
         y: minHeaderHeight
         height: 3*Devices.density
         width: parent.width
-        opacity: 1-header.ratio
+        opacity: (1-header.ratio)*ls_country.opacity
         gradient: Gradient {
             GradientStop { position: 0.0; color: "#55000000" }
             GradientStop { position: 1.0; color: "#00000000" }
         }
     }
 
-    LoginScreenCountrySelect {
-        id: ls_country
+    Item {
         anchors.fill: parent
         anchors.topMargin: minHeaderHeight
-        ratio: header.ratio
+        clip: true
+
+        LoginScreenCountrySelect {
+            id: ls_country
+            y: (opacity-1)*100*Devices.density
+            width: parent.width
+            height: parent.height
+            ratio: header.ratio
+            opacity: callingCode.length==0? 1 : 0
+            visible: opacity != 0
+
+            Behavior on opacity {
+                NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
+            }
+        }
+
+        LoginScreenPhoneNumber {
+            id: ls_phone
+            width: parent.width
+            height: parent.height
+            opacity: ls_country.callingCode.length==0 || number.length!=0? 0 : 1
+            visible: opacity != 0
+            callingCode: ls_country.callingCode
+            y: {
+                if(ls_country.callingCode.length == 0)
+                    return 100*Devices.density
+                else
+                if(number.length == 0)
+                    return 0
+                else
+                    return -100*Devices.density
+            }
+            onNumberChanged: {
+            }
+
+            Behavior on opacity {
+                NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
+            }
+            Behavior on y {
+                NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
+            }
+        }
     }
 
     Image {
@@ -128,17 +168,42 @@ Rectangle {
     }
 
     Indicator {
-        anchors.fill: parent
-        light: false
+        id: indicator
+        width: parent.width
+        height: parent.height
+        light: true
         modern: true
-        indicatorSize: 26*Devices.density
+        indicatorSize: 30*Devices.density
+        opacity: active? 1 : 0
+        y: {
+            if(ls_phone.number.length == 0)
+                return 100*Devices.density
+            else
+                return 0
+        }
 
-        property bool active: false
+        property bool active: ls_phone.number.length != 0
         onActiveChanged: {
             if(active)
                 start()
             else
                 stop()
+        }
+
+        Behavior on opacity {
+            NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
+        }
+        Behavior on y {
+            NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
+        }
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.verticalCenter
+            anchors.topMargin: 25*Devices.density
+            font.pixelSize: 11*Devices.fontDensity
+            color: "#ffffff"
+            text: qsTr("Please Wait...")
         }
     }
 }

@@ -29,5 +29,7 @@
         <file>qml/img/stg.png</file>
         <file>qml/img/stg.svg</file>
         <file>qml/LoginScreenCountrySelect.qml</file>
+        <file>qml/LoginScreenPhoneNumber.qml</file>
+        <file>qml/img/phone.png</file>
     </qresource>
 </RCC>

@@ -99,7 +99,15 @@ AsemanMain {
         }
     }
 
-    LoginScreen {
-        anchors.fill: parent
+    Component {
+        id: login_component
+        LoginScreen {
+            anchors.fill: parent
+        }
+    }
+
+    Component.onCompleted: {
+//        if(anything)
+            login_component.createObject(main)
     }
 }

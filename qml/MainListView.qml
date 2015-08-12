@@ -145,7 +145,7 @@ Item {
     }
 
     Timer {
-        interval: 300
+        interval: 100
         onTriggered: listv.positionViewAtBeginning()
         Component.onCompleted: start()
     }

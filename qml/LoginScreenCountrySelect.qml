@@ -12,6 +12,14 @@ Item {
     property real ratio: 1
     property alias contentY: listv.contentY
     property alias originY: listv.originY
+    property string callingCode
+
+    onCallingCodeChanged: {
+        if(callingCode == "")
+            BackHandler.removeHandler(country_select)
+        else
+            BackHandler.pushHandler(country_select, country_select.back)
+    }
 
     ListView {
         id: listv
@@ -30,9 +38,9 @@ Item {
         property bool atBegin: atYBeginning
         onAtBeginChanged: {
             if(atBegin)
-                BackHandler.removeHandler(country_select)
+                BackHandler.removeHandler(listv)
             else
-                BackHandler.pushHandler(country_select, country_select.back)
+                BackHandler.pushHandler(listv, country_select.gotoBegin)
         }
 
         header: Item {
@@ -65,7 +73,7 @@ Item {
             MouseArea {
                 id: marea
                 anchors.fill: parent
-                onClicked: login_scr.visible = false
+                onClicked: country_select.callingCode = model.callingCode
             }
         }
 
@@ -119,7 +127,7 @@ Item {
     }
 
     function back() {
-        gotoBegin()
+        callingCode = ""
     }
 }
 
