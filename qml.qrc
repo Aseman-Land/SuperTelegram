@@ -31,5 +31,6 @@
         <file>qml/LoginScreenCountrySelect.qml</file>
         <file>qml/LoginScreenPhoneNumber.qml</file>
         <file>qml/img/phone.png</file>
+        <file>qml/TelegramMain.qml</file>
     </qresource>
 </RCC>

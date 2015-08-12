@@ -94,8 +94,7 @@ Rectangle {
                 else
                     return -100*Devices.density
             }
-            onNumberChanged: {
-            }
+            onNumberChanged: telegram.phoneNumber = number
 
             Behavior on opacity {
                 NumberAnimation{easing.type: Easing.OutCubic; duration: 300}

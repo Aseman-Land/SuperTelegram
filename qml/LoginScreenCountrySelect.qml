@@ -50,10 +50,8 @@ Item {
 
         delegate: Item {
             width: listv.width
-            height: allow? 50*Devices.density : 0
+            height: 50*Devices.density
             clip: true
-
-            property bool allow: model.callingCode != 972
 
             Rectangle {
                 anchors.fill: parent
