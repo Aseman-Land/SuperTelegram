@@ -92,6 +92,8 @@ contains(QT,dbus) {
 }
 }
 macx {
+    LIBS += -framework CoreServices
+    INCLUDEPATH += /System/Library/Frameworks/CoreServices.framework/Headers/
     DEFINES += MAC_NATIVE_ASEMAN_NOTIFICATION
     SOURCES += asemantools/asemanmacnativenotification.cpp
     HEADERS += asemantools/asemanmacnativenotification.h
