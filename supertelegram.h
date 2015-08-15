@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+class AsemanQuickView;
 class SuperTelegramPrivate;
 class SuperTelegram : public QObject
 {
@@ -12,6 +13,8 @@ class SuperTelegram : public QObject
     Q_PROPERTY(int defaultHostDcId READ defaultHostDcId WRITE setDefaultHostDcId NOTIFY defaultHostDcIdChanged)
     Q_PROPERTY(int appId READ appId WRITE setAppId NOTIFY appIdChanged)
     Q_PROPERTY(QString appHash READ appHash WRITE setAppHash NOTIFY appHashChanged)
+    Q_PROPERTY(QObject* view READ view WRITE setView NOTIFY viewChanged)
+    Q_PROPERTY(QString phoneNumber READ phoneNumber WRITE setPhoneNumber NOTIFY phoneNumberChanged)
 
 public:
     SuperTelegram(QObject *parent = 0);
@@ -32,12 +35,24 @@ public:
     void setAppHash(const QString &appHash);
     QString appHash() const;
 
+    void setView(QObject *view);
+    QObject *view() const;
+
+    void setPhoneNumber(const QString &phoneNumber);
+    QString phoneNumber() const;
+
+public slots:
+    bool startService();
+    bool stopService();
+
 signals:
     void defaultHostAddressChanged();
     void defaultHostPortChanged();
     void defaultHostDcIdChanged();
     void appIdChanged();
     void appHashChanged();
+    void viewChanged();
+    void phoneNumberChanged();
 
 private:
     SuperTelegramPrivate *p;

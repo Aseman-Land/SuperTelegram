@@ -15,9 +15,16 @@ PageManagerItem {
     }
 
     Rectangle {
+        id: header
         width: parent.width
         height: timemsg.headerY
         color: timemsg.headColor
+    }
+
+    DialogList {
+        width: parent.width
+        anchors.top: header.bottom
+        anchors.bottom: parent.bottom
     }
 }
 

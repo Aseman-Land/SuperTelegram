@@ -78,7 +78,7 @@ Item {
                 spacing: 10*Devices.density
 
                 Rectangle {
-                    id: profile_pic_frame
+                    id: pic_frame
                     anchors.verticalCenter: parent.verticalCenter
                     border.color: "#d5d5d5"
                     border.width: 1*Devices.density
@@ -98,7 +98,7 @@ Item {
                 Column {
                     spacing: 2*Devices.density
                     anchors.verticalCenter: parent.verticalCenter
-                    width: parent.width - parent.spacing - profile_pic_frame.width
+                    width: parent.width - parent.spacing - pic_frame.width
 
                     Text {
                         width: parent.width

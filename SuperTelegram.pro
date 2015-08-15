@@ -35,8 +35,12 @@ isEmpty(TELEGRAMQML_LIB_DIR) {
 INCLUDEPATH += $${OPENSSL_INCLUDE_PATH} $${LIBQTELEGRAM_INCLUDE_PATH} $${TELEGRAMQML_INCLUDE_PATH}
 
 SOURCES += main.cpp \
-    supertelegram.cpp
+    supertelegram.cpp \
+    supertelegramservice.cpp \
+    commandsdatabase.cpp
 RESOURCES += qml.qrc
 
 HEADERS += \
-    supertelegram.h
+    supertelegram.h \
+    supertelegramservice.h \
+    commandsdatabase.h

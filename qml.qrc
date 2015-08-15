@@ -32,5 +32,11 @@
         <file>qml/LoginScreenPhoneNumber.qml</file>
         <file>qml/img/phone.png</file>
         <file>qml/TelegramMain.qml</file>
+        <file>qml/LoginScreenEnterCode.qml</file>
+        <file>qml/img/code.png</file>
+        <file>qml/ProfilePicture.qml</file>
+        <file>qml/img/group.png</file>
+        <file>qml/img/user.png</file>
+        <file>qml/DialogList.qml</file>
     </qresource>
 </RCC>

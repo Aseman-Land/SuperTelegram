@@ -42,7 +42,6 @@ PageManagerItem {
         maxHeaderHeight: mpage.height*0.6
         statusBarHeight: View.statusBarHeight
         width: parent.width
-        source: "img/img.jpg"
         height: {
             var logicalHeight = -listv.contentY - listv.originY - maxHeaderHeight
             if(logicalHeight > maxHeaderHeight)

@@ -14,6 +14,9 @@ Rectangle {
     property real maxHeaderHeight: ls_country.height
     property real statusBarHeight: View.statusBarHeight
 
+    property bool needLogin: (tg.authNeeded || tg.authSignInError.length!=0 ||
+              tg.authSignUpError.length != 0) && tg.authPhoneChecked
+
     Item {
         id: header
         width: parent.height
@@ -94,7 +97,35 @@ Rectangle {
                 else
                     return -100*Devices.density
             }
-            onNumberChanged: telegram.phoneNumber = number
+            onNumberChanged: {
+                Tools.deleteFile(tg.configPath + "/" + number + "/auth" )
+                telegram.phoneNumber = number
+            }
+
+            Behavior on opacity {
+                NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
+            }
+            Behavior on y {
+                NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
+            }
+        }
+
+        LoginScreenEnterCode {
+            id: ls_code
+            width: parent.width
+            height: parent.height
+            opacity: login_scr.needLogin && code.length == 0? 1 : 0
+            visible: opacity != 0
+            y: {
+                if(code.length != 0)
+                    return -100*Devices.density
+                else
+                if(!login_scr.needLogin)
+                    return 100*Devices.density
+                else
+                    return 0
+            }
+            onCodeChanged: if(code) tg.authSignIn(code)
 
             Behavior on opacity {
                 NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
@@ -178,10 +209,13 @@ Rectangle {
             if(ls_phone.number.length == 0)
                 return 100*Devices.density
             else
+            if(login_scr.needLogin)
+                return -100*Devices.density
+            else
                 return 0
         }
 
-        property bool active: ls_phone.number.length != 0
+        property bool active: (ls_phone.number.length != 0 || ls_code.code.length != 0) && !needLogin
         onActiveChanged: {
             if(active)
                 start()
@@ -204,6 +238,12 @@ Rectangle {
             color: "#ffffff"
             text: qsTr("Please Wait...")
         }
+    }
+
+    function moveToCode(phone) {
+        ls_country.gotoZero()
+        ls_country.callingCode = "+"
+        ls_phone.number = phone
     }
 }
 

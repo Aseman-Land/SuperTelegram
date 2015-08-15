@@ -124,6 +124,10 @@ Item {
         anim.running = true;
     }
 
+    function positionViewAtBeginning() {
+        listv.positionViewAtBeginning()
+    }
+
     function back() {
         callingCode = ""
     }

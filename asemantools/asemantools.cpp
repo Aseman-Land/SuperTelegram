@@ -278,6 +278,11 @@ void AsemanTools::copyDirectory(const QString &src, const QString &dst)
         QFile::copy(src+"/"+f, dst+"/"+f);
 }
 
+void AsemanTools::deleteFile(const QString &file)
+{
+    QFile::remove(file);
+}
+
 void AsemanTools::setProperty(QObject *obj, const QString &property, const QVariant &v)
 {
     if( !obj || property.isEmpty() )

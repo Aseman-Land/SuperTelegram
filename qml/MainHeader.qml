@@ -44,6 +44,7 @@ Item {
                 anchors.fill: parent
                 opacity: (1-header.ratio)*1
                 color: {
+//                    return "#CC5633"
                     var clr = analizer.color
                     var ratio = 1.1
                     var oRatio = 0.8
@@ -61,8 +62,8 @@ Item {
                     var hue = Tools.colorHue(clr)
                     if(saturation > 0.6)
                         saturation = 0.6
-                    if(lightness < 0.5)
-                        lightness = 0.5
+                    if(lightness < 0.4)
+                        lightness = 0.4
 
                     return Qt.hsla(hue, saturation, lightness, 1)
                 }
@@ -71,6 +72,10 @@ Item {
                     id: analizer
                     source: img.source
                     method: ImageColorAnalizor.MoreSaturation
+                }
+
+                Behavior on color {
+                    ColorAnimation{easing.type: Easing.OutCubic; duration: 400}
                 }
             }
         }
@@ -90,7 +95,7 @@ Item {
     }
 
     Text {
-        text: "Alexandra Stan"
+        text: main.telegram.myUser? (main.telegram.myUser.firstName + " " + main.telegram.myUser.lastName).trim() : qsTr("Updating...")
         font.pixelSize: 14*Devices.fontDensity
         color: "#ffffff"
         y: {
@@ -127,12 +132,26 @@ Item {
             return second + delta*header.ratio
         }
 
-        RoundedImage {
+        ProfilePicture {
             id: img
             anchors.fill: parent
             anchors.margins: 2*Devices.density
             radius: height/2
             fillMode: Image.PreserveAspectCrop
+            telegram: main.telegram
+            user: main.telegram.myUser
+            isChat: false
+            source: {
+                if(main.telegram.myUser)
+                    return handlerSource
+                var cached = AsemanApp.readSetting("General/mypic")
+                if(cached == null)
+                    return handlerSource
+                else
+                    return cached
+            }
+
+            onSourceChanged: if(main.telegram.myUser) AsemanApp.setSetting("General/mypic", handlerSource)
         }
     }
 }

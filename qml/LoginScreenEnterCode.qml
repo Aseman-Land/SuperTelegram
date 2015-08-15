@@ -5,19 +5,16 @@ import AsemanTools.Controls.Styles 1.0
 import AsemanTools 1.0
 
 Item {
-    id: lspn
+    id: lsec
 
-    property string callingCode
-    property string number
-    property variant phone_field
+    property string code
+    property variant code_field
 
-    onCallingCodeChanged: if(callingCode.length != 0) phone_field.focus = true
-
-    onNumberChanged: {
-        if(number.length == 0)
-            BackHandler.removeHandler(lspn)
+    onCodeChanged: {
+        if(code.length == 0)
+            BackHandler.removeHandler(lsec)
         else
-            BackHandler.pushHandler(lspn, lspn.back)
+            BackHandler.pushHandler(lsec, lsec.back)
     }
 
     Column {
@@ -32,34 +29,26 @@ Item {
             width: parent.width*0.5
             height: width
             sourceSize: Qt.size(width, height)
-            source: "img/phone.png"
-        }
-
-        Text {
-            id: code_txt
-            width: parent.width
-            color: "#ffffff"
-            font.pixelSize: 30*Devices.fontDensity
-            text: "+" + callingCode
+            source: "img/code.png"
         }
 
         Item {
             id: phone_field_scene
             width: parent.width
-            height: phone_field? phone_field.height : 30*Devices.density
+            height: code_field? code_field.height : 30*Devices.density
 
             Component.onCompleted: {
                 if(Devices.isDesktop)
-                    phone_field = desktop_field.createObject(phone_field_scene)
+                    code_field = desktop_field.createObject(phone_field_scene)
                 else
-                    phone_field = mobile_field.createObject(phone_field_scene)
+                    code_field = mobile_field.createObject(phone_field_scene)
             }
         }
 
         Controls.Button {
             width: parent.width
             height: 42*Devices.density
-            text: qsTr("Request Code")
+            text: qsTr("Login")
             style: ButtonStyle {
                 fontPixelSize: 10*Devices.fontDensity
                 buttonColor: "#0d80ec"
@@ -68,29 +57,26 @@ Item {
         }
 
         function accept() {
-            var number = phone_field.text
-            while(number.slice(0,1) == "0")
-                number = number.slice(1,number.length)
-            if(number.length == 0) {
-                lspn.number = number
-                showTooltip(qsTr("Invalid phone number!"))
+            var code = code_field.text
+            if(code.length == 0) {
+                lsec.code = code
+                showTooltip(qsTr("Invalid code!"))
                 return
             }
 
-            number = "+" + callingCode + number
-            lspn.number = number
+            lsec.code = code
         }
     }
 
     function back() {
-        number = ""
+        code = ""
     }
 
     Component {
         id: desktop_field
         Controls.TextField {
             width: parent.width
-            placeholderText: qsTr("Phone Number")
+            placeholderText: qsTr("Code")
             font.pixelSize: 10*Devices.fontDensity
             validator: RegExpValidator{regExp: /\d*/}
             onAccepted: column.accept()
@@ -101,7 +87,7 @@ Item {
         id: mobile_field
         QtControls.TextField {
             width: parent.width
-            placeholderText: qsTr("Phone Number")
+            placeholderText: qsTr("Code")
             textColor: "#ffffff"
             font.pixelSize: 10*Devices.fontDensity
             validator: RegExpValidator{regExp: /\d*/}
