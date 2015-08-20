@@ -102,21 +102,21 @@ Item {
 
                     Text {
                         width: parent.width
+                        horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                         text: name
                         font.pixelSize: 11*Devices.fontDensity
                         color: "#333333"
-                        horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                     }
 
                     Text {
                         width: parent.width
+                        horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                         text: description
                         font.pixelSize: 9*Devices.fontDensity
                         color: "#aaaaaa"
                         wrapMode: Text.WrapAnywhere
                         elide: Text.ElideRight
                         maximumLineCount: 1
-                        horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                     }
                 }
             }

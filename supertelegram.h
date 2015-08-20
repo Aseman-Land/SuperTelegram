@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+class CommandsDatabase;
 class AsemanQuickView;
 class SuperTelegramPrivate;
 class SuperTelegram : public QObject
@@ -15,6 +16,7 @@ class SuperTelegram : public QObject
     Q_PROPERTY(QString appHash READ appHash WRITE setAppHash NOTIFY appHashChanged)
     Q_PROPERTY(QObject* view READ view WRITE setView NOTIFY viewChanged)
     Q_PROPERTY(QString phoneNumber READ phoneNumber WRITE setPhoneNumber NOTIFY phoneNumberChanged)
+    Q_PROPERTY(CommandsDatabase* database READ database NOTIFY databaseChanged)
 
 public:
     SuperTelegram(QObject *parent = 0);
@@ -41,6 +43,9 @@ public:
     void setPhoneNumber(const QString &phoneNumber);
     QString phoneNumber() const;
 
+    CommandsDatabase *database() const;
+    Q_INVOKABLE QString getTimeString( const QDateTime & dt );
+
 public slots:
     bool startService();
     bool stopService();
@@ -53,6 +58,7 @@ signals:
     void appHashChanged();
     void viewChanged();
     void phoneNumberChanged();
+    void databaseChanged();
 
 private:
     SuperTelegramPrivate *p;

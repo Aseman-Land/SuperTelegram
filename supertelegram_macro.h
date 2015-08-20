@@ -1,0 +1,7 @@
+#ifndef SUPERTELEGRAM_MACRO
+#define SUPERTELEGRAM_MACRO
+
+#define QML_URI "SuperTelegram"
+
+#endif // SUPERTELEGRAM_MACRO
+

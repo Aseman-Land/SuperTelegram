@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT += qml quick widgets
+QT += qml quick widgets sql
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
@@ -37,10 +37,14 @@ INCLUDEPATH += $${OPENSSL_INCLUDE_PATH} $${LIBQTELEGRAM_INCLUDE_PATH} $${TELEGRA
 SOURCES += main.cpp \
     supertelegram.cpp \
     supertelegramservice.cpp \
-    commandsdatabase.cpp
-RESOURCES += qml.qrc
+    commandsdatabase.cpp \
+    timermessagemodel.cpp
+RESOURCES += \
+    resource.qrc
 
 HEADERS += \
     supertelegram.h \
     supertelegramservice.h \
-    commandsdatabase.h
+    commandsdatabase.h \
+    timermessagemodel.h \
+    supertelegram_macro.h

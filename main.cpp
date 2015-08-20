@@ -10,6 +10,10 @@
 #include "telegramqmlinitializer.h"
 #include "supertelegram.h"
 #include "supertelegramservice.h"
+#include "supertelegram_macro.h"
+#include "commandsdatabase.h"
+
+#include "timermessagemodel.h"
 
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -37,7 +41,9 @@ extern "C" int mainService(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
     TelegramQmlInitializer::init("TelegramQml");
-    qmlRegisterType<SuperTelegram>("SuperTelegram", 1, 0, "SuperTelegram");
+    qmlRegisterType<SuperTelegram>(QML_URI, 1, 0, "SuperTelegram");
+    qmlRegisterType<TimerMessageModel>(QML_URI, 1, 0, "TimerMessageModel");
+    qmlRegisterType<CommandsDatabase>(QML_URI, 1, 0, "CommandsDatabase");
 
     AsemanApplication app(argc, argv);
     app.setApplicationDisplayName("Super Telegram");

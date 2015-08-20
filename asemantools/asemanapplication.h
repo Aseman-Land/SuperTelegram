@@ -47,6 +47,7 @@ class AsemanApplicationPrivate;
 class AsemanApplication : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(ApplicationType)
 
     Q_PROPERTY(QString homePath     READ homePath     NOTIFY fakeSignal)
     Q_PROPERTY(QString appPath      READ appPath      NOTIFY fakeSignal)
@@ -56,6 +57,8 @@ class AsemanApplication : public QObject
     Q_PROPERTY(QString tempPath     READ tempPath     NOTIFY fakeSignal)
     Q_PROPERTY(QString backupsPath  READ backupsPath  NOTIFY fakeSignal)
     Q_PROPERTY(QString cameraPath   READ cameraPath   NOTIFY fakeSignal)
+
+    Q_PROPERTY(int appType READ appType NOTIFY fakeSignal)
 
     Q_PROPERTY(QFont globalFont READ globalFont WRITE setGlobalFont NOTIFY globalFontChanged)
 
@@ -124,13 +127,22 @@ public:
     static QIcon windowIcon();
 #endif
 
-    bool isRunning() const;
+    static bool isRunning();
+    static int appType();
 
     static AsemanApplication *instance();
     static QCoreApplication *qapp();
 
     void setGlobalFont(const QFont &font);
     QFont globalFont() const;
+
+    static QFont font();
+    static void setFont(const QFont &f);
+
+#ifdef QT_GUI_LIB
+    static QPalette palette();
+    static void setPalette(const QPalette &pal);
+#endif
 
     static QSettings *settings();
 

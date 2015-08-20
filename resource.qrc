@@ -6,7 +6,6 @@
         <file>qml/MainPage.qml</file>
         <file>qml/MainHeader.qml</file>
         <file>qml/HeaderBluredBackground.qml</file>
-        <file>qml/img/img.jpg</file>
         <file>qml/HeaderMenuButton.qml</file>
         <file>qml/MenuList.qml</file>
         <file>qml/PageManager.qml</file>
@@ -38,5 +37,9 @@
         <file>qml/img/group.png</file>
         <file>qml/img/user.png</file>
         <file>qml/DialogList.qml</file>
+        <file>database/commands.sqlite</file>
+        <file>qml/img/add.png</file>
+        <file>qml/features/AddDialog.qml</file>
+        <file>qml/features/TimerMessageEditPanel.qml</file>
     </qresource>
 </RCC>

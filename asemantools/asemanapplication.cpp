@@ -21,10 +21,45 @@
 
 #include <QDir>
 #include <QFont>
+#include <QPalette>
 #include <QSettings>
 #include <QThread>
 #include <QCoreApplication>
 #include <QDebug>
+
+#ifdef QT_GUI_LIB
+#define READ_DEFINITION(FUNCTION, DEFAULT_VALUE) \
+    switch(aseman_app_singleton->p->appType) { \
+    case GuiApplication: \
+        return static_cast<QGuiApplication*>(QCoreApplication::instance())->FUNCTION(); \
+        break; \
+    case WidgetApplication: \
+        return static_cast<QtSingleApplication*>(QCoreApplication::instance())->FUNCTION(); \
+        break; \
+    default: \
+        return DEFAULT_VALUE; \
+        break; \
+    }
+#else
+#define READ_DEFINITION(FUNCTION, DEFAULT_VALUE) \
+    return DEFAULT_VALUE;
+#endif
+
+#ifdef QT_GUI_LIB
+#define SET_DIFINITION(FUNCTION, VALUE) \
+    switch(aseman_app_singleton->p->appType) { \
+    case GuiApplication: \
+        static_cast<QGuiApplication*>(QCoreApplication::instance())->FUNCTION(VALUE); \
+        break; \
+    case WidgetApplication: \
+        static_cast<QtSingleApplication*>(QCoreApplication::instance())->FUNCTION(VALUE); \
+        break; \
+    }
+#else
+#define SET_DIFINITION(FUNCTION, VALUE)
+    Q_UNUSED(VALUE)
+#endif
+
 
 #ifdef QT_GUI_LIB
 #include <QGuiApplication>
@@ -46,6 +81,7 @@ public:
     QFont globalFont;
     int appType;
     QCoreApplication *app;
+    bool app_owner;
 };
 
 AsemanApplication::AsemanApplication() :
@@ -54,15 +90,22 @@ AsemanApplication::AsemanApplication() :
     p = new AsemanApplicationPrivate;
     p->app = QCoreApplication::instance();
     p->appType = NoneApplication;
+    p->app_owner = false;
 
 #ifdef QT_WIDGETS_LIB
     if( qobject_cast<QtSingleApplication*>(p->app) )
+    {
         p->appType = WidgetApplication;
+        p->globalFont = static_cast<QtSingleApplication*>(p->app)->font();
+    }
     else
 #endif
 #ifdef QT_GUI_LIB
     if( qobject_cast<QGuiApplication*>(p->app) )
+    {
         p->appType = GuiApplication;
+        p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
+    }
     else
 #endif
 #ifdef QT_CORE_LIB
@@ -82,6 +125,7 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
 
     p = new AsemanApplicationPrivate;
     p->appType = appType;
+    p->app_owner = true;
 
     switch(p->appType)
     {
@@ -98,12 +142,16 @@ AsemanApplication::AsemanApplication(int &argc, char **argv, ApplicationType app
     case GuiApplication:
         p->app = new QGuiApplication(argc, argv);
         connect(p->app, SIGNAL(lastWindowClosed()), SIGNAL(lastWindowClosed()));
+
+        p->globalFont = static_cast<QGuiApplication*>(p->app)->font();
         break;
 #endif
 #ifdef QT_WIDGETS_LIB
     case WidgetApplication:
         p->app = new QtSingleApplication(argc, argv);
         connect(p->app, SIGNAL(messageReceived(QString)), SIGNAL(messageReceived(QString)));
+
+        p->globalFont = static_cast<QtSingleApplication*>(p->app)->font();
         break;
 #endif
     default:
@@ -253,32 +301,17 @@ QString AsemanApplication::applicationVersion()
 
 void AsemanApplication::setApplicationDisplayName(const QString &name)
 {
-#ifdef QT_GUI_LIB
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        static_cast<QGuiApplication*>(QCoreApplication::instance())->setApplicationDisplayName(name);
-#else
-    Q_UNUSED(name)
-#endif
+    SET_DIFINITION(setApplicationDisplayName, name)
 }
 
 QString AsemanApplication::applicationDisplayName()
 {
-#ifdef QT_GUI_LIB
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        return static_cast<QGuiApplication*>(QCoreApplication::instance())->applicationDisplayName();
-#endif
-
-    return QString();
+    READ_DEFINITION(applicationDisplayName, QString())
 }
 
 QString AsemanApplication::platformName()
 {
-#ifdef QT_GUI_LIB
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        return static_cast<QGuiApplication*>(QCoreApplication::instance())->platformName();
-#endif
-
-    return QString();
+    READ_DEFINITION(platformName, QString())
 }
 
 QStringList AsemanApplication::arguments()
@@ -288,62 +321,54 @@ QStringList AsemanApplication::arguments()
 
 void AsemanApplication::setQuitOnLastWindowClosed(bool quit)
 {
-#ifdef QT_GUI_LIB
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        static_cast<QGuiApplication*>(QCoreApplication::instance())->setQuitOnLastWindowClosed(quit);
-#else
-    Q_UNUSED(name)
-#endif
+    SET_DIFINITION(setQuitOnLastWindowClosed, quit)
 }
 
 bool AsemanApplication::quitOnLastWindowClosed()
 {
-#ifdef QT_GUI_LIB
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        return static_cast<QGuiApplication*>(QCoreApplication::instance())->quitOnLastWindowClosed();
-#endif
-
-    return false;
+    READ_DEFINITION(quitOnLastWindowClosed, false)
 }
 
 QClipboard *AsemanApplication::clipboard()
 {
-#ifdef QT_GUI_LIB
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        return QGuiApplication::clipboard();
-#endif
-
-    return 0;
+    READ_DEFINITION(clipboard, 0)
 }
 
 #ifdef QT_GUI_LIB
 void AsemanApplication::setWindowIcon(const QIcon &icon)
 {
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        static_cast<QGuiApplication*>(QCoreApplication::instance())->setWindowIcon(icon);
+    SET_DIFINITION(setWindowIcon, icon)
 }
 
 QIcon AsemanApplication::windowIcon()
 {
-    if(aseman_app_singleton->p->appType == GuiApplication)
-        return static_cast<QGuiApplication*>(QCoreApplication::instance())->windowIcon();
-
-    return QIcon();
+    READ_DEFINITION(windowIcon, QIcon())
 }
 #endif
 
-bool AsemanApplication::isRunning() const
+bool AsemanApplication::isRunning()
 {
+#ifdef QT_GUI_LIB
     if(aseman_app_singleton->p->appType == WidgetApplication)
         return static_cast<QtSingleApplication*>(QCoreApplication::instance())->isRunning();
+#endif
 
     return false;
 }
 
+int AsemanApplication::appType()
+{
+    return aseman_app_singleton->p->appType;
+}
+
 void AsemanApplication::sendMessage(const QString &msg)
 {
-    if(aseman_app_singleton->p->appType == GuiApplication)
+#ifdef QT_GUI_LIB
+    if(aseman_app_singleton->p->appType == WidgetApplication)
         static_cast<QtSingleApplication*>(QCoreApplication::instance())->sendMessage(msg);
+#else
+    Q_UNUSED(msg)
+#endif
 }
 
 AsemanApplication *AsemanApplication::instance()
@@ -369,6 +394,28 @@ QFont AsemanApplication::globalFont() const
 {
     return p->globalFont;
 }
+
+QFont AsemanApplication::font()
+{
+    READ_DEFINITION(font, QFont())
+}
+
+void AsemanApplication::setFont(const QFont &f)
+{
+    SET_DIFINITION(setFont, f);
+}
+
+#ifdef QT_GUI_LIB
+QPalette AsemanApplication::palette()
+{
+    READ_DEFINITION(palette, QPalette())
+}
+
+void AsemanApplication::setPalette(const QPalette &pal)
+{
+    SET_DIFINITION(setPalette, pal);
+}
+#endif
 
 QSettings *AsemanApplication::settings()
 {
@@ -437,6 +484,9 @@ AsemanApplication::~AsemanApplication()
 {
     if(aseman_app_singleton == this)
         aseman_app_singleton = 0;
+
+    if(p->app && p->app_owner)
+        delete p->app;
 
     delete p;
 }

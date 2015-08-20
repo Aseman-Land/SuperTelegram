@@ -1,5 +1,6 @@
 #include "supertelegram.h"
 #include "commandsdatabase.h"
+#include "supertelegram_macro.h"
 #include "asemantools/asemanquickview.h"
 #include "asemantools/asemanapplication.h"
 
@@ -144,6 +145,25 @@ void SuperTelegram::setPhoneNumber(const QString &phoneNumber)
 QString SuperTelegram::phoneNumber() const
 {
     return p->phoneNumber;
+}
+
+CommandsDatabase *SuperTelegram::database() const
+{
+    return p->db;
+}
+
+QString SuperTelegram::getTimeString(const QDateTime &dt)
+{
+    if( QDate::currentDate() == dt.date() ) // TODAY
+        return dt.toString("HH:mm");
+    else
+    if( dt.date().daysTo(QDate::currentDate()) < 7 )
+        return dt.toString("ddd HH:mm");
+    else
+    if( dt.date().year() == QDate::currentDate().year() )
+        return dt.toString("dd MMM");
+    else
+        return dt.toString("dd MMM yy");
 }
 
 bool SuperTelegram::startService()

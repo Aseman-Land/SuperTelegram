@@ -18,7 +18,12 @@ AsemanMain {
     property variant loginScreen
     property variant superTelegram
 
-    property real standardTitleBarHeight: Devices.standardTitleBarHeight*1.2
+    property real standardTitleBarHeight: {
+        if(Devices.isDesktop)
+            return Devices.standardTitleBarHeight*1.2
+        else
+            return Devices.standardTitleBarHeight
+    }
 
     SuperTelegram {
         id: s_tg
