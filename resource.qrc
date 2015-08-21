@@ -41,5 +41,7 @@
         <file>qml/img/add.png</file>
         <file>qml/features/AddDialog.qml</file>
         <file>qml/features/TimerMessageEditPanel.qml</file>
+        <file>qml/DialogListItem.qml</file>
+        <file>qml/features/FeaturePageType1.qml</file>
     </qresource>
 </RCC>

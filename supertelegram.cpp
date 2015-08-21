@@ -166,6 +166,28 @@ QString SuperTelegram::getTimeString(const QDateTime &dt)
         return dt.toString("dd MMM yy");
 }
 
+QString getTimesDiffAnalize(qreal secs, int partsCount, const QString &name)
+{
+    qreal parts = secs/partsCount;
+    qreal rParts = qRound(parts*10)/10.0;
+    if(rParts >= 1)
+        return QString("%1 " + name + (rParts>1?"s":"")).arg(rParts);
+    else
+        return QString();
+}
+
+QString SuperTelegram::getTimesDiff(const QDateTime &a, const QDateTime &b)
+{
+    int secs = a.secsTo(b);
+    QString result = getTimesDiffAnalize(secs, 24*60*60, "day");
+    if(result.isEmpty())
+        result = getTimesDiffAnalize(secs, 60*60, "hour");
+    if(result.isEmpty())
+        result = getTimesDiffAnalize(secs, 60, "minute");
+
+    return result;
+}
+
 bool SuperTelegram::startService()
 {
 #ifdef Q_OS_ANDROID

@@ -18,6 +18,8 @@ AsemanMain {
     property variant loginScreen
     property variant superTelegram
 
+    property color backButtonColor: "#ffffff"
+
     property real standardTitleBarHeight: {
         if(Devices.isDesktop)
             return Devices.standardTitleBarHeight*1.2

@@ -45,6 +45,7 @@ public:
 
     CommandsDatabase *database() const;
     Q_INVOKABLE QString getTimeString( const QDateTime & dt );
+    Q_INVOKABLE QString getTimesDiff(const QDateTime &a, const QDateTime &b);
 
 public slots:
     bool startService();

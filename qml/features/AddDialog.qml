@@ -12,6 +12,24 @@ Item {
     property bool addMode: false
     property Dialog currentDialog: telegram.nullDialog
 
+    property bool dialogIsNull: currentDialog == telegram.nullDialog
+    property bool isChat: currentDialog.peer.chatId != 0
+    property int dialogId: isChat? currentDialog.peer.chatId : currentDialog.peer.userId
+    property User user: !dialogIsNull? telegram.user(currentDialog.peer.userId) : telegram.nullUser
+    property Chat chat: !dialogIsNull? telegram.chat(currentDialog.peer.chatId) : telegram.nullChat
+
+    property string dialogName: {
+        var result = ""
+        if(dialogIsNull)
+            return result
+        if(isChat)
+            result = chat.title
+        else
+            result = user.firstName + " " + user.lastName
+        result = result.trim()
+        return result
+    }
+
     onAddModeChanged: {
         if(addMode)
             BackHandler.pushHandler(add_dlg, add_dlg.back)
@@ -44,6 +62,11 @@ Item {
 
             Behavior on height {
                 NumberAnimation{easing.type: Easing.OutCubic; duration: 400}
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
             }
 
             Item {

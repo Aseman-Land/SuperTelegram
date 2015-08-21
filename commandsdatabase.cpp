@@ -29,6 +29,9 @@ CommandsDatabase::CommandsDatabase(QObject *parent) :
     if(!QFileInfo::exists(DATABASE_DST_PATH))
         QFile::copy(DATABASE_SRC_PATH, DATABASE_DST_PATH);
 
+    QFile(DATABASE_DST_PATH).setPermissions(QFileDevice::ReadUser|QFileDevice::WriteUser|
+                                  QFileDevice::ReadGroup|QFileDevice::WriteGroup);
+
     p->db = QSqlDatabase::addDatabase("QSQLITE", p->connectionName);
     p->db.setDatabaseName(DATABASE_DST_PATH);
     p->db.open();
@@ -78,7 +81,7 @@ bool CommandsDatabase::timerMessageRemove(const QString &guid)
 QList<TimerMessage> CommandsDatabase::timerMessageFetchAll()
 {
     QSqlQuery query(p->db);
-    query.prepare("SELECT * FROM TimerMessages ORDER BY time DESC");
+    query.prepare("SELECT * FROM TimerMessages ORDER BY time ASC");
     return timerMessageQueryFetch(query);
 }
 
@@ -93,7 +96,7 @@ QList<TimerMessage> CommandsDatabase::timerMessageFetch(const QDateTime &dt)
 QList<TimerMessage> CommandsDatabase::timerMessageFetchNext()
 {
     QSqlQuery query(p->db);
-    query.prepare("SELECT * FROM TimerMessages ORDER BY time DESC LIMIT 1");
+    query.prepare("SELECT * FROM TimerMessages ORDER BY time ASC LIMIT 1");
 
     const QList<TimerMessage> &list = timerMessageQueryFetch(query);
     if(list.isEmpty())

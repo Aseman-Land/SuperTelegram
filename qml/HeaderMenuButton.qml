@@ -16,14 +16,20 @@ Item {
         id: rect
         anchors.fill: parent
         anchors.margins: 10*Devices.density
-        color: pressed? "#33ffffff" : "#00000000"
+        color: menuIcon.color
         radius: 3*Devices.density
+        opacity: pressed? 0.2 : 0
     }
 
     MenuIcon {
         id: menuIcon
         anchors.centerIn: parent
         layoutDirection: View.layoutDirection
+        color: backButtonColor
+
+        Behavior on color {
+            ColorAnimation{easing.type: Easing.OutCubic; duration: 400}
+        }
     }
 
     MouseArea {

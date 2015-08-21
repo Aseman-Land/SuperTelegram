@@ -21,6 +21,8 @@ public:
     QPointer<TelegramQml> telegram;
 
     QTimer *timer;
+
+    QList<qint64> progresses;
 };
 
 TimerMessageModel::TimerMessageModel(QObject *parent) :
@@ -70,9 +72,15 @@ void TimerMessageModel::setTelegram(TelegramQml *tg)
         connect(p->telegram, SIGNAL(usersChanged()), this, SLOT(changed()));
         connect(p->telegram, SIGNAL(chatsChanged()), this, SLOT(changed()));
 
+        connect(p->telegram->telegram(), SIGNAL(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)),
+                SLOT(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)));
+        connect(p->telegram->telegram(), SIGNAL(contactsGetContactsAnswer(qint64,bool,QList<Contact>,QList<User>)),
+                SLOT(contactsGetContactsAnswer(qint64,bool,QList<Contact>,QList<User>)));
+
         p->telegram->database()->readFullDialogs();
-        p->telegram->telegram()->contactsGetContacts();
-        p->telegram->telegram()->messagesGetDialogs();
+        p->progresses << p->telegram->telegram()->contactsGetContacts();
+        p->progresses << p->telegram->telegram()->messagesGetDialogs();
+        emit initializingChanged();
     }
 
     refresh();
@@ -150,6 +158,11 @@ int TimerMessageModel::count() const
     return p->list.count();
 }
 
+bool TimerMessageModel::initializing() const
+{
+    return p->progresses.count();
+}
+
 void TimerMessageModel::refresh()
 {
     QList<TimerMessage> list;
@@ -183,6 +196,26 @@ bool TimerMessageModel::updateItem(const QString &guid, qint64 dId, const QDateT
     item.message = message;
 
     p->db->timerMessageInsert(item);
+    p->full_list.prepend(item);
+
+    changed();
+    return true;
+}
+
+bool TimerMessageModel::deleteItem(const QString &guid)
+{
+    if(!p->telegram)
+        return false;
+
+    p->db->timerMessageRemove(guid);
+    for(int i=0; i<p->full_list.length(); i++)
+        if(p->full_list.at(i).guid == guid)
+        {
+            p->full_list.removeAt(i);
+            i--;
+        }
+
+    changed();
     return true;
 }
 
@@ -194,6 +227,7 @@ void TimerMessageModel::changed()
 
 void TimerMessageModel::changed_prv()
 {
+    p->timer->stop();
     if(!p->telegram)
         return;
 
@@ -201,7 +235,8 @@ void TimerMessageModel::changed_prv()
     QHash<QString,TimerMessage> newHash;
     foreach(const TimerMessage &item, p->full_list)
     {
-        if(!p->telegram->user(item.peer.userId()) && !p->telegram->chat(item.peer.chatId()))
+        if(p->telegram->user(item.peer.userId()) == p->telegram->nullUser() &&
+           p->telegram->chat(item.peer.chatId()) == p->telegram->nullChat())
             continue;
 
         list << item;
@@ -261,6 +296,28 @@ void TimerMessageModel::changed_prv()
     p->hash = newHash;
 
     emit countChanged();
+}
+
+void TimerMessageModel::messagesGetDialogsAnswer(qint64 id, qint32 sliceCount, const QList<Dialog> &dialogs, const QList<Message> &messages, const QList<Chat> &chats, const QList<User> &users)
+{
+    Q_UNUSED(sliceCount)
+    Q_UNUSED(dialogs)
+    Q_UNUSED(messages)
+    Q_UNUSED(users)
+    Q_UNUSED(chats)
+    int count = p->progresses.removeAll(id);
+    if(count)
+        emit initializingChanged();
+}
+
+void TimerMessageModel::contactsGetContactsAnswer(qint64 id, bool modified, const QList<Contact> &contacts, const QList<User> &users)
+{
+    Q_UNUSED(modified)
+    Q_UNUSED(contacts)
+    Q_UNUSED(users)
+    int count = p->progresses.removeAll(id);
+    if(count)
+        emit initializingChanged();
 }
 
 TimerMessageModel::~TimerMessageModel()

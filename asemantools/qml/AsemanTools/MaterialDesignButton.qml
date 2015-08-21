@@ -43,12 +43,16 @@ Item {
 
     Connections {
         target: flickable
-        onVerticalVelocityChanged: {
-            if((flickable.verticalVelocity>4 && !flickable.atYBeginning) || flickable.atYEnd)
-                md_btn.hide()
-            else
+        onVerticalVelocityChanged: refresh()
+        onAtYBeginningChanged: refresh()
+        onAtYEndChanged: refresh()
+
+        function refresh() {
             if((flickable.verticalVelocity<-4 && !flickable.atYEnd) || flickable.atYBeginning)
                 md_btn.show()
+            else
+            if((flickable.verticalVelocity>4 && !flickable.atYBeginning) || flickable.atYEnd)
+                md_btn.hide()
         }
     }
 
@@ -209,7 +213,14 @@ Item {
             width: 22*Devices.density
             height: width
             sourceSize: Qt.size(width,height)
-            rotation: opened? 0 : -45 - rotateCount*90
+            rotation: {
+                if(opened)
+                    return 0
+                if(layoutDirection == Qt.RightToLeft)
+                    return - 45 - rotateCount*90
+                else
+                    return 45 + rotateCount*90
+            }
             source: "files/button-close.png"
             transformOrigin: Item.Center
 
