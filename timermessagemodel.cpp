@@ -196,7 +196,17 @@ bool TimerMessageModel::updateItem(const QString &guid, qint64 dId, const QDateT
     item.message = message;
 
     p->db->timerMessageInsert(item);
-    p->full_list.prepend(item);
+
+    bool added = false;
+    for(int i=0; i<p->full_list.length(); i++)
+        if(p->full_list.at(i).guid == guid)
+        {
+            p->full_list[i] = item;
+            added = true;
+            break;
+        }
+    if(!added)
+        p->full_list.prepend(item);
 
     changed();
     return true;

@@ -18,10 +18,13 @@ Item {
 
     property alias color: btn_back.color
     property alias background: back_rct.color
+    property bool disable: false
 
     property Flickable flickable
 
     signal clicked()
+
+    onDisableChanged: if(disable) hide()
 
     onHideStateChanged: {
         hide_timer.stop()
@@ -38,6 +41,8 @@ Item {
         } else {
             BackHandler.removeHandler(md_btn)
             listv.clear()
+            if(disable)
+                hide()
         }
     }
 
@@ -48,6 +53,8 @@ Item {
         onAtYEndChanged: refresh()
 
         function refresh() {
+            if(disable)
+                return
             if((flickable.verticalVelocity<-4 && !flickable.atYEnd) || flickable.atYBeginning)
                 md_btn.show()
             else
@@ -71,7 +78,7 @@ Item {
     Rectangle {
         id: back_rct
         anchors.fill: parent
-        opacity: opened? 0.6 : 0
+        opacity: opened? 0.5 : 0
         color: "#ffffff"
 
         Behavior on opacity {
@@ -87,7 +94,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.margins: 10*Devices.density
 
-        ListView {
+        AsemanListView {
             id: listv
             width: md_btn.width
             x: md_btn.layoutDirection==Qt.LeftToRight? parent.width-width : 0
@@ -96,14 +103,6 @@ Item {
             opacity: opened? 1 : 0
             verticalLayoutDirection: ListView.BottomToTop
             visible: opacity != 0
-            maximumFlickVelocity: View.flickVelocity
-            boundsBehavior: Flickable.StopAtBounds
-            rebound: Transition {
-                NumberAnimation {
-                    properties: "x,y"
-                    duration: 0
-                }
-            }
 
             model: ListModel{}
             add: Transition {

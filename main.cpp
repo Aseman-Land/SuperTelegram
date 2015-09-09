@@ -13,7 +13,10 @@
 #include "supertelegram_macro.h"
 #include "commandsdatabase.h"
 
+#include "sensmessagemodel.h"
+#include "automessagemodel.h"
 #include "timermessagemodel.h"
+#include "backupmanager.h"
 
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -40,10 +43,15 @@ extern "C" int mainService(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    TelegramQmlInitializer::init("TelegramQml");
+    TelegramQmlInitializer::init("TelegramQmlLib");
+
     qmlRegisterType<SuperTelegram>(QML_URI, 1, 0, "SuperTelegram");
-    qmlRegisterType<TimerMessageModel>(QML_URI, 1, 0, "TimerMessageModel");
     qmlRegisterType<CommandsDatabase>(QML_URI, 1, 0, "CommandsDatabase");
+
+    qmlRegisterType<TimerMessageModel>(QML_URI, 1, 0, "TimerMessageModel");
+    qmlRegisterType<AutoMessageModel>(QML_URI, 1, 0, "AutoMessageModel");
+    qmlRegisterType<SensMessageModel>(QML_URI, 1, 0, "SensMessageModel");
+    qmlRegisterType<BackupManager>(QML_URI, 1, 0, "BackupManager");
 
     AsemanApplication app(argc, argv);
     app.setApplicationDisplayName("Super Telegram");
@@ -72,7 +80,7 @@ int main(int argc, char *argv[])
                                     "tg.core.outboundpkt=false\n"
                                     "tg.core.inboundpkt=false");
 
-    AsemanQuickView view(AsemanQuickView::AllExceptLogger);
+    AsemanQuickView view;
     view.setBackController(true);
 //    view.setLayoutDirection(Qt::RightToLeft);
     view.setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));

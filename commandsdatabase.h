@@ -22,6 +22,30 @@ public:
     }
 };
 
+class AutoMessage
+{
+public:
+    QString guid;
+    QString message;
+
+    bool operator ==(const AutoMessage &b) {
+        return guid == b.guid &&
+               message == b.message;
+    }
+};
+
+class SensMessage
+{
+public:
+    QString key;
+    QString value;
+
+    bool operator ==(const SensMessage &b) {
+        return key == b.key &&
+               value == b.value;
+    }
+};
+
 class QSqlQuery;
 class CommandsDatabasePrivate;
 class CommandsDatabase : public QObject
@@ -49,11 +73,23 @@ public:
     QList<TimerMessage> timerMessageFetchExpired();
     TimerMessage timerMessageFetch(const QString &guid);
 
+    QString autoMessageInsert(const AutoMessage &amsg);
+    bool autoMessageRemove(const QString &guid);
+    QList<AutoMessage> autoMessageFetchAll();
+    bool autoMessageSetActive(const QString &guid);
+    bool autoMessageClearActive();
+    AutoMessage autoMessageActiveMessage();
+
+    bool sensMessageInsert(const QString &key, const QString &value);
+    bool sensMessageRemove(const QString &key);
+    QList<SensMessage> sensMessageFetchAll();
+
     static CommandPeerType inputPeerToCmdPeer(InputPeer::InputPeerType t);
     static InputPeer::InputPeerType cmdPeerToInputPeer(CommandPeerType t);
 
 private:
     QList<TimerMessage> timerMessageQueryFetch(QSqlQuery &query);
+    QList<AutoMessage> autoMessageQueryFetch(QSqlQuery &query);
 
 private:
     CommandsDatabasePrivate *p;

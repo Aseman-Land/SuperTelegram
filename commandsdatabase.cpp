@@ -126,6 +126,155 @@ TimerMessage CommandsDatabase::timerMessageFetch(const QString &guid)
         return list.first();
 }
 
+QString CommandsDatabase::autoMessageInsert(const AutoMessage &amsg)
+{
+    AutoMessage item = amsg;
+    if(item.guid.isEmpty())
+        item.guid = QUuid::createUuid().toString();
+
+    QSqlQuery query(p->db);
+    query.prepare("INSERT OR REPLACE INTO AutoMessages (guid,message,active) "
+                  "VALUES (:guid, :message, :active)");
+    query.bindValue(":guid", item.guid);
+    query.bindValue(":message", item.message);
+    query.bindValue(":active", false);
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return QString();
+    }
+
+    return item.guid;
+}
+
+bool CommandsDatabase::autoMessageRemove(const QString &guid)
+{
+    if(guid.isEmpty())
+        return false;
+
+    QSqlQuery query(p->db);
+    query.prepare("DELETE FROM AutoMessages WHERE guid=:guid");
+    query.bindValue(":guid", guid);
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+QList<AutoMessage> CommandsDatabase::autoMessageFetchAll()
+{
+    QSqlQuery query(p->db);
+    query.prepare("SELECT * FROM AutoMessages");
+    return autoMessageQueryFetch(query);
+}
+
+bool CommandsDatabase::autoMessageSetActive(const QString &guid)
+{
+    if(!autoMessageClearActive())
+        return false;
+    if(guid.isEmpty())
+        return true;
+
+    QSqlQuery query(p->db);
+    query.prepare("UPDATE AutoMessages SET active=1 WHERE guid=:guid");
+    query.bindValue(":guid", guid);
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+bool CommandsDatabase::autoMessageClearActive()
+{
+    QSqlQuery query(p->db);
+    query.prepare("UPDATE AutoMessages SET active=0");
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+AutoMessage CommandsDatabase::autoMessageActiveMessage()
+{
+    QSqlQuery query(p->db);
+    query.prepare("SELECT * FROM AutoMessages WHERE active=1");
+    const QList<AutoMessage> &list = autoMessageQueryFetch(query);
+    if(list.isEmpty())
+        return AutoMessage();
+    else
+        return list.first();
+}
+
+bool CommandsDatabase::sensMessageInsert(const QString &key, const QString &value)
+{
+    if(key.isEmpty())
+        return false;
+
+    QSqlQuery query(p->db);
+    query.prepare("INSERT OR REPLACE INTO SensitiveMessages (key,value) "
+                  "VALUES (:key, :value)");
+    query.bindValue(":key", key);
+    query.bindValue(":value", value);
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+bool CommandsDatabase::sensMessageRemove(const QString &key)
+{
+    if(key.isEmpty())
+        return false;
+
+    QSqlQuery query(p->db);
+    query.prepare("DELETE FROM SensitiveMessages WHERE key=:key");
+    query.bindValue(":key", key);
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+QList<SensMessage> CommandsDatabase::sensMessageFetchAll()
+{
+    QList<SensMessage> result;
+    QSqlQuery query(p->db);
+    query.prepare("SELECT * FROM SensitiveMessages");
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return result;
+    }
+
+    while(query.next())
+    {
+        QSqlRecord record = query.record();
+
+        SensMessage item;
+        item.key = record.value("key").toString();
+        item.value = record.value("value").toString();
+
+        result << item;
+    }
+
+    return result;
+}
+
 QList<TimerMessage> CommandsDatabase::timerMessageQueryFetch(QSqlQuery &query)
 {
     QList<TimerMessage> result;
@@ -160,6 +309,29 @@ QList<TimerMessage> CommandsDatabase::timerMessageQueryFetch(QSqlQuery &query)
         item.peer = peer;
         item.message = record.value("message").toString();
         item.dateTime = record.value("time").toDateTime();
+
+        result << item;
+    }
+
+    return result;
+}
+
+QList<AutoMessage> CommandsDatabase::autoMessageQueryFetch(QSqlQuery &query)
+{
+    QList<AutoMessage> result;
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return result;
+    }
+
+    while(query.next())
+    {
+        QSqlRecord record = query.record();
+
+        AutoMessage item;
+        item.guid = record.value("guid").toString();
+        item.message = record.value("message").toString();
 
         result << item;
     }

@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import AsemanTools 1.0
 
 Item {
     id: mlist
@@ -7,19 +8,11 @@ Item {
 
     signal selected(int index, variant component)
 
-    ListView {
+    AsemanListView {
         id: listv
         anchors.fill: parent
         clip: true
         model: ListModel{}
-        maximumFlickVelocity: View.flickVelocity
-        boundsBehavior: Flickable.StopAtBounds
-        rebound: Transition {
-            NumberAnimation {
-                properties: "x,y"
-                duration: 0
-            }
-        }
         section.property: "type"
         section.delegate: Item {
             width: listv.width

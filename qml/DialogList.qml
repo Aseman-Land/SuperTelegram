@@ -3,7 +3,7 @@ import QtQuick.Controls 1.2 as QtControls
 import AsemanTools.Controls 1.0 as Controls
 import AsemanTools.Controls.Styles 1.0
 import AsemanTools 1.0
-import TelegramQml 1.0
+import TelegramQmlLib 1.0
 
 Item {
     id: dlist
@@ -15,19 +15,11 @@ Item {
         telegram: main.telegram
     }
 
-    ListView {
+    AsemanListView {
         id: listv
         anchors.fill: parent
         model: dmodel
         clip: true
-        maximumFlickVelocity: View.flickVelocity
-        boundsBehavior: Flickable.StopAtBounds
-        rebound: Transition {
-            NumberAnimation {
-                properties: "x,y"
-                duration: 0
-            }
-        }
 
         delegate: DialogListItem {
             id: item

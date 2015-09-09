@@ -1,11 +1,11 @@
 import QtQuick 2.0
 import AsemanTools 1.0
-import TelegramQml 1.0
+import TelegramQmlLib 1.0
 
 Item {
     id: item
     width: 100
-    height: 62
+    height: 64*Devices.density
 
     property alias telegram: pic_frame.telegram
     property alias dialog: pic_frame.dialog

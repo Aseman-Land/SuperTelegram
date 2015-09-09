@@ -38,7 +38,10 @@ SOURCES += main.cpp \
     supertelegram.cpp \
     supertelegramservice.cpp \
     commandsdatabase.cpp \
-    timermessagemodel.cpp
+    timermessagemodel.cpp \
+    automessagemodel.cpp \
+    sensmessagemodel.cpp \
+    backupmanager.cpp
 RESOURCES += \
     resource.qrc
 
@@ -47,4 +50,7 @@ HEADERS += \
     supertelegramservice.h \
     commandsdatabase.h \
     timermessagemodel.h \
-    supertelegram_macro.h
+    supertelegram_macro.h \
+    automessagemodel.h \
+    sensmessagemodel.h \
+    backupmanager.h

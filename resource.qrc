@@ -6,7 +6,6 @@
         <file>qml/MainPage.qml</file>
         <file>qml/MainHeader.qml</file>
         <file>qml/HeaderBluredBackground.qml</file>
-        <file>qml/HeaderMenuButton.qml</file>
         <file>qml/MenuList.qml</file>
         <file>qml/PageManager.qml</file>
         <file>qml/PageSeparator.qml</file>
@@ -43,5 +42,15 @@
         <file>qml/features/TimerMessageEditPanel.qml</file>
         <file>qml/DialogListItem.qml</file>
         <file>qml/features/FeaturePageType1.qml</file>
+        <file>qml/features/AutoMessage.qml</file>
+        <file>qml/DialogButtons.qml</file>
+        <file>qml/StgTextArea.qml</file>
+        <file>qml/img/ok.png</file>
+        <file>qml/img/copy.png</file>
+        <file>qml/img/paste.png</file>
+        <file>qml/features/SensMessage.qml</file>
+        <file>qml/img/swap.png</file>
+        <file>qml/features/StickerManager.qml</file>
+        <file>qml/features/BackupManager.qml</file>
     </qresource>
 </RCC>

@@ -21,18 +21,10 @@ Item {
             BackHandler.pushHandler(country_select, country_select.back)
     }
 
-    ListView {
+    AsemanListView {
         id: listv
         anchors.fill: parent
         model: CountriesModel{}
-        maximumFlickVelocity: View.flickVelocity
-        boundsBehavior: Flickable.StopAtBounds
-        rebound: Transition {
-            NumberAnimation {
-                properties: "x,y"
-                duration: 0
-            }
-        }
         clip: true
 
         property bool atBegin: atYBeginning

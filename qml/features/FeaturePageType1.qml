@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 import SuperTelegram 1.0
-import TelegramQml 1.0
+import TelegramQmlLib 1.0
 import "../"
 
 PageManagerItem {
@@ -24,6 +24,8 @@ PageManagerItem {
     property alias dialogId: add_dialog.dialogId
     property alias dialogName: add_dialog.dialogName
 
+    property alias disableMaterialDesign: mbtn.disable
+
     property alias text: header_txt.text
 
     property bool activeIndicator: false
@@ -38,6 +40,8 @@ PageManagerItem {
     onEditModeChanged: {
         if(!editMode)
             add_dialog.currentDialog = telegram.nullDialog
+        else
+            mbtn.show()
 
         backButtonColor = editMode? "#333333" : "#ffffff"
     }
@@ -131,18 +135,16 @@ PageManagerItem {
         z: 11
     }
 
-    ListView {
+    AsemanListView {
         id: listv
         anchors.fill: parent
         anchors.topMargin: headerY
-        maximumFlickVelocity: View.flickVelocity
-        boundsBehavior: Flickable.StopAtBounds
-        rebound: Transition {
-            NumberAnimation {
-                properties: "x,y"
-                duration: 0
-            }
-        }
+    }
+
+    ScrollBar {
+        scrollArea: listv; height: listv.height; width: 6*Devices.density
+        x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width;
+        anchors.top: listv.top; color: main.color
     }
 
     MaterialDesignButton {

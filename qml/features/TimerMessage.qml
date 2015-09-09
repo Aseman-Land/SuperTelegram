@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 import SuperTelegram 1.0
-import TelegramQml 1.0
+import TelegramQmlLib 1.0
 import "../"
 
 FeaturePageType1 {
@@ -42,7 +42,10 @@ FeaturePageType1 {
                 return
             }
 
-            tmodel.createItem(tmsg.dialogId, getDate(), text)
+            if(guid.length == 0)
+                tmodel.createItem(tmsg.dialogId, getDate(), text)
+            else
+                tmodel.updateItem(guid, tmsg.dialogId, getDate(), text)
             editMode = false
         }
         onDeleteRequest: {

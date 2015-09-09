@@ -78,8 +78,9 @@ Rectangle {
 
     HeaderMenuButton {
         id: menu_btn
-        y: View.statusBarHeight
-        x: View.layoutDirection==Qt.LeftToRight? 0 : parent.width - width
+        color: backButtonColor
+        buttonColor: backButtonColor
+        height: standardTitleBarHeight
         ratio: animatedRatio? animatedRatio : menu.ratio
         onClicked: {
             if(menu.isVisible || page_manager.count)
