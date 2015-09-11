@@ -21,7 +21,13 @@ FeaturePageType1 {
         id: backuper
         telegram: tg
         dialog: bmng.currentDialog
-        onProgressChanged: console.debug(progress)
+        onProcessingChanged: {
+            if(processing)
+                return
+
+            editMode = false
+            showTooltip(qsTr("Saved to \"%1\"").arg(destination))
+        }
     }
 
     DialogsModel {
@@ -44,6 +50,7 @@ FeaturePageType1 {
         id: edit_panel
         width: bmng.width
         y: standardTitleBarHeight
+        visible: parent.destHeight == parent.height
 
         DateTimeChooser {
             id: datetime
@@ -61,10 +68,11 @@ FeaturePageType1 {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: 10*Devices.density
-            onCancel: edit_panel.cancel()
+            onCancel: editMode = false
             onDone: {
+                var dateName = CalendarConv.convertDateTimeToString(datetime.date, "yyyy.MM.dd - hh.mm.ss")
                 backuper.startDate = datetime.date
-                backuper.destination = "/home/bardia/test.txt"
+                backuper.destination = Devices.downloadsLocation + "/" + dialogName + " - " + dateName + ".txt"
                 backuper.start()
             }
         }
@@ -86,9 +94,19 @@ FeaturePageType1 {
             anchors.centerIn: parent
             modern: true
             light: true
+            indicatorSize: 22*Devices.density
 
             property bool active: backuper.processing
             onActiveChanged: active? start() : stop()
+        }
+
+        ProgressBar {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.margins: 20*Devices.density
+            percent: backuper.progress
+            topColor: "#0d80ec"
         }
     }
 }

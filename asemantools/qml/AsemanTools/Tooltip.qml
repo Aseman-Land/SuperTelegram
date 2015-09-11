@@ -32,8 +32,8 @@ Rectangle {
     property int interval: 1500
     property real padding: 8*Devices.density
 
-    property alias font: txt.font
-    property alias color: txt.color
+    property alias textFont: txt.font
+    property alias textColor: txt.color
 
     Behavior on opacity {
         NumberAnimation { id: anim_item; easing.type: Easing.OutCubic; duration: 250 }

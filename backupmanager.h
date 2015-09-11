@@ -53,9 +53,9 @@ signals:
 private slots:
     void recheck();
     void messagesGetHistoryAnswer(qint64 id, qint32 sliceCount, const QList<Message> &messages, const QList<Chat> &chats, const QList<User> &users);
+    void getNext();
 
 private:
-    void getNext();
     void exportData();
     InputPeer getPeer() const;
 

@@ -52,5 +52,6 @@
         <file>qml/img/swap.png</file>
         <file>qml/features/StickerManager.qml</file>
         <file>qml/features/BackupManager.qml</file>
+        <file>qml/features/ProfilePicSwitcher.qml</file>
     </qresource>
 </RCC>

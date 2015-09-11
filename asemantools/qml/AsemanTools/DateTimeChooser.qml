@@ -45,11 +45,11 @@ Rectangle {
         onCurrentMinutesIndexChanged: minute_list.positionViewAtIndex(currentMinutesIndex)
 
         Component.onCompleted: {
-            currentYearIndexChanged()
-            currentMonthIndexChanged()
-            currentDaysIndexChanged()
-            currentHoursIndexChanged()
-            currentMinutesIndexChanged()
+            year_list.positionViewAtIndex(currentYearIndex, true)
+            month_list.positionViewAtIndex(currentMonthIndex, true)
+            day_list.positionViewAtIndex(currentDaysIndex, true)
+            hour_list.positionViewAtIndex(currentHoursIndex, true)
+            minute_list.positionViewAtIndex(currentMinutesIndex, true)
         }
 
         function save() {

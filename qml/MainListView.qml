@@ -152,7 +152,7 @@ Item {
         listv.model.append({"name": qsTr("Content sensitive message"), "icon": "features/icons/content-sens-message.png" ,"component": sens_msg_component, "description": qsTr("Send word sensitive messages automatically.")})
         listv.model.append({"name": qsTr("Backup")                   , "icon": "features/icons/backup.png"               ,"component": backuper_component, "description": qsTr("Backup from a special contacts.")})
         listv.model.append({"name": qsTr("Sticker manager")          , "icon": "features/icons/sticker-manager.png"      ,"component": sticker_component , "description": qsTr("Manage your installed sticker sets.")})
-        listv.model.append({"name": qsTr("Profile picture changer")  , "icon": "features/icons/profile-pic-changer.png"  ,"component": null, "description": qsTr("Change your profile picture frequently.")})
+        listv.model.append({"name": qsTr("Profile picture changer")  , "icon": "features/icons/profile-pic-changer.png"  ,"component": prof_pic_component, "description": qsTr("Change your profile picture frequently.")})
         listv.model.append({"name": qsTr("Mute timer")               , "icon": "features/icons/mute-timer.png"           ,"component": null, "description": qsTr("Mute a contact in the special day time.")})
         listv.model.append({"name": qsTr("Save avatars")             , "icon": "features/icons/save-avatars.png"         ,"component": null, "description": qsTr("Save contact avatars automatically.")})
         listv.model.append({"name": qsTr("Usage info")               , "icon": "features/icons/usage-info.png"           ,"component": null, "description": qsTr("Your usage informations.")})
@@ -179,6 +179,10 @@ Item {
     Component {
         id: backuper_component
         BackupManager {}
+    }
+    Component {
+        id: prof_pic_component
+        ProfilePicSwitcher {}
     }
 }
 

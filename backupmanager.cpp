@@ -160,7 +160,6 @@ void BackupManager::recheck()
 
 void BackupManager::messagesGetHistoryAnswer(qint64 id, qint32 sliceCount, const QList<Message> &messages, const QList<Chat> &chats, const QList<User> &users)
 {
-    p->ids.remove(id);
     Q_UNUSED(sliceCount)
 
     QDateTime minimumTime;
@@ -190,18 +189,19 @@ void BackupManager::messagesGetHistoryAnswer(qint64 id, qint32 sliceCount, const
 
     if(!contains_old_message || messages.count()<HISTORY_LIMITS)
     {
-        getNext();
+        QTimer::singleShot(qrand()%3000+200, this, SLOT(getNext()));
         p->progress = 100.0*minimumTime.secsTo(QDateTime::currentDateTime())/
                       p->startDate.secsTo(QDateTime::currentDateTime());
     }
     else
     {
+        p->ids.remove(id);
         exportData();
         p->progress = 100;
+        emit progressChanged();
     }
 
     emit processingChanged();
-    emit progressChanged();
 }
 
 void BackupManager::getNext()
@@ -212,9 +212,12 @@ void BackupManager::getNext()
     qint64 id = p->telegram->telegram()->messagesGetHistory(getPeer(), p->offsets, 0, HISTORY_LIMITS);
 
     p->offsets += HISTORY_LIMITS;
+
+    p->ids.clear();
     p->ids.insert(id);
 
     emit processingChanged();
+    emit progressChanged();
 }
 
 void BackupManager::exportData()
@@ -232,10 +235,12 @@ void BackupManager::exportData()
         const qint64 id = p->messageIds.at(i);
         const Message &message = p->messages.value(id);
         const User &fromUser = p->users.value(message.fromId());
-        const QString &dateStr = QDateTime::fromTime_t(message.date()).toString();
+        const QDateTime &date = QDateTime::fromTime_t(message.date());
+        const QString &dateStr = date.date().toString();
+        const QString &timeStr = date.time().toString();
         const QString &userName = QString("%1 %2").arg(fromUser.firstName()).arg(fromUser.lastName()).trimmed();
 
-        result += tr("Message From: %1 on %2\n").arg(userName).arg(dateStr);
+        result += tr("[%1]\n%2:\n").arg(dateStr).arg(userName);
         switch(static_cast<int>(message.classType()))
         {
         case Message::typeMessage:
@@ -254,7 +259,7 @@ void BackupManager::exportData()
             break;
         }
 
-        result += "\n\n";
+        result += QString("\n[%1]\n\n").arg(timeStr);
     }
 
     file.write(result.toUtf8());
