@@ -1,7 +1,7 @@
 #ifndef TIMERMESSAGEMODEL_H
 #define TIMERMESSAGEMODEL_H
 
-#include <QAbstractListModel>
+#include "asemantools/asemanabstractlistmodel.h"
 
 class Dialog;
 class User;
@@ -12,9 +12,11 @@ class TelegramQml;
 class TimerMessage;
 class CommandsDatabase;
 class TimerMessageModelPrivate;
-class TimerMessageModel : public QAbstractListModel
+class TimerMessageModel : public AsemanAbstractListModel
 {
     Q_OBJECT
+    Q_ENUMS(DataRoles)
+
     Q_PROPERTY(int count READ count NOTIFY countChanged)
     Q_PROPERTY(bool initializing READ initializing NOTIFY initializingChanged)
     Q_PROPERTY(CommandsDatabase* database READ database WRITE setDatabase NOTIFY databaseChanged)

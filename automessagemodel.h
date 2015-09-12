@@ -1,13 +1,15 @@
 #ifndef AUTOMESSAGEMODEL_H
 #define AUTOMESSAGEMODEL_H
 
-#include <QAbstractListModel>
+#include "asemantools/asemanabstractlistmodel.h"
 #include "commandsdatabase.h"
 
 class AutoMessageModelPrivate;
-class AutoMessageModel : public QAbstractListModel
+class AutoMessageModel : public AsemanAbstractListModel
 {
     Q_OBJECT
+    Q_ENUMS(DataRoles)
+
     Q_PROPERTY(int count READ count NOTIFY countChanged)
     Q_PROPERTY(CommandsDatabase* database READ database WRITE setDatabase NOTIFY databaseChanged)
     Q_PROPERTY(QString active READ active WRITE setActive NOTIFY activeChanged)

@@ -3,6 +3,7 @@
 #include "supertelegram_macro.h"
 #include "asemantools/asemanquickview.h"
 #include "asemantools/asemanapplication.h"
+#include "asemantools/asemandevices.h"
 
 #ifdef Q_OS_ANDROID
 #include "asemantools/asemanjavalayer.h"
@@ -145,6 +146,11 @@ void SuperTelegram::setPhoneNumber(const QString &phoneNumber)
 QString SuperTelegram::phoneNumber() const
 {
     return p->phoneNumber;
+}
+
+QString SuperTelegram::picturesLocation() const
+{
+    return AsemanDevices::picturesLocation() + "/SuperTelegram";
 }
 
 CommandsDatabase *SuperTelegram::database() const

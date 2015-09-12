@@ -1,14 +1,14 @@
 #ifndef SENSMESSAGEMODEL_H
 #define SENSMESSAGEMODEL_H
 
-#include <QAbstractListModel>
-
+#include "asemantools/asemanabstractlistmodel.h"
 #include "commandsdatabase.h"
 
 class SensMessageModelPrivate;
-class SensMessageModel : public QAbstractListModel
+class SensMessageModel : public AsemanAbstractListModel
 {
     Q_OBJECT
+    Q_ENUMS(DataRoles)
     Q_PROPERTY(CommandsDatabase* database READ database WRITE setDatabase NOTIFY databaseChanged)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
 

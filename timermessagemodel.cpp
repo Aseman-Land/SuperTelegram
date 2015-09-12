@@ -26,7 +26,7 @@ public:
 };
 
 TimerMessageModel::TimerMessageModel(QObject *parent) :
-    QAbstractListModel(parent)
+    AsemanAbstractListModel(parent)
 {
     p = new TimerMessageModelPrivate;
     p->timer = new QTimer(this);

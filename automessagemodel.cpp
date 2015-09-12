@@ -16,7 +16,7 @@ public:
 };
 
 AutoMessageModel::AutoMessageModel(QObject *parent) :
-    QAbstractListModel(parent)
+    AsemanAbstractListModel(parent)
 {
     p = new AutoMessageModelPrivate;
     p->defaultMessage.guid = "";

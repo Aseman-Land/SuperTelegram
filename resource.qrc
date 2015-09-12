@@ -53,5 +53,6 @@
         <file>qml/features/StickerManager.qml</file>
         <file>qml/features/BackupManager.qml</file>
         <file>qml/features/ProfilePicSwitcher.qml</file>
+        <file>qml/features/ProfilePictureDialStyle.qml</file>
     </qresource>
 </RCC>

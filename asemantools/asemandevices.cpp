@@ -494,7 +494,7 @@ QString AsemanDevices::documentsLocation()
 QString AsemanDevices::downloadsLocation()
 {
     QStringList probs;
-    probs = QStandardPaths::standardLocations( QStandardPaths::DocumentsLocation );
+    probs = QStandardPaths::standardLocations( QStandardPaths::DownloadLocation );
 
 #ifdef Q_OS_ANDROID
     probs << "/sdcard/downloads";

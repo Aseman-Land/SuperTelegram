@@ -13,7 +13,7 @@ public:
 };
 
 SensMessageModel::SensMessageModel(QObject *parent) :
-    QAbstractListModel(parent)
+    AsemanAbstractListModel(parent)
 {
     p = new SensMessageModelPrivate;
 }

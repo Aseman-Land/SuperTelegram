@@ -41,7 +41,8 @@ SOURCES += main.cpp \
     timermessagemodel.cpp \
     automessagemodel.cpp \
     sensmessagemodel.cpp \
-    backupmanager.cpp
+    backupmanager.cpp \
+    profilepicswitchermodel.cpp
 RESOURCES += \
     resource.qrc
 
@@ -53,4 +54,5 @@ HEADERS += \
     supertelegram_macro.h \
     automessagemodel.h \
     sensmessagemodel.h \
-    backupmanager.h
+    backupmanager.h \
+    profilepicswitchermodel.h

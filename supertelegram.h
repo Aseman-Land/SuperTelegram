@@ -17,6 +17,7 @@ class SuperTelegram : public QObject
     Q_PROPERTY(QObject* view READ view WRITE setView NOTIFY viewChanged)
     Q_PROPERTY(QString phoneNumber READ phoneNumber WRITE setPhoneNumber NOTIFY phoneNumberChanged)
     Q_PROPERTY(CommandsDatabase* database READ database NOTIFY databaseChanged)
+    Q_PROPERTY(QString picturesLocation READ picturesLocation NOTIFY picturesLocationChanged)
 
 public:
     SuperTelegram(QObject *parent = 0);
@@ -43,6 +44,8 @@ public:
     void setPhoneNumber(const QString &phoneNumber);
     QString phoneNumber() const;
 
+    QString picturesLocation() const;
+
     CommandsDatabase *database() const;
     Q_INVOKABLE QString getTimeString( const QDateTime & dt );
     Q_INVOKABLE QString getTimesDiff(const QDateTime &a, const QDateTime &b);
@@ -60,6 +63,7 @@ signals:
     void viewChanged();
     void phoneNumberChanged();
     void databaseChanged();
+    void picturesLocationChanged();
 
 private:
     SuperTelegramPrivate *p;

@@ -7,7 +7,6 @@
 
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemanquickview.h"
-#include "telegramqmlinitializer.h"
 #include "supertelegram.h"
 #include "supertelegramservice.h"
 #include "supertelegram_macro.h"
@@ -17,6 +16,9 @@
 #include "automessagemodel.h"
 #include "timermessagemodel.h"
 #include "backupmanager.h"
+#include "profilepicswitchermodel.h"
+
+#include <telegramqmlinitializer.h>
 
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -52,6 +54,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<AutoMessageModel>(QML_URI, 1, 0, "AutoMessageModel");
     qmlRegisterType<SensMessageModel>(QML_URI, 1, 0, "SensMessageModel");
     qmlRegisterType<BackupManager>(QML_URI, 1, 0, "BackupManager");
+    qmlRegisterType<ProfilePicSwitcherModel>(QML_URI, 1, 0, "ProfilePicSwitcherModel");
 
     AsemanApplication app(argc, argv);
     app.setApplicationDisplayName("Super Telegram");
