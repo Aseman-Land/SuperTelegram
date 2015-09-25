@@ -3,18 +3,57 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QFile>
+#include <QPointer>
+#include <QUrl>
 
 class ProfilePicSwitcherModelPrivate
 {
 public:
     QStringList list;
     QString folder;
+    QPointer<CommandsDatabase> db;
+    int timer;
 };
 
 ProfilePicSwitcherModel::ProfilePicSwitcherModel(QObject *parent) :
     AsemanAbstractListModel(parent)
 {
     p = new ProfilePicSwitcherModelPrivate;
+    p->timer = 0;
+}
+
+CommandsDatabase *ProfilePicSwitcherModel::database() const
+{
+    return p->db;
+}
+
+void ProfilePicSwitcherModel::setDatabase(CommandsDatabase *db)
+{
+    if(p->db == db)
+        return;
+
+    p->db = db;
+    p->timer = (p->db? p->db->profilePictureTimer(): -1);
+
+    emit databaseChanged();
+    emit timerChanged();
+}
+
+void ProfilePicSwitcherModel::setTimer(int ms)
+{
+    if(p->timer == ms)
+        return;
+
+    p->timer = ms;
+    if(p->db)
+        p->db->profilePictureTimerSet(p->timer);
+
+    emit timerChanged();
+}
+
+int ProfilePicSwitcherModel::timer() const
+{
+    return p->timer;
 }
 
 void ProfilePicSwitcherModel::setFolder(const QString &url)
@@ -53,7 +92,7 @@ QVariant ProfilePicSwitcherModel::data(const QModelIndex &index, int role) const
     switch(role)
     {
     case DataImagePathRole:
-        res = path;
+        res = QUrl::fromLocalFile(path);
         break;
 
     case DataImageNameRole:

@@ -26,6 +26,8 @@ DialStyle {
                 font.pixelSize: 50*Devices.density
                 text: {
                     var value = Math.floor(control.value)
+                    if(value == -1)
+                        return ""
                     if(reverse)
                         value = control.maximumValue-value
 
@@ -45,6 +47,9 @@ DialStyle {
                     if(reverse)
                         value = control.maximumValue-value
 
+                    if(value == -1)
+                        return qsTr("Off")
+                    else
                     if(value == 0)
                         return qsTr("Hour")
                     else

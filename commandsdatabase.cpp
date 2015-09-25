@@ -18,6 +18,7 @@ class CommandsDatabasePrivate
 public:
     QSqlDatabase db;
     QString connectionName;
+    QHash<QString,QVariant> values;
 };
 
 CommandsDatabase::CommandsDatabase(QObject *parent) :
@@ -35,6 +36,8 @@ CommandsDatabase::CommandsDatabase(QObject *parent) :
     p->db = QSqlDatabase::addDatabase("QSQLITE", p->connectionName);
     p->db.setDatabaseName(DATABASE_DST_PATH);
     p->db.open();
+
+    initBuffer();
 }
 
 QString CommandsDatabase::timerMessageInsert(const TimerMessage &tmsg)
@@ -275,6 +278,41 @@ QList<SensMessage> CommandsDatabase::sensMessageFetchAll()
     return result;
 }
 
+bool CommandsDatabase::profilePictureTimerSet(qint64 ms)
+{
+    return setValue("profilePictureTimer", ms);
+}
+
+qint64 CommandsDatabase::profilePictureTimer() const
+{
+    return value("profilePictureTimer", -1).toLongLong();
+}
+
+bool CommandsDatabase::setValue(const QString &key, const QVariant &value)
+{
+    if(CommandsDatabase::value(key) == value)
+        return true;
+
+    QSqlQuery query(p->db);
+    query.prepare("INSERT OR REPLACE INTO General (key,value) "
+                  "VALUES (:key, :value)");
+    query.bindValue(":key", key);
+    query.bindValue(":value", value);
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    p->values[key] = value;
+    return true;
+}
+
+QVariant CommandsDatabase::value(const QString &key, const QVariant &defaultValue) const
+{
+    return p->values.value(key, defaultValue);
+}
+
 QList<TimerMessage> CommandsDatabase::timerMessageQueryFetch(QSqlQuery &query)
 {
     QList<TimerMessage> result;
@@ -337,6 +375,22 @@ QList<AutoMessage> CommandsDatabase::autoMessageQueryFetch(QSqlQuery &query)
     }
 
     return result;
+}
+
+void CommandsDatabase::initBuffer()
+{
+    p->values.clear();
+
+    QSqlQuery query(p->db);
+    query.prepare("SELECT * FROM General");
+    if(!query.exec())
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+    else
+    while(query.next())
+    {
+        QSqlRecord record = query.record();
+        p->values[record.value("key").toString()] = record.value("value");
+    }
 }
 
 CommandsDatabase::CommandPeerType CommandsDatabase::inputPeerToCmdPeer(InputPeer::InputPeerType t)

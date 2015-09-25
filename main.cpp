@@ -33,29 +33,20 @@ extern "C" int mainService(int argc, char *argv[])
 
         return AsemanApplication::instance()->exec();
     }
+    else
+    {
+        AsemanApplication app(argc, argv, AsemanApplication::CoreApplication);
+        INITIALIZE_APP(app);
 
-    AsemanApplication app(argc, argv, AsemanApplication::CoreApplication);
-    INITIALIZE_APP(app);
+        SuperTelegramService service;
+        service.start();
 
-    SuperTelegramService service;
-    service.start();
-
-    return app.exec();
+        return app.exec();
+    }
 }
 
 int main(int argc, char *argv[])
 {
-    TelegramQmlInitializer::init("TelegramQmlLib");
-
-    qmlRegisterType<SuperTelegram>(QML_URI, 1, 0, "SuperTelegram");
-    qmlRegisterType<CommandsDatabase>(QML_URI, 1, 0, "CommandsDatabase");
-
-    qmlRegisterType<TimerMessageModel>(QML_URI, 1, 0, "TimerMessageModel");
-    qmlRegisterType<AutoMessageModel>(QML_URI, 1, 0, "AutoMessageModel");
-    qmlRegisterType<SensMessageModel>(QML_URI, 1, 0, "SensMessageModel");
-    qmlRegisterType<BackupManager>(QML_URI, 1, 0, "BackupManager");
-    qmlRegisterType<ProfilePicSwitcherModel>(QML_URI, 1, 0, "ProfilePicSwitcherModel");
-
     AsemanApplication app(argc, argv);
     app.setApplicationDisplayName("Super Telegram");
     INITIALIZE_APP(app);
@@ -75,19 +66,32 @@ int main(int argc, char *argv[])
 
     if(parser.isSet(serviceOption))
         return mainService(argc, argv);
-
-    if(!parser.isSet(verboseOption))
-        qputenv("QT_LOGGING_RULES", "tg.*=false");
     else
-        qputenv("QT_LOGGING_RULES", "tg.core.settings=false\n"
-                                    "tg.core.outboundpkt=false\n"
-                                    "tg.core.inboundpkt=false");
+    {
+        TelegramQmlInitializer::init("TelegramQmlLib");
 
-    AsemanQuickView view;
-    view.setBackController(true);
-//    view.setLayoutDirection(Qt::RightToLeft);
-    view.setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
-    view.show();
+        qmlRegisterType<SuperTelegram>(QML_URI, 1, 0, "SuperTelegram");
+        qmlRegisterType<CommandsDatabase>(QML_URI, 1, 0, "CommandsDatabase");
 
-    return app.exec();
+        qmlRegisterType<TimerMessageModel>(QML_URI, 1, 0, "TimerMessageModel");
+        qmlRegisterType<AutoMessageModel>(QML_URI, 1, 0, "AutoMessageModel");
+        qmlRegisterType<SensMessageModel>(QML_URI, 1, 0, "SensMessageModel");
+        qmlRegisterType<BackupManager>(QML_URI, 1, 0, "BackupManager");
+        qmlRegisterType<ProfilePicSwitcherModel>(QML_URI, 1, 0, "ProfilePicSwitcherModel");
+
+        if(!parser.isSet(verboseOption))
+            qputenv("QT_LOGGING_RULES", "tg.*=false");
+        else
+            qputenv("QT_LOGGING_RULES", "tg.core.settings=false\n"
+                                        "tg.core.outboundpkt=false\n"
+                                        "tg.core.inboundpkt=false");
+
+        AsemanQuickView view;
+        view.setBackController(true);
+//        view.setLayoutDirection(Qt::RightToLeft);
+        view.setSource(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+        view.show();
+
+        return app.exec();
+    }
 }

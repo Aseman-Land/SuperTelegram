@@ -2,6 +2,7 @@
 #define PROFILEPICSWITCHERMODEL_H
 
 #include "asemantools/asemanabstractlistmodel.h"
+#include "commandsdatabase.h"
 
 class ProfilePicSwitcherModelPrivate;
 class ProfilePicSwitcherModel : public AsemanAbstractListModel
@@ -9,7 +10,9 @@ class ProfilePicSwitcherModel : public AsemanAbstractListModel
     Q_OBJECT
     Q_ENUMS(DataRoles)
     Q_PROPERTY(int count READ count NOTIFY countChanged)
+    Q_PROPERTY(CommandsDatabase* database READ database WRITE setDatabase NOTIFY databaseChanged)
     Q_PROPERTY(QString folder READ folder WRITE setFolder NOTIFY folderChanged)
+    Q_PROPERTY(int timer READ timer WRITE setTimer NOTIFY timerChanged)
 
 public:
     enum DataRoles {
@@ -19,6 +22,12 @@ public:
 
     ProfilePicSwitcherModel(QObject *parent = 0);
     ~ProfilePicSwitcherModel();
+
+    CommandsDatabase *database() const;
+    void setDatabase(CommandsDatabase *db);
+
+    void setTimer(int ms);
+    int timer() const;
 
     void setFolder(const QString &url);
     QString folder() const;
@@ -39,6 +48,8 @@ public slots:
 signals:
     void folderChanged();
     void countChanged();
+    void databaseChanged();
+    void timerChanged();
 
 private:
     void changed(const QStringList &list);

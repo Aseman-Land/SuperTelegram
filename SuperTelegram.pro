@@ -1,8 +1,10 @@
 TEMPLATE = app
-QT += qml quick widgets sql
+QT += qml quick sql
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+} else {
+    QT += widgets
 }
 
 server.source = tg-server.pub
@@ -14,25 +16,15 @@ include(qmake/qtcAddDeployment.pri)
 qtcAddDeployment()
 
 isEmpty(OPENSSL_INCLUDE_PATH): OPENSSL_INCLUDE_PATH = /usr/include/openssl /usr/local/include/openssl
-isEmpty(LIBQTELEGRAM_INCLUDE_PATH): LIBQTELEGRAM_INCLUDE_PATH = /usr/include/libqtelegram-ae /usr/local/include/libqtelegram-ae $$[QT_INSTALL_HEADERS]/libqtelegram-ae
-isEmpty(TELEGRAMQML_INCLUDE_PATH): TELEGRAMQML_INCLUDE_PATH = /usr/include/telegramqml /usr/local/include/telegramqml $$[QT_INSTALL_HEADERS]/telegramqml
 isEmpty(OPENSSL_LIB_DIR) {
     LIBS += -lssl -lcrypto -lz
 } else {
     LIBS += -L$${OPENSSL_LIB_DIR} -lssl -lcrypto -lz
 }
-isEmpty(LIBQTELEGRAM_LIB_DIR) {
-    LIBS += -lqtelegram-ae
-} else {
-    LIBS += -L$${LIBQTELEGRAM_LIB_DIR} -lqtelegram-ae
-}
-isEmpty(TELEGRAMQML_LIB_DIR) {
-    LIBS += -ltelegramqml
-} else {
-    LIBS += -L$${TELEGRAMQML_LIB_DIR} -ltelegramqml
-}
 
-INCLUDEPATH += $${OPENSSL_INCLUDE_PATH} $${LIBQTELEGRAM_INCLUDE_PATH} $${TELEGRAMQML_INCLUDE_PATH}
+INCLUDEPATH += $${OPENSSL_INCLUDE_PATH} $${OPENSSL_INCLUDE_PATH}/openssl
+
+include(telegram/telegram.pri)
 
 SOURCES += main.cpp \
     supertelegram.cpp \
@@ -56,3 +48,9 @@ HEADERS += \
     sensmessagemodel.h \
     backupmanager.h \
     profilepicswitchermodel.h
+
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        $$OPENSSL_LIB_DIR/libcrypto.so \
+        $$OPENSSL_LIB_DIR/libssl.so
+}

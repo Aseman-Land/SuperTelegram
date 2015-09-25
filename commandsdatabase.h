@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDateTime>
+#include <QVariant>
 
 #include <telegram/types/types.h>
 
@@ -84,12 +85,20 @@ public:
     bool sensMessageRemove(const QString &key);
     QList<SensMessage> sensMessageFetchAll();
 
+    bool profilePictureTimerSet(qint64 ms);
+    qint64 profilePictureTimer() const;
+
     static CommandPeerType inputPeerToCmdPeer(InputPeer::InputPeerType t);
     static InputPeer::InputPeerType cmdPeerToInputPeer(CommandPeerType t);
+
+public slots:
+    bool setValue(const QString &key, const QVariant &value);
+    QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;
 
 private:
     QList<TimerMessage> timerMessageQueryFetch(QSqlQuery &query);
     QList<AutoMessage> autoMessageQueryFetch(QSqlQuery &query);
+    void initBuffer();
 
 private:
     CommandsDatabasePrivate *p;

@@ -222,7 +222,7 @@ bool SuperTelegram::stopService()
 {
 #ifdef Q_OS_ANDROID
     if(!p->view || !p->view->javaLayer())
-        return;
+        return true;
 
     return p->view->javaLayer()->stopService();
 #else

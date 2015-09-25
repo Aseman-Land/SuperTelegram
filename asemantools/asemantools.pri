@@ -22,7 +22,7 @@ android {
         contains(BUILD_MODE,ubuntutouch) {
             DEFINES += Q_OS_UBUNTUTOUCH
         } else {
-            QT += widgets
+        contains(QT,widgets) {
 
             HEADERS += \
                 $$PWD/qtsingleapplication/qtsinglecoreapplication.h \
@@ -38,6 +38,7 @@ android {
 
             win32: SOURCES += $$PWD/qtsingleapplication/qtlockedfile_win.cpp
             unix:  SOURCES += $$PWD/qtsingleapplication/qtlockedfile_unix.cpp
+        }
         }
     }
 }
@@ -139,7 +140,9 @@ SOURCES += \
     $$PWD/asemanqttools.cpp \
     $$PWD/asemancalendarmodel.cpp \
     $$PWD/asemanlistrecord.cpp \
-    $$PWD/asemanquickviewwrapper.cpp
+    $$PWD/asemanquickviewwrapper.cpp \
+    $$PWD/asemanfonthandler.cpp \
+    $$PWD/asemansimpleqtcryptor.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -180,7 +183,10 @@ HEADERS += \
     $$PWD/asemanqttools.h \
     $$PWD/asemancalendarmodel.h \
     $$PWD/asemanlistrecord.h \
-    $$PWD/asemanquickviewwrapper.h
+    $$PWD/asemanquickviewwrapper.h \
+    $$PWD/asemanfonthandler.h \
+    $$PWD/asemansimpleqtcryptor.h \
+    $$PWD/private/serpent_sbox.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \

@@ -16,6 +16,7 @@
 #include "asemandragobject.h"
 #include "asemanbackhandler.h"
 #include "aseman_macros.h"
+#include "asemanfonthandler.h"
 #include "asemancountriesmodel.h"
 #include "asemanautostartmanager.h"
 #include "asemanfilesystemmodel.h"
@@ -93,6 +94,7 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanQuickItemImageGrabber>(uri, 1,0, "ItemImageGrabber");
     qmlRegisterType<AsemanFileDownloaderQueueItem>(uri, 1,0, "FileDownloaderQueueItem");
     qmlRegisterType<AsemanFileDownloaderQueue>(uri, 1,0, "FileDownloaderQueue");
+    qmlRegisterType<AsemanFontHandler>(uri, 1,0, "FontHandler");
 #ifdef DESKTOP_LINUX
     qmlRegisterType<AsemanMimeApps>(uri, 1,0, "MimeApps");
 #endif
