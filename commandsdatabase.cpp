@@ -54,7 +54,7 @@ QString CommandsDatabase::timerMessageInsert(const TimerMessage &tmsg)
     query.bindValue(":peerType", inputPeerToCmdPeer(item.peer.classType()));
     query.bindValue(":peerAccessHash", item.peer.accessHash());
     query.bindValue(":message", item.message);
-    query.bindValue(":time", item.dateTime);
+    query.bindValue(":time", fixTime(item.dateTime));
     if(!query.exec())
     {
         qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
@@ -92,7 +92,7 @@ QList<TimerMessage> CommandsDatabase::timerMessageFetch(const QDateTime &dt)
 {
     QSqlQuery query(p->db);
     query.prepare("SELECT * FROM TimerMessages WHERE time=:time");
-    query.bindValue(":time", dt);
+    query.bindValue(":time", fixTime(dt));
     return timerMessageQueryFetch(query);
 }
 
@@ -391,6 +391,12 @@ void CommandsDatabase::initBuffer()
         QSqlRecord record = query.record();
         p->values[record.value("key").toString()] = record.value("value");
     }
+}
+
+QDateTime CommandsDatabase::fixTime(const QDateTime &dt)
+{
+
+    return QDateTime(dt.date(), QTime(dt.time().hour(), dt.time().minute(), 0));
 }
 
 CommandsDatabase::CommandPeerType CommandsDatabase::inputPeerToCmdPeer(InputPeer::InputPeerType t)

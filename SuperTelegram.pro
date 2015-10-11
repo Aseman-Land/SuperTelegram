@@ -15,16 +15,8 @@ include(asemantools/asemantools.pri)
 include(qmake/qtcAddDeployment.pri)
 qtcAddDeployment()
 
-isEmpty(OPENSSL_INCLUDE_PATH): OPENSSL_INCLUDE_PATH = /usr/include/openssl /usr/local/include/openssl
-isEmpty(OPENSSL_LIB_DIR) {
-    LIBS += -lssl -lcrypto -lz
-} else {
-    LIBS += -L$${OPENSSL_LIB_DIR} -lssl -lcrypto -lz
-}
-
-INCLUDEPATH += $${OPENSSL_INCLUDE_PATH} $${OPENSSL_INCLUDE_PATH}/openssl
-
 include(telegram/telegram.pri)
+include(hyperbus/hyperbus.pri)
 
 SOURCES += main.cpp \
     supertelegram.cpp \
@@ -34,7 +26,9 @@ SOURCES += main.cpp \
     automessagemodel.cpp \
     sensmessagemodel.cpp \
     backupmanager.cpp \
-    profilepicswitchermodel.cpp
+    profilepicswitchermodel.cpp \
+    stghbserver.cpp \
+    stghbclient.cpp
 RESOURCES += \
     resource.qrc
 
@@ -47,7 +41,9 @@ HEADERS += \
     automessagemodel.h \
     sensmessagemodel.h \
     backupmanager.h \
-    profilepicswitchermodel.h
+    profilepicswitchermodel.h \
+    stghbserver.h \
+    stghbclient.h
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \

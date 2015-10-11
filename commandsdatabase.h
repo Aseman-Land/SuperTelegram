@@ -99,6 +99,7 @@ private:
     QList<TimerMessage> timerMessageQueryFetch(QSqlQuery &query);
     QList<AutoMessage> autoMessageQueryFetch(QSqlQuery &query);
     void initBuffer();
+    QDateTime fixTime(const QDateTime &dt);
 
 private:
     CommandsDatabasePrivate *p;

@@ -11,6 +11,7 @@
 #include "supertelegramservice.h"
 #include "supertelegram_macro.h"
 #include "commandsdatabase.h"
+#include "stghbclient.h"
 
 #include "sensmessagemodel.h"
 #include "automessagemodel.h"
@@ -72,6 +73,7 @@ int main(int argc, char *argv[])
 
         qmlRegisterType<SuperTelegram>(QML_URI, 1, 0, "SuperTelegram");
         qmlRegisterType<CommandsDatabase>(QML_URI, 1, 0, "CommandsDatabase");
+        qmlRegisterType<StgHBClient>(QML_URI, 1, 0, "StgHBClient");
 
         qmlRegisterType<TimerMessageModel>(QML_URI, 1, 0, "TimerMessageModel");
         qmlRegisterType<AutoMessageModel>(QML_URI, 1, 0, "AutoMessageModel");

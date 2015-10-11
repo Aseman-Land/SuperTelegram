@@ -14,6 +14,7 @@ AsemanMain {
 
     property alias stg: s_tg
     property alias telegram: tg
+    property alias hbClient: hb_client
 
     property variant loginScreen
     property variant superTelegram
@@ -30,6 +31,10 @@ AsemanMain {
     SuperTelegram {
         id: s_tg
         view: View
+    }
+
+    StgHBClient {
+        id: hb_client
     }
 
     Telegram {
@@ -54,7 +59,7 @@ AsemanMain {
             if(loginScreen)
                 return
 
-            stg.phoneNumber = null
+            stg.phoneNumber = ""
             main.refresh()
             loginScreen.moveToCode(phoneNumber)
         }
@@ -77,7 +82,7 @@ AsemanMain {
 
     function refresh() {
         var phoneNumber = stg.phoneNumber
-        if(phoneNumber == null) {
+        if(phoneNumber == null || phoneNumber == "") {
             if(loginScreen)
                 return
             if(superTelegram)

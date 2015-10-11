@@ -71,6 +71,7 @@ FeaturePageType1 {
                 if(edit_timer.running)
                     amodel.active = model.guid
 
+                hbClient.update(StgHBClient.UpdateAutoMessageReason)
                 edit_timer.stop()
             }
         }
