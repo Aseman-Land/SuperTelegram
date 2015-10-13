@@ -11,7 +11,8 @@ class StgHBClient : public QObject
 
 public:
     enum UpdateReasons {
-        UpdateAutoMessageReason = 0
+        UpdateAutoMessageReason = 0,
+        UpdateRewakeReason = 1
     };
 
     StgHBClient(QObject *parent = 0);

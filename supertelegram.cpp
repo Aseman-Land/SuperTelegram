@@ -1,3 +1,6 @@
+#define SERVICE_PID_PATH QString(AsemanApplication::homePath() + "/service.pid")
+
+#include "asemantools/asemanapplication.h"
 #include "supertelegram.h"
 #include "commandsdatabase.h"
 #include "supertelegram_macro.h"
@@ -13,6 +16,7 @@
 #include <QCoreApplication>
 #include <QStringList>
 #include <QPointer>
+#include <QFile>
 
 class SuperTelegramPrivate
 {
@@ -24,10 +28,6 @@ public:
     QString appHash;
 
     QString phoneNumber;
-
-#ifndef Q_OS_ANDROID
-    QPointer<QProcess> process;
-#endif
     QPointer<AsemanQuickView> view;
 
     CommandsDatabase *db;
@@ -202,18 +202,20 @@ bool SuperTelegram::startService()
 
     return p->view->javaLayer()->startService();
 #else
-    if(p->process)
-        return true;
+    stopService();
 
-    const QString &cmd = AsemanApplication::applicationFilePath();
-    QStringList args;
-    args << "--service";
+    QFile file(SERVICE_PID_PATH);
+    if(!file.open(QFile::WriteOnly))
+        return false;
 
-    p->process = new QProcess(this);
-    p->process->setReadChannelMode(QProcess::ForwardedChannels);
-    p->process->start(cmd, args);
+    qint64 pid = 0;
+    QProcess::startDetached(AsemanApplication::applicationFilePath(),
+                            QStringList()<<"--service",
+                            AsemanApplication::applicationDirPath(),
+                            &pid);
 
-    connect(p->process, SIGNAL(finished(int)), p->process, SLOT(deleteLater()));
+    file.write(QByteArray::number(pid));
+    file.close();
     return true;
 #endif
 }
@@ -226,11 +228,14 @@ bool SuperTelegram::stopService()
 
     return p->view->javaLayer()->stopService();
 #else
-    if(!p->process)
-        return true;
+    QFile file(SERVICE_PID_PATH);
+    if(!file.open(QFile::ReadOnly))
+        return false;
 
-    p->process->terminate();
-    p->process = 0;
+    const qint64 pid = file.readAll().trimmed().toLongLong();
+    file.close();
+
+    QProcess::execute("kill", QStringList()<<QString::number(pid));
     return true;
 #endif
 }

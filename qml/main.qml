@@ -14,7 +14,6 @@ AsemanMain {
 
     property alias stg: s_tg
     property alias telegram: tg
-    property alias hbClient: hb_client
 
     property variant loginScreen
     property variant superTelegram
@@ -31,10 +30,12 @@ AsemanMain {
     SuperTelegram {
         id: s_tg
         view: View
+        Component.onCompleted: stopService()
+//        Component.onDestruction: startService()
     }
 
-    StgHBClient {
-        id: hb_client
+    StgService {
+        id: service
     }
 
     Telegram {
@@ -50,7 +51,6 @@ AsemanMain {
         onAuthLoggedInChanged: {
             if(authLoggedIn) {
                 stg.phoneNumber = phoneNumber
-                stg.startService()
             }
 
             main.refresh()
@@ -63,6 +63,7 @@ AsemanMain {
             main.refresh()
             loginScreen.moveToCode(phoneNumber)
         }
+        onTelegramChanged: if(telegram) service.start(telegram)
     }
 
     Component {

@@ -20,7 +20,6 @@ public:
     SuperTelegram *stg;
     Telegram *telegram;
     CommandsDatabase *db;
-    StgHBServer *server;
 
     QTimer *clock;
 
@@ -40,16 +39,13 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->stg = new SuperTelegram(this);
     p->telegram = 0;
 
-    p->server = new StgHBServer(this);
-
-    connect(p->clock , SIGNAL(timeout())   , SLOT(clockTriggred()));
-    connect(p->server, SIGNAL(updated(int)), SLOT(updated(int))   );
+    connect(p->clock, SIGNAL(timeout()), SLOT(clockTriggred()));
 
     updateAutoMessage();
     startClock();
 }
 
-void SuperTelegramService::start()
+void SuperTelegramService::start(Telegram *tg)
 {
     if(p->telegram)
         return;
@@ -65,15 +61,22 @@ void SuperTelegramService::start()
 
     QDir().mkpath(configPath);
 
-    p->telegram = new Telegram(p->stg->defaultHostAddress(),
-                               p->stg->defaultHostPort(),
-                               p->stg->defaultHostDcId(),
-                               p->stg->appId(),
-                               p->stg->appHash(),
-                               phoneNumber,
-                               configPath,
-                               pkey);
-    p->telegram->init();
+    if(tg)
+    {
+        p->telegram = tg;
+    }
+    else
+    {
+        p->telegram = new Telegram(p->stg->defaultHostAddress(),
+                                   p->stg->defaultHostPort(),
+                                   p->stg->defaultHostDcId(),
+                                   p->stg->appId(),
+                                   p->stg->appHash(),
+                                   phoneNumber,
+                                   configPath,
+                                   pkey);
+        p->telegram->init();
+    }
 
     connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
     connect(p->telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
@@ -137,6 +140,11 @@ void SuperTelegramService::updated(int reason)
     {
     case StgHBClient::UpdateAutoMessageReason:
         updateAutoMessage();
+        break;
+
+    case StgHBClient::UpdateRewakeReason:
+        p->telegram->sleep();
+        p->telegram->wake();
         break;
     }
 }

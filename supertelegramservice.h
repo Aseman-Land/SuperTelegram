@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+class Telegram;
 class Chat;
 class User;
 class Update;
@@ -15,7 +16,7 @@ public:
     ~SuperTelegramService();
 
 public slots:
-    void start();
+    void start(Telegram *tg = 0);
     void stop();
 
 private slots:
