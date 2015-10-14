@@ -61,6 +61,7 @@ QString CommandsDatabase::timerMessageInsert(const TimerMessage &tmsg)
         return QString();
     }
 
+    emit timerMessageChanged();
     return item.guid;
 }
 
@@ -147,6 +148,7 @@ QString CommandsDatabase::autoMessageInsert(const AutoMessage &amsg)
         return QString();
     }
 
+    emit autoMessageChanged();
     return item.guid;
 }
 
@@ -190,6 +192,7 @@ bool CommandsDatabase::autoMessageSetActive(const QString &guid)
         return false;
     }
 
+    emit autoMessageChanged();
     return true;
 }
 
@@ -233,6 +236,7 @@ bool CommandsDatabase::sensMessageInsert(const QString &key, const QString &valu
         return false;
     }
 
+    emit sensMessageChanged();
     return true;
 }
 
@@ -280,7 +284,9 @@ QList<SensMessage> CommandsDatabase::sensMessageFetchAll()
 
 bool CommandsDatabase::profilePictureTimerSet(qint64 ms)
 {
-    return setValue("profilePictureTimer", ms);
+    bool res = setValue("profilePictureTimer", ms);
+    emit profilePictureTimerChanged();
+    return res;
 }
 
 qint64 CommandsDatabase::profilePictureTimer() const

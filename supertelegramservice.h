@@ -33,7 +33,12 @@ private:
 
     void checkTimerMessages(const QDateTime &dt);
 
+private slots:
     void updateAutoMessage();
+    void updateSensMessage();
+
+protected:
+    void timerEvent(QTimerEvent *e);
 
 private:
     SuperTelegramServicePrivate *p;

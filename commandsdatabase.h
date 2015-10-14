@@ -95,6 +95,12 @@ public slots:
     bool setValue(const QString &key, const QVariant &value);
     QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;
 
+signals:
+    void profilePictureTimerChanged();
+    void sensMessageChanged();
+    void autoMessageChanged();
+    void timerMessageChanged();
+
 private:
     QList<TimerMessage> timerMessageQueryFetch(QSqlQuery &query);
     QList<AutoMessage> autoMessageQueryFetch(QSqlQuery &query);

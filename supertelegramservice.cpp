@@ -1,3 +1,8 @@
+#define ADD_USER_BLOCK_TIMER(USER_ID) { \
+        int timerId = startTimer(5*60*1000); \
+        p->userSentBlockTimer.insert(USER_ID, timerId); \
+    }
+
 #include "supertelegramservice.h"
 #include "supertelegram.h"
 #include "stghbserver.h"
@@ -13,6 +18,7 @@
 #include <QFileInfo>
 #include <QTimer>
 #include <QDebug>
+#include <QTimerEvent>
 
 class SuperTelegramServicePrivate
 {
@@ -24,6 +30,9 @@ public:
     QTimer *clock;
 
     AutoMessage activeAutoMessages;
+    QList<SensMessage> sensMessages;
+
+    QHash<qint64, qint64> userSentBlockTimer;
 };
 
 SuperTelegramService::SuperTelegramService(QObject *parent) :
@@ -40,8 +49,11 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->telegram = 0;
 
     connect(p->clock, SIGNAL(timeout()), SLOT(clockTriggred()));
+    connect(p->db, SIGNAL(autoMessageChanged()), SLOT(updateAutoMessage()));
+    connect(p->db, SIGNAL(sensMessageChanged()), SLOT(updateSensMessage()));
 
     updateAutoMessage();
+    updateSensMessage();
     startClock();
 }
 
@@ -126,12 +138,27 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
 
     if(!unread || out)
         return;
+    if(p->userSentBlockTimer.contains(userId))
+        return;
 
     InputPeer input(InputPeer::typeInputPeerContact);
     input.setUserId(userId);
 
     if(!p->activeAutoMessages.guid.isEmpty())
+    {
         p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(p->activeAutoMessages.message), id);
+        ADD_USER_BLOCK_TIMER(userId)
+    }
+    else
+    {
+        foreach(const SensMessage &sens, p->sensMessages)
+            if(message.toLower().contains(sens.key))
+            {
+                p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(sens.value), id);
+                ADD_USER_BLOCK_TIMER(userId)
+                break;
+            }
+    }
 }
 
 void SuperTelegramService::updated(int reason)
@@ -152,6 +179,21 @@ void SuperTelegramService::updated(int reason)
 void SuperTelegramService::updateAutoMessage()
 {
     p->activeAutoMessages = p->db->autoMessageActiveMessage();
+}
+
+void SuperTelegramService::updateSensMessage()
+{
+    p->sensMessages = p->db->sensMessageFetchAll();
+}
+
+void SuperTelegramService::timerEvent(QTimerEvent *e)
+{
+    const qint64 userId = p->userSentBlockTimer.key(e->timerId());
+    if(userId)
+    {
+        p->userSentBlockTimer.remove(userId);
+        killTimer(e->timerId());
+    }
 }
 
 void SuperTelegramService::startClock()
