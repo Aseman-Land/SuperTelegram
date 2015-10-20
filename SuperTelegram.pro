@@ -44,3 +44,6 @@ HEADERS += \
     profilepicswitchermodel.h \
     stghbserver.h \
     stghbclient.h
+
+DISTFILES += \
+    android/AndroidManifest.xml
