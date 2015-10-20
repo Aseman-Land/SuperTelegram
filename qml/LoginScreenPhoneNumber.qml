@@ -105,6 +105,7 @@ Item {
             textColor: "#ffffff"
             font.pixelSize: 10*Devices.fontDensity
             validator: RegExpValidator{regExp: /\d*/}
+            inputMethodHints: Qt.ImhDigitsOnly
             onAccepted: column.accept()
         }
     }

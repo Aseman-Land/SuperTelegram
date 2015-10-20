@@ -54,5 +54,6 @@
         <file>qml/features/BackupManager.qml</file>
         <file>qml/features/ProfilePicSwitcher.qml</file>
         <file>qml/features/ProfilePictureDialStyle.qml</file>
+        <file>tg-server.pub</file>
     </qresource>
 </RCC>

@@ -31,7 +31,7 @@ AsemanMain {
         id: s_tg
         view: View
         Component.onCompleted: stopService()
-//        Component.onDestruction: startService()
+        Component.onDestruction: startService()
     }
 
     StgService {
@@ -46,7 +46,7 @@ AsemanMain {
         appId: stg.appId
         appHash: stg.appHash
         configPath: AsemanApp.homePath
-        publicKeyFile: Devices.resourcePath + "/tg-server.pub"
+        publicKeyFile: s_tg.publicKey
         autoCleanUpMessages: true
         onAuthLoggedInChanged: {
             if(authLoggedIn) {

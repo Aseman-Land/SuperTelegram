@@ -44,9 +44,3 @@ HEADERS += \
     profilepicswitchermodel.h \
     stghbserver.h \
     stghbclient.h
-
-contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
-    ANDROID_EXTRA_LIBS = \
-        $$OPENSSL_LIB_DIR/libcrypto.so \
-        $$OPENSSL_LIB_DIR/libssl.so
-}

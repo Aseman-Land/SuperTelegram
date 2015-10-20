@@ -62,23 +62,24 @@ void SuperTelegramService::start(Telegram *tg)
     if(p->telegram)
         return;
 
-    const QString phoneNumber = p->stg->phoneNumber();
-    const QString configPath = AsemanApplication::homePath();
-    const QString pkey = AsemanDevices::resourcePath() + "/tg-server.pub";
-    if(!QFileInfo::exists(configPath + "/" + phoneNumber + "/auth"))
-    {
-        QTimer::singleShot(1, AsemanApplication::instance(), SLOT(exit()));
-        return;
-    }
-
-    QDir().mkpath(configPath);
-
     if(tg)
     {
         p->telegram = tg;
     }
     else
     {
+
+        const QString phoneNumber = p->stg->phoneNumber();
+        const QString configPath = AsemanApplication::homePath();
+        const QString pkey = AsemanDevices::resourcePath() + "/tg-server.pub";
+        if(!QFileInfo::exists(configPath + "/" + phoneNumber + "/auth"))
+        {
+            QTimer::singleShot(1, AsemanApplication::instance(), SLOT(exit()));
+            return;
+        }
+
+        QDir().mkpath(configPath);
+
         p->telegram = new Telegram(p->stg->defaultHostAddress(),
                                    p->stg->defaultHostPort(),
                                    p->stg->defaultHostDcId(),
@@ -87,10 +88,12 @@ void SuperTelegramService::start(Telegram *tg)
                                    phoneNumber,
                                    configPath,
                                    pkey);
+
+        connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
+
         p->telegram->init();
     }
 
-    connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
     connect(p->telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
 
     connect(p->telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),

@@ -37,6 +37,10 @@ SuperTelegram::SuperTelegram(QObject *parent) :
     QObject(parent)
 {
     p = new SuperTelegramPrivate;
+
+    if(!QFile::exists(publicKey()))
+        QFile::copy(":/tg-server.pub", publicKey());
+
     p->defaultHostAddress = "149.154.167.50";
     p->defaultHostPort = 443;
     p->defaultHostDcId = 2;
@@ -146,6 +150,11 @@ void SuperTelegram::setPhoneNumber(const QString &phoneNumber)
 QString SuperTelegram::phoneNumber() const
 {
     return p->phoneNumber;
+}
+
+QString SuperTelegram::publicKey() const
+{
+    return AsemanApplication::homePath() + "/tg-server.pub";
 }
 
 QString SuperTelegram::picturesLocation() const

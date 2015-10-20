@@ -18,6 +18,7 @@ class SuperTelegram : public QObject
     Q_PROPERTY(QString phoneNumber READ phoneNumber WRITE setPhoneNumber NOTIFY phoneNumberChanged)
     Q_PROPERTY(CommandsDatabase* database READ database NOTIFY databaseChanged)
     Q_PROPERTY(QString picturesLocation READ picturesLocation NOTIFY picturesLocationChanged)
+    Q_PROPERTY(QString publicKey READ publicKey NOTIFY publicKeyChanged)
 
 public:
     SuperTelegram(QObject *parent = 0);
@@ -44,6 +45,8 @@ public:
     void setPhoneNumber(const QString &phoneNumber);
     QString phoneNumber() const;
 
+    QString publicKey() const;
+
     QString picturesLocation() const;
 
     CommandsDatabase *database() const;
@@ -64,6 +67,7 @@ signals:
     void phoneNumberChanged();
     void databaseChanged();
     void picturesLocationChanged();
+    void publicKeyChanged();
 
 private:
     SuperTelegramPrivate *p;
