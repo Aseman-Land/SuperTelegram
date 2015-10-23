@@ -17,6 +17,7 @@
 #include <QStringList>
 #include <QPointer>
 #include <QFile>
+#include <QDebug>
 
 class SuperTelegramPrivate
 {
@@ -206,10 +207,7 @@ QString SuperTelegram::getTimesDiff(const QDateTime &a, const QDateTime &b)
 bool SuperTelegram::startService()
 {
 #ifdef Q_OS_ANDROID
-    if(!p->view || !p->view->javaLayer())
-        return false;
-
-    return p->view->javaLayer()->startService();
+    return AsemanJavaLayer::instance()->startService();
 #else
     stopService();
 
@@ -232,10 +230,7 @@ bool SuperTelegram::startService()
 bool SuperTelegram::stopService()
 {
 #ifdef Q_OS_ANDROID
-    if(!p->view || !p->view->javaLayer())
-        return true;
-
-    return p->view->javaLayer()->stopService();
+    return AsemanJavaLayer::instance()->stopService();
 #else
     QFile file(SERVICE_PID_PATH);
     if(!file.open(QFile::ReadOnly))

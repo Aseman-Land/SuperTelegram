@@ -7,6 +7,7 @@
 
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemanquickview.h"
+#include "asemantools/asemanqtlogger.h"
 #include "supertelegram.h"
 #include "supertelegramservice.h"
 #include "supertelegram_macro.h"
@@ -25,9 +26,18 @@
 #include <QCommandLineOption>
 #include <QCommandLineParser>
 #include <QtQml>
+#include <QFile>
+#include <QStringList>
 
 extern "C" int mainService(int argc, char *argv[])
 {
+    qputenv("HOME", "/data/data/org.nilegroup.SuperTelegram/files/");
+    QStringList libraryPath;
+    libraryPath << "/data/app/org.nilegroup.SuperTelegram-1/lib/arm" << "/data/data/org.nilegroup.SuperTelegram/qt-reserved-files/plugins";
+    QCoreApplication::setLibraryPaths(libraryPath);
+
+    new AsemanQtLogger("/sdcard/stg.log");
+
     if(AsemanApplication::instance())
     {
         SuperTelegramService service;
@@ -50,6 +60,7 @@ extern "C" int mainService(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
     AsemanApplication app(argc, argv);
+
     app.setApplicationDisplayName("Super Telegram");
     INITIALIZE_APP(app);
 
@@ -85,14 +96,12 @@ int main(int argc, char *argv[])
         qmlRegisterType<BackupManager>(QML_URI, 1, 0, "BackupManager");
         qmlRegisterType<ProfilePicSwitcherModel>(QML_URI, 1, 0, "ProfilePicSwitcherModel");
 
-#ifndef Q_OS_ANDROID
         if(!parser.isSet(verboseOption))
             qputenv("QT_LOGGING_RULES", "tg.*=false");
         else
             qputenv("QT_LOGGING_RULES", "tg.core.settings=false\n"
                                         "tg.core.outboundpkt=false\n"
                                         "tg.core.inboundpkt=false");
-#endif
 
         AsemanQuickView view;
         view.setBackController(true);

@@ -68,10 +68,8 @@ void SuperTelegramService::start(Telegram *tg)
     }
     else
     {
-
         const QString phoneNumber = p->stg->phoneNumber();
         const QString configPath = AsemanApplication::homePath();
-        const QString pkey = AsemanDevices::resourcePath() + "/tg-server.pub";
         if(!QFileInfo::exists(configPath + "/" + phoneNumber + "/auth"))
         {
             QTimer::singleShot(1, AsemanApplication::instance(), SLOT(exit()));
@@ -87,15 +85,13 @@ void SuperTelegramService::start(Telegram *tg)
                                    p->stg->appHash(),
                                    phoneNumber,
                                    configPath,
-                                   pkey);
+                                   p->stg->publicKey());
 
         connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
-
-        p->telegram->init();
+        QTimer::singleShot(1000, this, SLOT(initTelegram()));
     }
 
     connect(p->telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
-
     connect(p->telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),
             SLOT(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)));
 }
@@ -187,6 +183,14 @@ void SuperTelegramService::updateAutoMessage()
 void SuperTelegramService::updateSensMessage()
 {
     p->sensMessages = p->db->sensMessageFetchAll();
+}
+
+void SuperTelegramService::initTelegram()
+{
+    if(!p->telegram)
+        return;
+
+    p->telegram->init();
 }
 
 void SuperTelegramService::timerEvent(QTimerEvent *e)

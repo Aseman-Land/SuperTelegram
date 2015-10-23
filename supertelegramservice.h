@@ -36,6 +36,7 @@ private:
 private slots:
     void updateAutoMessage();
     void updateSensMessage();
+    void initTelegram();
 
 protected:
     void timerEvent(QTimerEvent *e);
