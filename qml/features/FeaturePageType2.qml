@@ -11,24 +11,11 @@ PageManagerItem {
     headColor: main.color
     backgroundColor: "#fefefe"
 
-    property bool autoAddDialog: false
-    property alias editMode: mbtn.opened
-    property alias addMode: add_dialog.addMode
-
     property Component editDelegate
-    property alias itemDelegate: listv.delegate
-    property alias model: listv.model
-
-    property alias currentDialog: add_dialog.currentDialog
-    property alias dialogIsNull: add_dialog.dialogIsNull
-    property alias dialogId: add_dialog.dialogId
-    property alias dialogName: add_dialog.dialogName
-
-    property alias disableMaterialDesign: mbtn.disable
 
     property alias text: header_txt.text
-
     property bool activeIndicator: false
+    property bool editMode: false
 
     onActiveIndicatorChanged: {
         if(activeIndicator)
@@ -38,12 +25,11 @@ PageManagerItem {
     }
 
     onEditModeChanged: {
-        if(!editMode)
-            add_dialog.currentDialog = telegram.nullDialog
-        else
-            mbtn.show()
-
         backButtonColor = editMode? "#333333" : "#ffffff"
+        if(editMode)
+            BackHandler.pushHandler(fpt_item, function (){fpt_item.editMode = false})
+        else
+            BackHandler.removeHandler(fpt_item)
     }
 
     Rectangle {
@@ -52,15 +38,26 @@ PageManagerItem {
     }
 
     Timer {
-        id: add_timer
-        interval: 300
-        onTriggered: addMode = true
-    }
-
-    Timer {
         id: close_timer
         interval: 300
         onTriggered: editMode = false
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "#000000"
+        opacity: editMode? 0.6 : 0
+        visible: opacity != 0
+        z: 10
+
+        Behavior on opacity {
+            NumberAnimation{easing.type: Easing.OutCubic; duration: 400}
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: editMode = false
+        }
     }
 
     Rectangle {
@@ -122,39 +119,11 @@ PageManagerItem {
         width: header.width
         anchors.top: header.bottom
         z: 10
+        visible: editMode
         gradient: Gradient {
             GradientStop { position: 0.0; color: "#55000000" }
             GradientStop { position: 1.0; color: "#00000000" }
         }
-    }
-
-    AddDialog {
-        id: add_dialog
-        anchors.fill: parent
-        onAddModeChanged: if(!addMode && currentDialog == telegram.nullDialog && autoAddDialog) close_timer.restart()
-        z: 11
-    }
-
-    AsemanListView {
-        id: listv
-        anchors.fill: parent
-        anchors.topMargin: headerY
-    }
-
-    ScrollBar {
-        scrollArea: listv; height: listv.height; width: 6*Devices.density
-        x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width;
-        anchors.top: listv.top; color: main.color
-    }
-
-    MaterialDesignButton {
-        id: mbtn
-        anchors.topMargin: headerY
-        anchors.fill: parent
-        flickable: listv
-        color: headColor
-        background: "#000000"
-        onClicked: if(opened && autoAddDialog) add_timer.restart()
     }
 }
 

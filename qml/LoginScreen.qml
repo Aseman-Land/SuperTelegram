@@ -10,7 +10,7 @@ Rectangle {
     height: 62
 
     property int steps: 0
-    property real minHeaderHeight: standardTitleBarHeight + View.statusBarHeight
+    property real minHeaderHeight: Devices.standardTitleBarHeight + View.statusBarHeight
     property real maxHeaderHeight: ls_country.height
     property real statusBarHeight: View.statusBarHeight
 

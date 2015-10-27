@@ -41,7 +41,7 @@ Item {
         footer: Item {
             width: parent.width
             height: {
-                var res = mainlv.height-listv.count*listv.itemsHeight-standardTitleBarHeight
+                var res = mainlv.height-listv.count*listv.itemsHeight-Devices.standardTitleBarHeight
                 if(res < 0)
                     return 0
                 else

@@ -206,6 +206,7 @@ QString SuperTelegram::getTimesDiff(const QDateTime &a, const QDateTime &b)
 
 bool SuperTelegram::startService()
 {
+#ifndef STG_TEST_BUILD
 #ifdef Q_OS_ANDROID
     return AsemanJavaLayer::instance()->startService();
 #else
@@ -225,10 +226,14 @@ bool SuperTelegram::startService()
     file.close();
     return true;
 #endif
+#else
+    return false;
+#endif
 }
 
 bool SuperTelegram::stopService()
 {
+#ifndef STG_TEST_BUILD
 #ifdef Q_OS_ANDROID
     return AsemanJavaLayer::instance()->stopService();
 #else
@@ -241,6 +246,9 @@ bool SuperTelegram::stopService()
 
     QProcess::execute("kill", QStringList()<<QString::number(pid));
     return true;
+#endif
+#else
+    return false;
 #endif
 }
 

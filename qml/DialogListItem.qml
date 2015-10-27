@@ -45,6 +45,7 @@ Item {
             radius: height/2
             width: height
             height: 46*Devices.density
+            anchors.verticalCenter: parent.verticalCenter
             sourceSize: Qt.size(width*2, height*2)
             dialog: item.dialog
             telegram: dmodel.telegram

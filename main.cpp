@@ -8,6 +8,7 @@
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemanquickview.h"
 #include "asemantools/asemanqtlogger.h"
+
 #include "supertelegram.h"
 #include "supertelegramservice.h"
 #include "supertelegram_macro.h"
@@ -31,11 +32,6 @@
 
 extern "C" int mainService(int argc, char *argv[])
 {
-    qputenv("HOME", "/data/data/org.nilegroup.SuperTelegram/files/");
-    QStringList libraryPath;
-    libraryPath << "/data/app/org.nilegroup.SuperTelegram-1/lib/arm" << "/data/data/org.nilegroup.SuperTelegram/qt-reserved-files/plugins";
-    QCoreApplication::setLibraryPaths(libraryPath);
-
     new AsemanQtLogger("/sdcard/stg.log");
 
     if(AsemanApplication::instance())

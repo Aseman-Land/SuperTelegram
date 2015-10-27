@@ -55,5 +55,7 @@
         <file>qml/features/ProfilePicSwitcher.qml</file>
         <file>qml/features/ProfilePictureDialStyle.qml</file>
         <file>tg-server.pub</file>
+        <file>qml/features/ProfilePicSwitcherAddDialog.qml</file>
+        <file>qml/features/FeaturePageType2.qml</file>
     </qresource>
 </RCC>

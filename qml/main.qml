@@ -15,17 +15,10 @@ AsemanMain {
     property alias stg: s_tg
     property alias telegram: tg
 
-    property variant loginScreen
-    property variant superTelegram
+    property LoginScreen loginScreen
+    property TelegramMain superTelegram
 
     property color backButtonColor: "#ffffff"
-
-    property real standardTitleBarHeight: {
-        if(Devices.isDesktop)
-            return Devices.standardTitleBarHeight*1.2
-        else
-            return Devices.standardTitleBarHeight
-    }
 
     SuperTelegram {
         id: s_tg
@@ -101,5 +94,7 @@ AsemanMain {
         }
     }
 
-    Component.onCompleted: refresh()
+    Component.onCompleted: {
+        refresh()
+    }
 }

@@ -21,7 +21,7 @@ Rectangle {
             NumberAnimation{easing.type: Easing.OutCubic; duration: 300}
         }
 
-        PageManager {
+        SlidePageManager {
             id: page_manager
             width: parent.width
             height: parent.height
@@ -39,7 +39,7 @@ Rectangle {
             id: menu
             anchors.fill: parent
             source: page_manager
-            menuTopMargin: standardTitleBarHeight + View.statusBarHeight
+            menuTopMargin: Devices.standardTitleBarHeight + View.statusBarHeight
             component: MenuList {
                 anchors.fill: parent
                 anchors.topMargin: 30*Devices.density
@@ -80,7 +80,7 @@ Rectangle {
         id: menu_btn
         color: backButtonColor
         buttonColor: backButtonColor
-        height: standardTitleBarHeight
+        height: Devices.standardTitleBarHeight
         ratio: animatedRatio? animatedRatio : menu.ratio
         onClicked: {
             if(menu.isVisible || page_manager.count)

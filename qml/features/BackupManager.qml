@@ -49,7 +49,7 @@ FeaturePageType1 {
     editDelegate: Column {
         id: edit_panel
         width: bmng.width
-        y: standardTitleBarHeight
+        y: Devices.standardTitleBarHeight
         visible: parent.destHeight == parent.height
 
         DateTimeChooser {

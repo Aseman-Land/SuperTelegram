@@ -10,6 +10,7 @@ FeaturePageType1 {
     width: 100
     height: 62
     model: smodel.stickerSets
+    disableMaterialDesign: true
     activeIndicator: smodel.stickerSets.length == 0
 
     property string editId

@@ -6,14 +6,23 @@ import TelegramQmlLib 1.0
 import QtQuick.Extras 1.4
 import "../"
 
-PageManagerItem {
-    headerY: headerHeight + titleBarHeight
+FeaturePageType2 {
+    id: ppic_switcher
+    headerY: titleBarHeight
     anchors.fill: parent
     headColor: main.color
     backgroundColor: "#fefefe"
 
     property real headerHeight: width*0.6
-    property real titleBarHeight: View.statusBarHeight + standardTitleBarHeight
+    property real titleBarHeight: View.statusBarHeight + Devices.standardTitleBarHeight
+    property string editId
+
+    text: {
+        if(editMode)
+            return qsTr("Delete Picture")
+        else
+            return qsTr("Picture switcher")
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -52,6 +61,14 @@ PageManagerItem {
             sourceSize: Qt.size(width*2, height*2)
             asynchronous: true
             fillMode: Image.PreserveAspectCrop
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    editId = path
+                    editMode = true
+                }
+            }
         }
         Component.onCompleted: positionViewAtBeginning()
     }
@@ -69,11 +86,11 @@ PageManagerItem {
         color: headColor
         hasMenu: false
         onClicked: {
-            if(Devices.isDesktop) {
+            if(!Devices.isDesktop) {
                 var path = Desktop.getOpenFileName(0, qsTr("Select file"));
                 ppmodel.add(path)
             } else {
-
+                add_component.createObject(ppic_switcher)
             }
         }
     }
@@ -104,7 +121,7 @@ PageManagerItem {
 
         Item {
             width: parent.width - height - 6*Devices.density
-            height: standardTitleBarHeight
+            height: Devices.standardTitleBarHeight
             y: View.statusBarHeight
             x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
 
@@ -126,6 +143,67 @@ PageManagerItem {
             gradient: Gradient {
                 GradientStop { position: 0.0; color: "#55000000" }
                 GradientStop { position: 1.0; color: "#00000000" }
+            }
+        }
+    }
+
+    editDelegate: Item {
+        id: item
+        height: column.height
+        visible: parent.destHeight == parent.height
+        width: ppic_switcher.width
+        y: headerY
+
+        property string filePath
+
+        Column {
+            id: column
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 10*Devices.density
+
+            Text {
+                id: text_area
+                width: parent.width
+                text: qsTr("Are you sure about removing this sticker set?")
+                font.pixelSize: 11*Devices.fontDensity
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                color: "#333333"
+            }
+
+            Item {width: 1; height: 10*Devices.density}
+
+            DialogButtons {
+                id: buttons_panel
+                width: parent.width
+                edit: true
+                onDone: {
+                    editMode = false
+                }
+                onDeleteRequest: {
+                    ppmodel.remove(item.filePath)
+                    editMode = false
+                }
+            }
+        }
+
+        Component.onCompleted: {
+            if(editId.length != 0) {
+                filePath = editId
+            }
+
+            editId = ""
+        }
+    }
+
+    Component {
+        id: add_component
+        ProfilePicSwitcherAddDialog {
+            anchors.fill: parent
+            z: 20
+            onClickedOnFile: {
+                ppmodel.add(fileUrl)
+                close()
             }
         }
     }

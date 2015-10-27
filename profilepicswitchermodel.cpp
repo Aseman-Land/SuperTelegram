@@ -1,4 +1,5 @@
 #include "profilepicswitchermodel.h"
+#include "asemantools/asemandevices.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -133,10 +134,14 @@ void ProfilePicSwitcherModel::refresh()
     changed(list);
 }
 
-void ProfilePicSwitcherModel::add(const QString &src)
+void ProfilePicSwitcherModel::add(const QString &_src)
 {
     if(p->folder.isEmpty())
         return;
+
+    QString src = _src;
+    if(src.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        src = src.mid(AsemanDevices::localFilesPrePath().size());
 
     const QString fileName = src.mid(src.lastIndexOf("/")+1);
     const QString file = QFileInfo(p->folder + "/" + fileName).filePath();
@@ -150,10 +155,14 @@ void ProfilePicSwitcherModel::add(const QString &src)
     changed(list);
 }
 
-void ProfilePicSwitcherModel::remove(const QString &f)
+void ProfilePicSwitcherModel::remove(const QString &_f)
 {
     if(p->folder.isEmpty())
         return;
+
+    QString f = _f;
+    if(f.left(AsemanDevices::localFilesPrePath().size()) == AsemanDevices::localFilesPrePath())
+        f = f.mid(AsemanDevices::localFilesPrePath().size());
 
     const QString file = QFileInfo(f).filePath();
     QFile::remove(file);

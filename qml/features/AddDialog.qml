@@ -39,7 +39,7 @@ Item {
 
     Item {
         anchors.fill: parent
-        anchors.topMargin: View.statusBarHeight + standardTitleBarHeight
+        anchors.topMargin: View.statusBarHeight + Devices.standardTitleBarHeight
         clip: true
 
         Rectangle {

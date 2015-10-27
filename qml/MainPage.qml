@@ -38,7 +38,7 @@ PageManagerItem {
 
     MainHeader {
         id: profile
-        minHeaderHeight: standardTitleBarHeight + View.statusBarHeight
+        minHeaderHeight: Devices.standardTitleBarHeight + View.statusBarHeight
         maxHeaderHeight: mpage.height*0.6
         statusBarHeight: View.statusBarHeight
         width: parent.width
