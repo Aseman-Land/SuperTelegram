@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT += qml quick sql
+QT += qml quick sql positioning
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
@@ -9,7 +9,9 @@ android {
 
 server.source = tg-server.pub
 server.target = $${DESTDIR}
-DEPLOYMENTFOLDERS = server
+translationFiles.source = translations
+translationFiles.target = files
+DEPLOYMENTFOLDERS = server translationFiles
 
 include(asemantools/asemantools.pri)
 include(qmake/qtcAddDeployment.pri)
@@ -17,6 +19,7 @@ qtcAddDeployment()
 
 include(telegram/telegram.pri)
 include(hyperbus/hyperbus.pri)
+include(qbazaarbilling/qbazaarbilling.pri)
 
 SOURCES += main.cpp \
     supertelegram.cpp \
@@ -28,7 +31,8 @@ SOURCES += main.cpp \
     backupmanager.cpp \
     profilepicswitchermodel.cpp \
     stghbserver.cpp \
-    stghbclient.cpp
+    stghbclient.cpp \
+    servicedatabase.cpp
 RESOURCES += \
     resource.qrc
 
@@ -43,7 +47,8 @@ HEADERS += \
     backupmanager.h \
     profilepicswitchermodel.h \
     stghbserver.h \
-    stghbclient.h
+    stghbclient.h \
+    servicedatabase.h
 
 DISTFILES += \
     android/AndroidManifest.xml

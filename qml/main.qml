@@ -23,8 +23,21 @@ AsemanMain {
     SuperTelegram {
         id: s_tg
         view: View
-        Component.onCompleted: stopService()
+        onCurrentLanguageChanged: if(currentLanguage == "Persian") AsemanApp.globalFont.family = "IranSans"
+        onLanguageDirectionChanged: View.layoutDirection = languageDirection
         Component.onDestruction: startService()
+        Component.onCompleted: {
+            AsemanApp.globalFont.family = "IranSans"
+            View.layoutDirection = languageDirection
+            stopService()
+        }
+    }
+
+    HostChecker {
+        host: "google.com"
+        port: 80
+        interval: 5000
+        onAvailableChanged: console.debug("HostChecker", available)
     }
 
     StgService {
@@ -56,7 +69,7 @@ AsemanMain {
             main.refresh()
             loginScreen.moveToCode(phoneNumber)
         }
-        onTelegramChanged: if(telegram) service.start(telegram)
+        onTelegramChanged: if(telegram) service.start(telegram, stg)
     }
 
     Component {

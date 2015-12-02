@@ -32,7 +32,9 @@
 
 extern "C" int mainService(int argc, char *argv[])
 {
+#ifdef Q_OS_ANDROID
     new AsemanQtLogger("/sdcard/stg.log");
+#endif
 
     if(AsemanApplication::instance())
     {
@@ -57,6 +59,8 @@ int main(int argc, char *argv[])
 {
     AsemanApplication app(argc, argv);
 
+    app.setWindowIcon(QIcon(":/qml/img/stg.png"));
+    app.setApplicationAbout(AsemanApplication::tr("It's super telegram application, contains many advance tools, works under the telegram."));
     app.setApplicationDisplayName("Super Telegram");
     INITIALIZE_APP(app);
 

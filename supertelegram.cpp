@@ -4,6 +4,7 @@
 #include "supertelegram.h"
 #include "commandsdatabase.h"
 #include "supertelegram_macro.h"
+#include "supertelegram_macro.h"
 #include "asemantools/asemanquickview.h"
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemandevices.h"
@@ -18,6 +19,9 @@
 #include <QPointer>
 #include <QFile>
 #include <QDebug>
+#include <QTranslator>
+#include <QLocale>
+#include <QDir>
 
 class SuperTelegramPrivate
 {
@@ -32,6 +36,12 @@ public:
     QPointer<AsemanQuickView> view;
 
     CommandsDatabase *db;
+
+    QTranslator *translator;
+
+    QHash<QString,QVariant> languages;
+    QHash<QString,QLocale> locales;
+    QString language;
 };
 
 SuperTelegram::SuperTelegram(QObject *parent) :
@@ -42,6 +52,8 @@ SuperTelegram::SuperTelegram(QObject *parent) :
     if(!QFile::exists(publicKey()))
         QFile::copy(":/tg-server.pub", publicKey());
 
+    p->translator = new QTranslator(this);
+
     p->defaultHostAddress = "149.154.167.50";
     p->defaultHostPort = 443;
     p->defaultHostDcId = 2;
@@ -49,6 +61,8 @@ SuperTelegram::SuperTelegram(QObject *parent) :
     p->appHash = "de37bcf00f4688de900510f4f87384bb";
     p->phoneNumber = AsemanApplication::instance()->readSetting("General/phoneNumber").toString();
     p->db = new CommandsDatabase(this);
+
+    init_languages();
 }
 
 void SuperTelegram::setDefaultHostAddress(const QString &host)
@@ -204,6 +218,39 @@ QString SuperTelegram::getTimesDiff(const QDateTime &a, const QDateTime &b)
     return result;
 }
 
+int SuperTelegram::languageDirection() const
+{
+    return p->locales.value(currentLanguage()).textDirection();
+}
+
+QStringList SuperTelegram::languages() const
+{
+    QStringList res = p->languages.keys();
+    res.sort();
+    return res;
+}
+
+void SuperTelegram::setCurrentLanguage(const QString &lang)
+{
+    if( p->language == lang )
+        return;
+
+    QCoreApplication::removeTranslator(p->translator);
+    p->translator->load(p->languages.value(lang).toString(),"languages");
+    QCoreApplication::installTranslator(p->translator);
+    p->language = lang;
+
+    AsemanApplication::instance()->setSetting("General/Language",lang);
+
+    emit currentLanguageChanged();
+    emit languageDirectionChanged();
+}
+
+QString SuperTelegram::currentLanguage() const
+{
+    return p->language;
+}
+
 bool SuperTelegram::startService()
 {
 #ifndef STG_TEST_BUILD
@@ -250,6 +297,32 @@ bool SuperTelegram::stopService()
 #else
     return false;
 #endif
+}
+
+void SuperTelegram::init_languages()
+{
+    QDir dir(TRANSLATIONS_PATH);
+    QStringList languages = dir.entryList( QDir::Files );
+    if( !languages.contains("lang-en.qm") )
+        languages.prepend("lang-en.qm");
+
+    for( int i=0 ; i<languages.size() ; i++ )
+     {
+         QString locale_str = languages[i];
+             locale_str.truncate( locale_str.lastIndexOf('.') );
+             locale_str.remove( 0, locale_str.indexOf('-') + 1 );
+
+         QLocale locale(locale_str);
+
+         QString  lang = QLocale::languageToString(locale.language());
+         QVariant data = TRANSLATIONS_PATH + "/" + languages[i];
+
+         p->languages.insert( lang, data );
+         p->locales.insert( lang , locale );
+
+         if( lang == AsemanApplication::instance()->readSetting("General/Language","Persian").toString() )
+             setCurrentLanguage( lang );
+    }
 }
 
 SuperTelegram::~SuperTelegram()

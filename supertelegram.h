@@ -2,6 +2,7 @@
 #define SUPERTELEGRAM_H
 
 #include <QObject>
+#include <QStringList>
 
 class CommandsDatabase;
 class AsemanQuickView;
@@ -19,6 +20,10 @@ class SuperTelegram : public QObject
     Q_PROPERTY(CommandsDatabase* database READ database NOTIFY databaseChanged)
     Q_PROPERTY(QString picturesLocation READ picturesLocation NOTIFY picturesLocationChanged)
     Q_PROPERTY(QString publicKey READ publicKey NOTIFY publicKeyChanged)
+
+    Q_PROPERTY(QStringList languages READ languages NOTIFY languagesChanged)
+    Q_PROPERTY(QString currentLanguage READ currentLanguage WRITE setCurrentLanguage NOTIFY currentLanguageChanged)
+    Q_PROPERTY(int languageDirection READ languageDirection NOTIFY languageDirectionChanged)
 
 public:
     SuperTelegram(QObject *parent = 0);
@@ -53,6 +58,12 @@ public:
     Q_INVOKABLE QString getTimeString( const QDateTime & dt );
     Q_INVOKABLE QString getTimesDiff(const QDateTime &a, const QDateTime &b);
 
+    int languageDirection() const;
+
+    QStringList languages() const;
+    void setCurrentLanguage( const QString & lang );
+    QString currentLanguage() const;
+
 public slots:
     bool startService();
     bool stopService();
@@ -68,6 +79,13 @@ signals:
     void databaseChanged();
     void picturesLocationChanged();
     void publicKeyChanged();
+
+    void currentLanguageChanged();
+    void languageDirectionChanged();
+    void languagesChanged();
+
+private:
+    void init_languages();
 
 private:
     SuperTelegramPrivate *p;

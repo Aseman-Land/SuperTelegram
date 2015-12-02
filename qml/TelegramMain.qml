@@ -44,9 +44,13 @@ Rectangle {
                 anchors.fill: parent
                 anchors.topMargin: 30*Devices.density
                 onSelected: {
-                    slave_scene.item = index==0? false : true
                     if(index == 0)
-                        BackHandler.back()
+                        menu.close()
+                    else
+                    if(component)
+                        slave_scene.item = component.createObject(slave_scene)
+                    else
+                        menu.close()
                 }
             }
         }
@@ -59,12 +63,18 @@ Rectangle {
         width: parent.width
         height: parent.height
 
-        property bool item: false
+        property variant item
+        property variant lastItem
         onItemChanged: {
             if(item)
                 BackHandler.pushHandler(slave_scene, slave_scene.back)
             else
                 BackHandler.removeHandler(slave_scene)
+
+            if(lastItem)
+                Tools.jsDelayCall(item?1:400, lastItem.destroy)
+
+            lastItem = item
         }
 
         Behavior on x {

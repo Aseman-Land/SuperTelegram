@@ -52,13 +52,14 @@ Item {
                     color: "#ffffff"
                     text: name
                     font.pixelSize: 11*Devices.fontDensity
+                    font.family: AsemanApp.globalFont.family
                 }
             }
 
             MouseArea {
                 id: marea
                 anchors.fill: parent
-                onClicked: mlist.selected(index,0)
+                onClicked: mlist.selected(index, model.component)
             }
         }
 
@@ -66,13 +67,53 @@ Item {
 
         function refresh() {
             model.clear()
-            model.append({"name":qsTr("Home"), "type": 0})
-            model.append({"name":qsTr("Configure"), "type": 0})
-            model.append({"name":qsTr("Donate"), "type": 1})
-            model.append({"name":qsTr("OpenSource Projects"), "type": 1})
-            model.append({"name":qsTr("About Nile Group"), "type": 1})
-            model.append({"name":qsTr("About Application"), "type": 1})
+            model.append({"name":qsTr("Home")               , "type": 0, "component": null})
+            model.append({"name":qsTr("Configure")          , "type": 0, "component": configure_component})
+            model.append({"name":qsTr("Donate")             , "type": 1, "component": donate_component})
+            model.append({"name":qsTr("OpenSource Projects"), "type": 1, "component": open_source_component})
+            model.append({"name":qsTr("About Nile Group")   , "type": 1, "component": about_nile_component})
+            model.append({"name":qsTr("About Application")  , "type": 1, "component": about_stg_component})
         }
+    }
+
+    Component {
+        id: about_stg_component
+        AboutStg {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: about_nile_component
+        AboutNileGroup {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: open_source_component
+        OpenSourceProjects {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: configure_component
+        Configure {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: donate_component
+        Donate {
+            anchors.fill: parent
+        }
+    }
+
+    Connections {
+        target: stg
+        onCurrentLanguageChanged: listv.refresh()
     }
 }
 

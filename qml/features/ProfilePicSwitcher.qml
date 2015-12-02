@@ -62,7 +62,14 @@ FeaturePageType2 {
             asynchronous: true
             fillMode: Image.PreserveAspectCrop
 
+            Rectangle {
+                anchors.fill: parent
+                color: "#0d80ec"
+                opacity: marea.pressed? 0.3 : 0
+            }
+
             MouseArea {
+                id: marea
                 anchors.fill: parent
                 onClicked: {
                     editId = path

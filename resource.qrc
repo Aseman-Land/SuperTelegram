@@ -57,5 +57,11 @@
         <file>tg-server.pub</file>
         <file>qml/features/ProfilePicSwitcherAddDialog.qml</file>
         <file>qml/features/FeaturePageType2.qml</file>
+        <file>qml/AboutStg.qml</file>
+        <file>qml/AboutNileGroup.qml</file>
+        <file>qml/img/nilegroup.png</file>
+        <file>qml/OpenSourceProjects.qml</file>
+        <file>qml/Configure.qml</file>
+        <file>qml/Donate.qml</file>
     </qresource>
 </RCC>

@@ -20,6 +20,7 @@
 #include "asemancountriesmodel.h"
 #include "asemanautostartmanager.h"
 #include "asemanfilesystemmodel.h"
+#include "asemanhostchecker.h"
 #include "asemanquickobject.h"
 #include "asemannotification.h"
 #include "asemanfiledownloaderqueueitem.h"
@@ -31,6 +32,7 @@
 #include "asemanmapdownloader.h"
 #include "asemandragarea.h"
 #include "asemancalendarmodel.h"
+#include "asemanmixedlistmodel.h"
 #include "asemanquickviewwrapper.h"
 #ifdef Q_OS_ANDROID
 #include "asemanjavalayer.h"
@@ -99,11 +101,13 @@ void AsemanQtTools::registerTypes(const char *uri)
     qmlRegisterType<AsemanMimeApps>(uri, 1,0, "MimeApps");
 #endif
     qmlRegisterType<AsemanWebPageGrabber>(uri, 1,0, "WebPageGrabber");
+    qmlRegisterType<AsemanHostChecker>(uri, 1,0, "HostChecker");
     qmlRegisterType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber");
     qmlRegisterType<AsemanTaskbarButton>(uri, 1,0, "TaskbarButton");
     qmlRegisterType<AsemanMapDownloader>(uri, 1,0, "MapDownloader");
     qmlRegisterType<AsemanDragArea>(uri, 1,0, "MouseDragArea");
     qmlRegisterType<AsemanCalendarModel>(uri, 1,0, "CalendarModel");
+    qmlRegisterType<AsemanMixedListModel>(uri, 1,0, "MixedListModel");
 #if defined(Q_OS_LINUX) && defined(QT_DBUS_LIB)
     qmlRegisterType<AsemanKdeWallet>(uri, 1,0, "KdeWallet");
 #endif
