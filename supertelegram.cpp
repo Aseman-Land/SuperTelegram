@@ -320,7 +320,7 @@ void SuperTelegram::init_languages()
          p->languages.insert( lang, data );
          p->locales.insert( lang , locale );
 
-         if( lang == AsemanApplication::instance()->readSetting("General/Language","Persian").toString() )
+         if( lang == AsemanApplication::instance()->readSetting("General/Language","English").toString() )
              setCurrentLanguage( lang );
     }
 }

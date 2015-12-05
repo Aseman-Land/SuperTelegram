@@ -47,13 +47,13 @@
     <message>
         <location filename="../asemantools/qml/AsemanTools/AsemanAbout.qml" line="80"/>
         <source>Home Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">صفحه خانگی</translation>
     </message>
 </context>
 <context>
     <name>AsemanApplication</name>
     <message>
-        <location filename="../main.cpp" line="62"/>
+        <location filename="../main.cpp" line="63"/>
         <source>It&apos;s super telegram application, contains many advance tools, works under the telegram.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -209,6 +209,11 @@
         <location filename="../qml/Configure.qml" line="20"/>
         <source>Configure</source>
         <translation>تنظیمات</translation>
+    </message>
+    <message>
+        <location filename="../qml/Configure.qml" line="44"/>
+        <source>Languages</source>
+        <translation>زبان‌ها</translation>
     </message>
 </context>
 <context>
@@ -544,117 +549,117 @@
 <context>
     <name>MainListView</name>
     <message>
-        <location filename="../qml/MainListView.qml" line="106"/>
+        <location filename="../qml/MainListView.qml" line="107"/>
         <source>Coming Soon</source>
         <translation>به زودی</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="150"/>
+        <location filename="../qml/MainListView.qml" line="153"/>
         <source>Timer message</source>
         <translation>پیغام‌های زمان‌بندی شده</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="150"/>
+        <location filename="../qml/MainListView.qml" line="153"/>
         <source>Send a message in the selected time to any user</source>
         <translation>ارسال پیام، به صورت خودکار در زمان مشخص به کاربر مشخص</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="151"/>
+        <location filename="../qml/MainListView.qml" line="154"/>
         <source>Auto message</source>
         <translation>پیغام خودکار</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="151"/>
+        <location filename="../qml/MainListView.qml" line="154"/>
         <source>Send a message automatically when you have incomming messages.</source>
         <translation>ارسال یک پیام به صورت خودکار هنگامی که کاربری به شما پیغام میدهد.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="152"/>
+        <location filename="../qml/MainListView.qml" line="155"/>
         <source>Content sensitive message</source>
         <translation>پیغام حساس به متن</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="152"/>
+        <location filename="../qml/MainListView.qml" line="155"/>
         <source>Send word sensitive messages automatically.</source>
         <translation>ارسال پیغام به کاربر وقتی کاربر کلمه خاصی را در پیغامش به شما ارسال میکند.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="153"/>
+        <location filename="../qml/MainListView.qml" line="156"/>
         <source>Backup</source>
         <translation>پشتبان گیری</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="153"/>
+        <location filename="../qml/MainListView.qml" line="156"/>
         <source>Backup from a special contacts.</source>
         <translation>ایجاد نسخه‌ پشتیبان از پیغام‌های شما.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="154"/>
+        <location filename="../qml/MainListView.qml" line="157"/>
         <source>Sticker manager</source>
         <translation>مدیریت استیکرها</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="154"/>
+        <location filename="../qml/MainListView.qml" line="157"/>
         <source>Manage your installed sticker sets.</source>
         <translation>مدیریت استیکرهای نصب شده بر روی اکانت شما.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="155"/>
+        <location filename="../qml/MainListView.qml" line="158"/>
         <source>Profile picture changer</source>
         <translation>تغییر عکس اوتوماتیک</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="155"/>
+        <location filename="../qml/MainListView.qml" line="158"/>
         <source>Change your profile picture frequently.</source>
         <translation>تغییر عکس پروفایل شما بصورت خودکار در بازه‌های زمانی مشخص.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="156"/>
+        <location filename="../qml/MainListView.qml" line="159"/>
         <source>Mute timer</source>
         <translation>بی‌صدا</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="156"/>
+        <location filename="../qml/MainListView.qml" line="159"/>
         <source>Mute a contact in the special day time.</source>
         <translation>غیر فعال کردن صدای یک کاربر در بازه‌ی زمانی خاص در روز.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="157"/>
+        <location filename="../qml/MainListView.qml" line="160"/>
         <source>Save avatars</source>
         <translation>ذخیره تصاویر</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="157"/>
+        <location filename="../qml/MainListView.qml" line="160"/>
         <source>Save contact avatars automatically.</source>
         <translation>ذخیره تصاویر پروفایل‌های یک کاربر به صورت خودکار.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="158"/>
+        <location filename="../qml/MainListView.qml" line="161"/>
         <source>Usage info</source>
         <translation>اطلاعات آماری</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="158"/>
+        <location filename="../qml/MainListView.qml" line="161"/>
         <source>Your usage informations.</source>
         <translation>اطلاعات آماری اکانت شما.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="159"/>
+        <location filename="../qml/MainListView.qml" line="162"/>
         <source>Auto check-in</source>
         <translation>جی‌پی‌اس خودکار</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="159"/>
+        <location filename="../qml/MainListView.qml" line="162"/>
         <source>Send your geo position to selected contacts automatically.</source>
         <translation>ارسال محل گوشی شما، در بازه‌های زمانی خاص به کاربری دیگر بصورت خودکار.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="160"/>
+        <location filename="../qml/MainListView.qml" line="163"/>
         <source>Send to all</source>
         <translation>ارسال به همه</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="160"/>
+        <location filename="../qml/MainListView.qml" line="163"/>
         <source>Send a message to all or selected contacts.</source>
         <translation>ارسال پیغامی به همه یا تعدادی از کاربرها.</translation>
     </message>
@@ -662,32 +667,32 @@
 <context>
     <name>MenuList</name>
     <message>
-        <location filename="../qml/MenuList.qml" line="69"/>
+        <location filename="../qml/MenuList.qml" line="70"/>
         <source>Home</source>
         <translation>صفحه خانگی</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="70"/>
+        <location filename="../qml/MenuList.qml" line="71"/>
         <source>Configure</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="71"/>
+        <location filename="../qml/MenuList.qml" line="72"/>
         <source>Donate</source>
         <translation>حمایت</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="72"/>
+        <location filename="../qml/MenuList.qml" line="73"/>
         <source>OpenSource Projects</source>
         <translation>پروژه‌های منبع‌باز</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="73"/>
+        <location filename="../qml/MenuList.qml" line="74"/>
         <source>About Nile Group</source>
         <translation>درباره گروه نیل</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="74"/>
+        <location filename="../qml/MenuList.qml" line="75"/>
         <source>About Application</source>
         <translation>درباره برنامه</translation>
     </message>
@@ -718,7 +723,7 @@
     <message>
         <location filename="../asemantools/qml/AsemanTools/PasteButton.qml" line="46"/>
         <source>Paste</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پیست</translation>
     </message>
 </context>
 <context>
@@ -796,7 +801,7 @@
     <message>
         <location filename="../qml/features/SensMessage.qml" line="22"/>
         <source>Add new Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پیغام جدید</translation>
     </message>
     <message>
         <location filename="../qml/features/SensMessage.qml" line="24"/>
@@ -811,7 +816,7 @@
     <message>
         <location filename="../qml/features/SensMessage.qml" line="127"/>
         <source>Your Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پیغام شما</translation>
     </message>
 </context>
 <context>
@@ -851,8 +856,8 @@
 <context>
     <name>SuperTelegramService</name>
     <message>
-        <location filename="../supertelegramservice.cpp" line="180"/>
-        <location filename="../supertelegramservice.cpp" line="195"/>
+        <location filename="../supertelegramservice.cpp" line="210"/>
+        <location filename="../supertelegramservice.cpp" line="225"/>
         <source>Auto message by SuperTelegram: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -860,7 +865,7 @@
 <context>
     <name>TelegramQml</name>
     <message>
-        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4748"/>
+        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4791"/>
         <source>Secret Chat</source>
         <translation type="unfinished"></translation>
     </message>
@@ -898,7 +903,7 @@
     <message>
         <location filename="../qml/features/TimerMessageEditPanel.qml" line="64"/>
         <source>Your Message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">پیغام شما</translation>
     </message>
 </context>
 <context>
@@ -916,12 +921,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="67"/>
+        <location filename="../main.cpp" line="68"/>
         <source>Verbose mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="69"/>
+        <location filename="../main.cpp" line="70"/>
         <source>Run is service mode.</source>
         <translation type="unfinished"></translation>
     </message>

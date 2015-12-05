@@ -118,6 +118,7 @@ FeaturePageType1 {
                 id: text_field
                 width: parent.width
                 placeholderText: qsTr("Keyword")
+                inputMethodHints: Qt.ImhNoPredictiveText
             }
 
             StgTextArea {

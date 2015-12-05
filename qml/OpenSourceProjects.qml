@@ -20,9 +20,7 @@ import QtQuick 2.0
 import AsemanTools 1.0
 
 Rectangle {
-    width: 100
-    height: 62
-    color: "#111111"
+    color: "#fcfcfc"
 
     Text {
         id: title
@@ -31,7 +29,7 @@ Rectangle {
         y: View.statusBarHeight
         x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
         verticalAlignment: Text.AlignVCenter
-        color: "#ffffff"
+        color: "#333333"
         font.family: AsemanApp.globalFont.family
         font.pixelSize: 14*Devices.fontDensity
     }
@@ -55,7 +53,7 @@ Rectangle {
         anchors.margins: 8*Devices.density
         font.family: AsemanApp.globalFont.family
         font.pixelSize: 9*Devices.fontDensity
-        color: "#eeeeee"
+        color: "#444444"
         text: qsTr("List of other opensource projects used in Meikade.")
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }
@@ -103,7 +101,7 @@ Rectangle {
                         font.pixelSize: 14*Devices.fontDensity
                         font.family: AsemanApp.globalFont.family
                         anchors.left: parent.left
-                        color: "#eeeeee"
+                        color: "#444444"
                         text: title
                     }
 
@@ -113,7 +111,7 @@ Rectangle {
                         font.family: AsemanApp.globalFont.family
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
-                        color: "#bbbbbb"
+                        color: "#777777"
                         text: license
                     }
                 }
@@ -125,7 +123,7 @@ Rectangle {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                    color: "#cccccc"
+                    color: "#666666"
                     text: description
                 }
 
@@ -176,7 +174,9 @@ Rectangle {
         title.text = qsTr("Open Source Projects")
     }
 
+    Component.onDestruction: backButtonColor = "#ffffff"
     Component.onCompleted: {
+        backButtonColor = "#333333"
         initTranslations()
     }
 }

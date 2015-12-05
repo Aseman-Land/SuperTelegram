@@ -1,11 +1,13 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 import AsemanTools.Controls 1.0
+import QtGraphicalEffects 1.0
 
-Item {
+Rectangle {
     id: about
     width: 100
     height: 62
+    color: "#fcfcfc"
 
     Text {
         id: title_txt
@@ -14,7 +16,7 @@ Item {
         y: View.statusBarHeight
         x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
         verticalAlignment: Text.AlignVCenter
-        color: "#ffffff"
+        color: "#333333"
         font.family: AsemanApp.globalFont.family
         font.pixelSize: 14*Devices.fontDensity
         text: qsTr("About Application")
@@ -35,16 +37,37 @@ Item {
 
             Item { width: 1; height: 20*Devices.density }
 
-            Image {
+            Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: about.width/3
                 height: width
-                source: "img/stg.png"
+
+                DropShadow {
+                    anchors.fill: img_frame
+                    source: img_frame
+                    horizontalOffset: 1*Devices.density
+                    verticalOffset: 1*Devices.density
+                    radius: 4*Devices.density
+                    samples: 16
+                    color: "#aa000000"
+                }
+
+                Item {
+                    id: img_frame
+                    anchors.fill: parent
+                    anchors.margins: -10*Devices.density
+
+                    Image {
+                        anchors.fill: parent
+                        anchors.margins: 10*Devices.density
+                        source: "img/stg.png"
+                    }
+                }
             }
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: "#ffffff"
+                color: "#333333"
                 font.family: AsemanApp.globalFont.family
                 font.pixelSize: 17*Devices.fontDensity
                 text: AsemanApp.applicationDisplayName
@@ -53,7 +76,7 @@ Item {
             Text {
                 width: about.width - 40*Devices.density
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: "#ffffff"
+                color: "#333333"
                 font.family: AsemanApp.globalFont.family
                 font.pixelSize: 10*Devices.fontDensity
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
@@ -82,5 +105,8 @@ Item {
             GradientStop { position: 1.0; color: "#00000000" }
         }
     }
+
+    Component.onCompleted: backButtonColor = "#333333"
+    Component.onDestruction: backButtonColor = "#ffffff"
 }
 

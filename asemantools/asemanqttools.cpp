@@ -21,6 +21,7 @@
 #include "asemanautostartmanager.h"
 #include "asemanfilesystemmodel.h"
 #include "asemanhostchecker.h"
+#include "asemannetworkchecker.h"
 #include "asemanquickobject.h"
 #include "asemannotification.h"
 #include "asemanfiledownloaderqueueitem.h"
@@ -102,6 +103,7 @@ void AsemanQtTools::registerTypes(const char *uri)
 #endif
     qmlRegisterType<AsemanWebPageGrabber>(uri, 1,0, "WebPageGrabber");
     qmlRegisterType<AsemanHostChecker>(uri, 1,0, "HostChecker");
+    qmlRegisterType<AsemanNetworkChecker>(uri, 1,0, "NetworkChecker");
     qmlRegisterType<AsemanTitleBarColorGrabber>(uri, 1,0, "TitleBarColorGrabber");
     qmlRegisterType<AsemanTaskbarButton>(uri, 1,0, "TaskbarButton");
     qmlRegisterType<AsemanMapDownloader>(uri, 1,0, "MapDownloader");

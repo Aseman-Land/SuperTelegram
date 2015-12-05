@@ -8,6 +8,7 @@
 #include "stghbserver.h"
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemandevices.h"
+#include "asemantools/asemanhostchecker.h"
 #include "commandsdatabase.h"
 #include "stghbclient.h"
 
@@ -32,6 +33,11 @@ public:
     QTimer *timerMessageClock;
     QTimer *updateClock;
 
+    QTimer *tgSleepTimer;
+    QTimer *tgWakeTimer;
+    QTimer *tgUpdateTimer;
+    QTimer *tgAutoUpdateTimer;
+
     AutoMessage activeAutoMessages;
     QList<SensMessage> sensMessages;
 
@@ -39,14 +45,21 @@ public:
 
     QPointer<QGeoPositionInfoSource> positionSource;
     QGeoPositionInfo lastPosition;
+
+    AsemanHostChecker *hostChecker;
+    bool external;
 };
 
 SuperTelegramService::SuperTelegramService(QObject *parent) :
     QObject(parent)
 {
     p = new SuperTelegramServicePrivate;
+    p->tgSleepTimer = 0;
+    p->tgWakeTimer = 0;
+    p->hostChecker = 0;
+    p->external = false;
 
-    p->positionSource = QGeoPositionInfoSource::createDefaultSource(0);
+//    p->positionSource = QGeoPositionInfoSource::createDefaultSource(0);
     if (p->positionSource)
     {
         p->positionSource->setUpdateInterval(10000);
@@ -61,11 +74,22 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->timerMessageClock = new QTimer(this);
     p->timerMessageClock->setSingleShot(true);
 
+    p->tgUpdateTimer = new QTimer(this);
+    p->tgUpdateTimer->setInterval(3000);
+    p->tgUpdateTimer->setSingleShot(true);
+
+    p->tgAutoUpdateTimer = new QTimer(this);
+    p->tgAutoUpdateTimer->setInterval(1*60*1000);
+    p->tgAutoUpdateTimer->setSingleShot(false);
+    p->tgAutoUpdateTimer->start();
+
     connect(p->timerMessageClock, SIGNAL(timeout()), SLOT(clockTriggred()));
     connect(p->updateClock, SIGNAL(timeout()), SLOT(update()));
+    connect(p->tgUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
+    connect(p->tgAutoUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
 }
 
-void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg)
+void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanHostChecker *hostChecker)
 {
     if(p->telegram)
         return;
@@ -75,10 +99,14 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg)
         p->stg = stg;
         p->db = p->stg->database();
         p->telegram = tg;
+        p->hostChecker = hostChecker;
+        p->external = true;
     }
     else
     {
         p->stg = new SuperTelegram(this);
+
+        p->hostChecker = new AsemanHostChecker(this);
         p->db = p->stg->database();
 
         const QString phoneNumber = p->stg->phoneNumber();
@@ -102,7 +130,24 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg)
 
         connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
         QTimer::singleShot(1000, this, SLOT(initTelegram()));
+
+        p->hostChecker->setHost(p->stg->defaultHostAddress());
+        p->hostChecker->setPort(p->stg->defaultHostPort());
+        p->hostChecker->setInterval(5000);
     }
+
+    p->tgWakeTimer = new QTimer(this);
+    p->tgWakeTimer->setInterval(1000);
+    p->tgWakeTimer->setSingleShot(true);
+
+    p->tgSleepTimer = new QTimer(this);
+    p->tgSleepTimer->setInterval(30*60*1000);
+    p->tgSleepTimer->setSingleShot(false);
+    p->tgSleepTimer->start();
+
+    connect(p->tgSleepTimer, SIGNAL(timeout()), this, SLOT(sleep()));
+    connect(p->tgSleepTimer, SIGNAL(timeout()), p->tgWakeTimer, SLOT(start()));
+    connect(p->tgWakeTimer, SIGNAL(timeout()), this, SLOT(wake()));
 
     p->timerMessageClock->start();
 
@@ -112,6 +157,8 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg)
     connect(p->telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
     connect(p->telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),
             SLOT(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)));
+
+    connect(p->hostChecker, SIGNAL(availableChanged()), SLOT(hostCheckerStateChanged()));
 
     updateAutoMessage();
     updateSensMessage();
@@ -183,7 +230,7 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
     else
     {
         foreach(const SensMessage &sens, p->sensMessages)
-            if(message.toLower().contains(sens.key))
+            if(message.toLower().trimmed() == sens.key.toLower().trimmed())
             {
                 if(sens.value.contains("%location%"))
                 {
@@ -195,6 +242,8 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
                     p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1")
                                                      .arg(QString(sens.value).replace("%location%", QString("%1, %2").arg(geo.lat()).arg(geo.longValue()) )), id);
                 }
+                else
+                    p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(QString(sens.value)));
 
                 break;
             }
@@ -239,6 +288,37 @@ void SuperTelegramService::initTelegram()
         return;
 
     p->telegram->init();
+}
+
+void SuperTelegramService::hostCheckerStateChanged()
+{
+    if(p->hostChecker->available())
+        wake();
+    else
+        sleep();
+}
+
+void SuperTelegramService::updatesGetState()
+{
+    if(p->telegram) p->telegram->updatesGetState();
+}
+
+void SuperTelegramService::wake()
+{
+    qDebug() << __FUNCTION__;
+    if(p->telegram) p->telegram->wake();
+    p->tgUpdateTimer->stop();
+    p->tgUpdateTimer->start();
+    p->tgAutoUpdateTimer->stop();
+    p->tgAutoUpdateTimer->start();
+}
+
+void SuperTelegramService::sleep()
+{
+    qDebug() << __FUNCTION__;
+    if(p->telegram) p->telegram->sleep();
+    p->tgUpdateTimer->stop();
+    p->tgAutoUpdateTimer->stop();
 }
 
 void SuperTelegramService::timerEvent(QTimerEvent *e)

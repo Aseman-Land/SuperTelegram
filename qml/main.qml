@@ -34,10 +34,10 @@ AsemanMain {
     }
 
     HostChecker {
-        host: "google.com"
-        port: 80
+        id: hostChecker
+        host: stg.defaultHostAddress
+        port: stg.defaultHostPort
         interval: 5000
-        onAvailableChanged: console.debug("HostChecker", available)
     }
 
     StgService {
@@ -54,6 +54,7 @@ AsemanMain {
         configPath: AsemanApp.homePath
         publicKeyFile: s_tg.publicKey
         autoCleanUpMessages: true
+        autoRewakeInterval: 30*60*1000
         onAuthLoggedInChanged: {
             if(authLoggedIn) {
                 stg.phoneNumber = phoneNumber
@@ -69,7 +70,7 @@ AsemanMain {
             main.refresh()
             loginScreen.moveToCode(phoneNumber)
         }
-        onTelegramChanged: if(telegram) service.start(telegram, stg)
+        onTelegramChanged: if(telegram) service.start(telegram, stg, hostChecker)
     }
 
     Component {

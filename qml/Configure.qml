@@ -2,10 +2,9 @@ import QtQuick 2.0
 import AsemanTools 1.0
 import AsemanTools.Controls 1.0 as Controls
 
-Item {
-    id: about
-    width: 100
-    height: 62
+Rectangle {
+    id: configure
+    color: "#fcfcfc"
 
     Text {
         id: title_txt
@@ -14,10 +13,9 @@ Item {
         y: View.statusBarHeight
         x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
         verticalAlignment: Text.AlignVCenter
-        color: "#ffffff"
+        color: "#333333"
         font.family: AsemanApp.globalFont.family
         font.pixelSize: 14*Devices.fontDensity
-        text: qsTr("Configure")
     }
 
     AsemanFlickable {
@@ -34,14 +32,14 @@ Item {
             Item { width: 1; height: 20*Devices.density }
 
             Text {
+                id: language_txt
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: flickable.width - 20*Devices.density
                 height: 40*Devices.density
                 verticalAlignment: Text.AlignVCenter
-                color: "#ffffff"
+                color: "#333333"
                 font.family: AsemanApp.globalFont.family
                 font.pixelSize: 12*Devices.fontDensity
-                text: qsTr("Languages")
             }
 
             Repeater {
@@ -71,7 +69,7 @@ Item {
                         Text {
                             id: txt
                             anchors.verticalCenter: parent.verticalCenter
-                            color: "#ffffff"
+                            color: "#333333"
                             font.family: AsemanApp.globalFont.family
                             font.pixelSize: 10*Devices.fontDensity
                             text: stg.languages[index]
@@ -94,9 +92,25 @@ Item {
         anchors.top: flickable.top
         z: 10
         gradient: Gradient {
-            GradientStop { position: 0.0; color: "#88ffffff" }
+            GradientStop { position: 0.0; color: "#880d80ec" }
             GradientStop { position: 1.0; color: "#00000000" }
         }
+    }
+
+    Connections {
+        target: stg
+        onCurrentLanguageChanged: initTranslations()
+    }
+
+    function initTranslations(){
+        title_txt.text = qsTr("Configure")
+        language_txt.text = qsTr("Languages")
+    }
+
+    Component.onDestruction: backButtonColor = "#ffffff"
+    Component.onCompleted: {
+        initTranslations()
+        backButtonColor = "#333333"
     }
 }
 

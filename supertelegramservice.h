@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+class AsemanHostChecker;
 class SuperTelegram;
 class Telegram;
 class Chat;
@@ -18,7 +19,7 @@ public:
     ~SuperTelegramService();
 
 public slots:
-    void start(Telegram *tg = 0, SuperTelegram *stg = 0);
+    void start(Telegram *tg = 0, SuperTelegram *stg = 0, AsemanHostChecker *hostChecker = 0);
     void stop();
 
 private slots:
@@ -41,6 +42,11 @@ private slots:
     void updateAutoMessage();
     void updateSensMessage();
     void initTelegram();
+    void hostCheckerStateChanged();
+    void updatesGetState();
+
+    void wake();
+    void sleep();
 
 protected:
     void timerEvent(QTimerEvent *e);

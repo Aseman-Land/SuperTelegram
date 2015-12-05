@@ -13,6 +13,7 @@ Item {
         id: tarea
         anchors.fill: parent
         anchors.topMargin: txt.height + 14*Devices.density
+        inputMethodHints: Qt.ImhNoPredictiveText
     }
 
     Text {
