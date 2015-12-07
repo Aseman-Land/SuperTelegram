@@ -22,6 +22,7 @@
 #include <QTimerEvent>
 #include <QGeoPositionInfoSource>
 #include <QPointer>
+#include <QSet>
 
 class SuperTelegramServicePrivate
 {
@@ -48,6 +49,8 @@ public:
 
     AsemanHostChecker *hostChecker;
     bool external;
+
+    QSet<qint64> answeredMessages;
 };
 
 SuperTelegramService::SuperTelegramService(QObject *parent) :
@@ -218,6 +221,8 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
         return;
     if(p->userSentBlockTimer.contains(userId))
         return;
+    if(p->answeredMessages.contains(id))
+        return;
 
     InputPeer input(InputPeer::typeInputPeerContact);
     input.setUserId(userId);
@@ -225,6 +230,7 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
     if(!p->activeAutoMessages.guid.isEmpty())
     {
         p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(p->activeAutoMessages.message), id);
+        p->answeredMessages.insert(id);
         ADD_USER_BLOCK_TIMER(userId)
     }
     else
@@ -245,6 +251,7 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
                 else
                     p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(QString(sens.value)));
 
+                p->answeredMessages.insert(id);
                 break;
             }
     }
