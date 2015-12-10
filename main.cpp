@@ -8,6 +8,7 @@
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemanquickview.h"
 #include "asemantools/asemanqtlogger.h"
+#include "asemantools/private/asemanandroidstoremangercore.h"
 
 #include "supertelegram.h"
 #include "supertelegramservice.h"
@@ -76,6 +77,10 @@ int main(int argc, char *argv[])
     parser.addOption(serviceOption);
     parser.addOption(verboseOption);
     parser.process(app.arguments());
+
+    AsemanAndroidStoreMangerCore storeManager;
+    storeManager.setup("MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCapdy2RlWlw7g5/s0Iw/pSCYNCVnmqvfPTNTNL1VifE5250K4E4zj34JlinmHuzUSSUWVI3InHboBl1UFDb5bJIKX8O/whfXHTVbiXmICJRrAcHKRE3UM6XCgbIMZRUS72GS6VKYNrcKLiajVNMN2E889+XtcEUqpiCMOKsFoNg5iUFewFScKCNxVtai9TpifGhY7Rm7EyW7yKrT2plUBy7IXSW3FEaoD3R8e75k0CAwEAAQ==",
+                       "com.farsitel.bazaar", "ir.cafebazaar.pardakht.InAppBillingService.BIND");
 
     if(parser.isSet(serviceOption))
         return mainService(argc, argv);

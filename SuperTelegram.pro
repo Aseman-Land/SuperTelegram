@@ -19,7 +19,6 @@ qtcAddDeployment()
 
 include(telegram/telegram.pri)
 include(hyperbus/hyperbus.pri)
-include(qbazaarbilling/qbazaarbilling.pri)
 
 SOURCES += main.cpp \
     supertelegram.cpp \
@@ -33,6 +32,7 @@ SOURCES += main.cpp \
     stghbserver.cpp \
     stghbclient.cpp \
     servicedatabase.cpp
+
 RESOURCES += \
     resource.qrc
 
@@ -51,4 +51,14 @@ HEADERS += \
     servicedatabase.h
 
 DISTFILES += \
-    android/AndroidManifest.xml
+    android/AndroidManifest.xml \
+    android/src/j7zip/Common/BoolVector.java \
+    android/src/j7zip/Common/ByteBuffer.java \
+    android/src/j7zip/Common/CRC.java \
+    android/src/j7zip/Common/IntVector.java \
+    android/src/j7zip/Common/LimitedSequentialInStream.java \
+    android/src/j7zip/Common/LockedInStream.java \
+    android/src/j7zip/Common/LockedSequentialInStreamImp.java \
+    android/src/j7zip/Common/LongVector.java \
+    android/src/j7zip/Common/ObjectVector.java \
+    android/src/j7zip/Common/RecordVector.java

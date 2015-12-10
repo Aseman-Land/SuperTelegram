@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.example.android.trivialdrivesample.util;
+package land.aseman.android.store.util;
 
 /**
  * Exception thrown when something went wrong with in-app billing.

@@ -10,11 +10,13 @@ android {
     QT += androidextras
     SOURCES += \
         $$PWD/asemanjavalayer.cpp \
-        $$PWD/asemanandroidservice.cpp
+        $$PWD/asemanandroidservice.cpp \
+        $$PWD/private/asemanandroidstoremangercore.cpp
 
     HEADERS += \
         $$PWD/asemanjavalayer.h \
-        $$PWD/asemanandroidservice.h
+        $$PWD/asemanandroidservice.h \
+        $$PWD/private/asemanandroidstoremangercore.h
 } else {
     ios {
 
@@ -153,7 +155,11 @@ SOURCES += \
     $$PWD/asemanmixedlistmodel.cpp \
     $$PWD/asemanhostchecker.cpp \
     $$PWD/asemannetworkmanager.cpp \
-    $$PWD/asemannetworkmanageritem.cpp
+    $$PWD/asemannetworkmanageritem.cpp \
+    $$PWD/asemannetworksleepmanager.cpp \
+    $$PWD/asemanstoremanager.cpp \
+    $$PWD/private/asemanabstractstoremangercore.cpp \
+    $$PWD/private/asemannullstoremangercore.cpp
 
 HEADERS += \
     $$PWD/asemandevices.h \
@@ -201,7 +207,11 @@ HEADERS += \
     $$PWD/asemanmixedlistmodel.h \
     $$PWD/asemanhostchecker.h \
     $$PWD/asemannetworkmanager.h \
-    $$PWD/asemannetworkmanageritem.h
+    $$PWD/asemannetworkmanageritem.h \
+    $$PWD/asemannetworksleepmanager.h \
+    $$PWD/asemanstoremanager.h \
+    $$PWD/private/asemanabstractstoremangercore.h \
+    $$PWD/private/asemannullstoremangercore.h
 
 OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanActivity.java \
@@ -209,7 +219,18 @@ OTHER_FILES += \
     $$PWD/android-build/src/land/aseman/android/AsemanJavaLayer.java \
     $$PWD/android-build/src/land/aseman/android/AsemanService.java \
     $$PWD/android-build/src/land/aseman/android/AsemanBootBroadcast.java \
-    $$PWD/android-build/src/land/aseman/android/AsemanServiceDelegate.java
+    $$PWD/android-build/src/land/aseman/android/AsemanServiceDelegate.java \
+    $$PWD/android-build/src/com/android/vending/billing/IInAppBillingService.aidl \
+    $$PWD/android-build/src/land/aseman/android/store/util/Base64.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/Base64DecoderException.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/IabException.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/IabHelper.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/IabResult.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/Inventory.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/Purchase.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/Security.java \
+    $$PWD/android-build/src/land/aseman/android/store/util/SkuDetails.java \
+    $$PWD/android-build/src/land/aseman/android/store/StoreManager.java
 
 RESOURCES += \
     $$PWD/asemanresource.qrc

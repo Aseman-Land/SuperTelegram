@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-class AsemanHostChecker;
+class AsemanNetworkSleepManager;
 class SuperTelegram;
 class Telegram;
 class Chat;
@@ -19,7 +19,7 @@ public:
     ~SuperTelegramService();
 
 public slots:
-    void start(Telegram *tg = 0, SuperTelegram *stg = 0, AsemanHostChecker *hostChecker = 0);
+    void start(Telegram *tg = 0, SuperTelegram *stg = 0, AsemanNetworkSleepManager *sleepManager = 0);
     void stop();
 
 private slots:

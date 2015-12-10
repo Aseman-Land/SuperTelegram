@@ -33,7 +33,7 @@ AsemanMain {
         }
     }
 
-    HostChecker {
+    NetworkSleepManager {
         id: hostChecker
         host: stg.defaultHostAddress
         port: stg.defaultHostPort

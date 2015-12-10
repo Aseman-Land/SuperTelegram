@@ -8,7 +8,7 @@
 #include "stghbserver.h"
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemandevices.h"
-#include "asemantools/asemanhostchecker.h"
+#include "asemantools/asemannetworksleepmanager.h"
 #include "commandsdatabase.h"
 #include "stghbclient.h"
 
@@ -47,7 +47,7 @@ public:
     QPointer<QGeoPositionInfoSource> positionSource;
     QGeoPositionInfo lastPosition;
 
-    AsemanHostChecker *hostChecker;
+    AsemanNetworkSleepManager *sleepManager;
     bool external;
 
     QSet<qint64> answeredMessages;
@@ -59,7 +59,7 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p = new SuperTelegramServicePrivate;
     p->tgSleepTimer = 0;
     p->tgWakeTimer = 0;
-    p->hostChecker = 0;
+    p->sleepManager = 0;
     p->external = false;
 
 //    p->positionSource = QGeoPositionInfoSource::createDefaultSource(0);
@@ -92,7 +92,7 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     connect(p->tgAutoUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
 }
 
-void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanHostChecker *hostChecker)
+void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetworkSleepManager *sleepManager)
 {
     if(p->telegram)
         return;
@@ -102,14 +102,14 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanHostChe
         p->stg = stg;
         p->db = p->stg->database();
         p->telegram = tg;
-        p->hostChecker = hostChecker;
+        p->sleepManager = sleepManager;
         p->external = true;
     }
     else
     {
         p->stg = new SuperTelegram(this);
 
-        p->hostChecker = new AsemanHostChecker(this);
+        p->sleepManager = new AsemanNetworkSleepManager(this);
         p->db = p->stg->database();
 
         const QString phoneNumber = p->stg->phoneNumber();
@@ -134,9 +134,9 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanHostChe
         connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
         QTimer::singleShot(1000, this, SLOT(initTelegram()));
 
-        p->hostChecker->setHost(p->stg->defaultHostAddress());
-        p->hostChecker->setPort(p->stg->defaultHostPort());
-        p->hostChecker->setInterval(5000);
+        p->sleepManager->setHost(p->stg->defaultHostAddress());
+        p->sleepManager->setPort(p->stg->defaultHostPort());
+        p->sleepManager->setInterval(5000);
     }
 
     p->tgWakeTimer = new QTimer(this);
@@ -161,7 +161,7 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanHostChe
     connect(p->telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),
             SLOT(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)));
 
-    connect(p->hostChecker, SIGNAL(availableChanged()), SLOT(hostCheckerStateChanged()));
+    connect(p->sleepManager, SIGNAL(availableChanged()), SLOT(hostCheckerStateChanged()));
 
     updateAutoMessage();
     updateSensMessage();
@@ -299,7 +299,7 @@ void SuperTelegramService::initTelegram()
 
 void SuperTelegramService::hostCheckerStateChanged()
 {
-    if(p->hostChecker->available())
+    if(p->sleepManager->available())
         wake();
     else
         sleep();
