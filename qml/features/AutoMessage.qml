@@ -44,7 +44,7 @@ FeaturePageType1 {
 
             Item {
                 anchors.verticalCenter: parent.verticalCenter
-                width: 22
+                width: 22*Devices.density
                 height: width
 
                 Image {

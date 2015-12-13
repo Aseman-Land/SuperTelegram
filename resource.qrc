@@ -63,5 +63,6 @@
         <file>qml/OpenSourceProjects.qml</file>
         <file>qml/Configure.qml</file>
         <file>qml/Donate.qml</file>
+        <file>qml/Store.qml</file>
     </qresource>
 </RCC>

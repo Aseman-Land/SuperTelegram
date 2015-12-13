@@ -68,8 +68,9 @@ Item {
         function refresh() {
             model.clear()
             model.append({"name":qsTr("Home")               , "type": 0, "component": null})
+            model.append({"name":qsTr("Store")              , "type": 0, "component": store_component})
             model.append({"name":qsTr("Configure")          , "type": 0, "component": configure_component})
-            model.append({"name":qsTr("Donate")             , "type": 1, "component": donate_component})
+//            model.append({"name":qsTr("Donate")             , "type": 1, "component": donate_component})
             model.append({"name":qsTr("OpenSource Projects"), "type": 1, "component": open_source_component})
             model.append({"name":qsTr("About Nile Group")   , "type": 1, "component": about_nile_component})
             model.append({"name":qsTr("About Application")  , "type": 1, "component": about_stg_component})
@@ -100,6 +101,13 @@ Item {
     Component {
         id: configure_component
         Configure {
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id: store_component
+        Store {
             anchors.fill: parent
         }
     }

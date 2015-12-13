@@ -58,6 +58,9 @@ public:
     Q_INVOKABLE QString getTimeString( const QDateTime & dt );
     Q_INVOKABLE QString getTimesDiff(const QDateTime &a, const QDateTime &b);
 
+    Q_INVOKABLE bool checkPremiumNumber(const QString &number);
+    Q_INVOKABLE bool check30DayTrialNumber(const QString &number);
+
     int languageDirection() const;
 
     QStringList languages() const;

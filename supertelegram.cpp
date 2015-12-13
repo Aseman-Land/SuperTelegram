@@ -218,6 +218,34 @@ QString SuperTelegram::getTimesDiff(const QDateTime &a, const QDateTime &b)
     return result;
 }
 
+bool SuperTelegram::checkPremiumNumber(const QString &number)
+{
+    if(number.isEmpty())
+        return false;
+    const int right = number.right(7).toInt();
+    for(int i=2; i<=right/2; i+=2)
+    {
+        if(right%i == 0)
+            return false;
+        if(i==2)
+            i--;
+    }
+
+    return true;
+}
+
+bool SuperTelegram::check30DayTrialNumber(const QString &number)
+{
+    if(number.isEmpty())
+        return false;
+    const int right = number.right(4).toInt();
+    int res = (QDate::currentDate().dayOfYear() - right%366);
+    if(0<res && res<=30)
+        return true;
+    else
+        return false;
+}
+
 int SuperTelegram::languageDirection() const
 {
     return p->locales.value(currentLanguage()).textDirection();

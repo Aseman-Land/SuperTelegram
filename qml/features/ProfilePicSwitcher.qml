@@ -93,7 +93,7 @@ FeaturePageType2 {
         color: headColor
         hasMenu: false
         onClicked: {
-            if(!Devices.isDesktop) {
+            if(Devices.isDesktop) {
                 var path = Desktop.getOpenFileName(0, qsTr("Select file"));
                 ppmodel.add(path)
             } else {

@@ -12,6 +12,9 @@
 #include "commandsdatabase.h"
 #include "stghbclient.h"
 
+#include "stgactiongetgeo.h"
+#include "stgactioncaptureimage.h"
+
 #include "telegram.h"
 #include "util/utils.h"
 
@@ -20,9 +23,10 @@
 #include <QTimer>
 #include <QDebug>
 #include <QTimerEvent>
-#include <QGeoPositionInfoSource>
 #include <QPointer>
+#include <QCameraInfo>
 #include <QSet>
+#include <QEventLoop>
 
 class SuperTelegramServicePrivate
 {
@@ -44,9 +48,6 @@ public:
 
     QHash<qint64, qint64> userSentBlockTimer;
 
-    QPointer<QGeoPositionInfoSource> positionSource;
-    QGeoPositionInfo lastPosition;
-
     AsemanNetworkSleepManager *sleepManager;
     bool external;
 
@@ -61,15 +62,6 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->tgWakeTimer = 0;
     p->sleepManager = 0;
     p->external = false;
-
-//    p->positionSource = QGeoPositionInfoSource::createDefaultSource(0);
-    if (p->positionSource)
-    {
-        p->positionSource->setUpdateInterval(10000);
-        p->positionSource->startUpdates();
-
-        connect(p->positionSource, SIGNAL(positionUpdated(QGeoPositionInfo)), SLOT(positionUpdated(QGeoPositionInfo)));
-    }
 
     p->updateClock = new QTimer(this);
     p->updateClock->setInterval(5*60*1000);
@@ -240,13 +232,16 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
             {
                 if(sens.value.contains("%location%"))
                 {
-                    InputGeoPoint geo(InputGeoPoint::typeInputGeoPoint);
-                    geo.setLat(p->lastPosition.coordinate().latitude());
-                    geo.setLongValue(p->lastPosition.coordinate().longitude());
-
-                    p->telegram->messagesSendGeoPoint(input, generateRandomId(), geo, id);
-                    p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1")
-                                                     .arg(QString(sens.value).replace("%location%", QString("%1, %2").arg(geo.lat()).arg(geo.longValue()) )), id);
+                    QString attachedText = tr("Auto message by SuperTelegram: %1").arg(QString(sens.value));
+                    StgActionGetGeo *action = new StgActionGetGeo(this);
+                    action->start(p->telegram, input, id, attachedText);
+                }
+                else
+                if(sens.value.contains("%camera%"))
+                {
+                    QString attachedText = tr("Auto message by SuperTelegram: %1").arg(QString(sens.value));
+                    StgActionCaptureImage *action = new StgActionCaptureImage(this);
+                    action->start(p->telegram, input, id, attachedText);
                 }
                 else
                     p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(QString(sens.value)));
@@ -270,11 +265,6 @@ void SuperTelegramService::updated(int reason)
         p->telegram->wake();
         break;
     }
-}
-
-void SuperTelegramService::positionUpdated(const QGeoPositionInfo &update)
-{
-    p->lastPosition = update;
 }
 
 void SuperTelegramService::updateAutoMessage()
@@ -357,7 +347,7 @@ void SuperTelegramService::checkTimerMessages(const QDateTime &dt)
     }
 }
 
-qint64 SuperTelegramService::generateRandomId() const
+qint64 SuperTelegramService::generateRandomId()
 {
     qint64 randomId;
     Utils::randomBytes(&randomId, 8);

@@ -31,7 +31,10 @@ SOURCES += main.cpp \
     profilepicswitchermodel.cpp \
     stghbserver.cpp \
     stghbclient.cpp \
-    servicedatabase.cpp
+    servicedatabase.cpp \
+    abstractstgaction.cpp \
+    stgactiongetgeo.cpp \
+    stgactioncaptureimage.cpp
 
 RESOURCES += \
     resource.qrc
@@ -48,7 +51,10 @@ HEADERS += \
     profilepicswitchermodel.h \
     stghbserver.h \
     stghbclient.h \
-    servicedatabase.h
+    servicedatabase.h \
+    abstractstgaction.h \
+    stgactiongetgeo.h \
+    stgactioncaptureimage.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

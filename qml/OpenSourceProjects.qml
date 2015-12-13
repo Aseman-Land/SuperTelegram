@@ -22,45 +22,40 @@ import AsemanTools 1.0
 Rectangle {
     color: "#fcfcfc"
 
-    Text {
-        id: title
-        width: parent.width - height - 6*Devices.density
-        height: Devices.standardTitleBarHeight
-        y: View.statusBarHeight
-        x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
-        verticalAlignment: Text.AlignVCenter
-        color: "#333333"
-        font.family: AsemanApp.globalFont.family
-        font.pixelSize: 14*Devices.fontDensity
+
+    Rectangle {
+        id: title_bar
+        width: parent.width
+        height: Devices.standardTitleBarHeight + View.statusBarHeight
+        color: "#7BCF6A"
+
+        Text {
+            id: title
+            width: parent.width - height - 6*Devices.density
+            height: Devices.standardTitleBarHeight
+            y: View.statusBarHeight
+            x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
+            verticalAlignment: Text.AlignVCenter
+            color: "#ffffff"
+            font.family: AsemanApp.globalFont.family
+            font.pixelSize: 14*Devices.fontDensity
+        }
     }
 
     Rectangle {
         height: 4*Devices.density
         width: parent.width
-        anchors.top: title.bottom
+        anchors.top: title_bar.bottom
         z: 10
         gradient: Gradient {
-            GradientStop { position: 0.0; color: "#887BCF6A" }
+            GradientStop { position: 0.0; color: "#33000000" }
             GradientStop { position: 1.0; color: "#00000000" }
         }
     }
 
-    Text {
-        id: desc_txt
-        anchors.left: parent.left
-        anchors.top: title.bottom
-        anchors.right: parent.right
-        anchors.margins: 8*Devices.density
-        font.family: AsemanApp.globalFont.family
-        font.pixelSize: 9*Devices.fontDensity
-        color: "#444444"
-        text: qsTr("List of other opensource projects used in Meikade.")
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-    }
-
     ListView {
         id: preference_list
-        anchors.top: desc_txt.bottom
+        anchors.top: title_bar.bottom
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         anchors.right: parent.right
@@ -75,6 +70,16 @@ Rectangle {
                 properties: "x,y"
                 duration: 0
             }
+        }
+
+        header: Text {
+            width: preference_list.width
+            anchors.margins: 8*Devices.density
+            font.family: AsemanApp.globalFont.family
+            font.pixelSize: 9*Devices.fontDensity
+            color: "#444444"
+            text: qsTr("List of other opensource projects used in Meikade.")
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         }
 
         model: ListModel {}
@@ -174,9 +179,7 @@ Rectangle {
         title.text = qsTr("Open Source Projects")
     }
 
-    Component.onDestruction: backButtonColor = "#ffffff"
     Component.onCompleted: {
-        backButtonColor = "#333333"
         initTranslations()
     }
 }

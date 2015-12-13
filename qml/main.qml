@@ -14,6 +14,7 @@ AsemanMain {
 
     property alias stg: s_tg
     property alias telegram: tg
+    property alias storeManager: str_mgr
 
     property LoginScreen loginScreen
     property TelegramMain superTelegram
@@ -41,13 +42,18 @@ AsemanMain {
     }
 
     StoreManager {
-        id: storeManager
+        id: str_mgr
         publicKey: "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCapdy2RlWlw7g5/s0Iw/pSCYNCVnmqvfPTNTNL1VifE5250K4E4zj34JlinmHuzUSSUWVI3InHboBl1UFDb5bJIKX8O/whfXHTVbiXmICJRrAcHKRE3UM6XCgbIMZRUS72GS6VKYNrcKLiajVNMN2E889+XtcEUqpiCMOKsFoNg5iUFewFScKCNxVtai9TpifGhY7Rm7EyW7yKrT2plUBy7IXSW3FEaoD3R8e75k0CAwEAAQ=="
         packageName: "com.farsitel.bazaar"
         bindIntent: "ir.cafebazaar.pardakht.InAppBillingService.BIND"
         cacheSource: AsemanApp.homePath + "/store.cache"
 
         property int meikade_donate_1000
+
+        property bool isPremiumNumber: stg.checkPremiumNumber(tg.phoneNumber)
+        property bool is30DayTrialNumber: stg.check30DayTrialNumber(tg.phoneNumber)
+
+        onIsPremiumNumberChanged: console.debug(isPremiumNumber)
 
         Component.onCompleted: setup()
     }

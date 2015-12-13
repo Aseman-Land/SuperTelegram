@@ -6,22 +6,30 @@ Rectangle {
     id: configure
     color: "#fcfcfc"
 
-    Text {
-        id: title_txt
-        width: parent.width - height - 6*Devices.density
-        height: Devices.standardTitleBarHeight
-        y: View.statusBarHeight
-        x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
-        verticalAlignment: Text.AlignVCenter
-        color: "#333333"
-        font.family: AsemanApp.globalFont.family
-        font.pixelSize: 14*Devices.fontDensity
+
+    Rectangle {
+        id: title_bar
+        width: parent.width
+        height: Devices.standardTitleBarHeight + View.statusBarHeight
+        color: "#411377"
+
+        Text {
+            id: title_txt
+            width: parent.width - height - 6*Devices.density
+            height: Devices.standardTitleBarHeight
+            y: View.statusBarHeight
+            x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
+            verticalAlignment: Text.AlignVCenter
+            color: "#ffffff"
+            font.family: AsemanApp.globalFont.family
+            font.pixelSize: 14*Devices.fontDensity
+        }
     }
 
     AsemanFlickable {
         id: flickable
         width: parent.width
-        anchors.top: title_txt.bottom
+        anchors.top: title_bar.bottom
         anchors.bottom: parent.bottom
         flickableDirection: Flickable.VerticalFlick
         clip: true
@@ -92,7 +100,7 @@ Rectangle {
         anchors.top: flickable.top
         z: 10
         gradient: Gradient {
-            GradientStop { position: 0.0; color: "#880d80ec" }
+            GradientStop { position: 0.0; color: "#33000000" }
             GradientStop { position: 1.0; color: "#00000000" }
         }
     }
@@ -107,10 +115,8 @@ Rectangle {
         language_txt.text = qsTr("Languages")
     }
 
-    Component.onDestruction: backButtonColor = "#ffffff"
     Component.onCompleted: {
         initTranslations()
-        backButtonColor = "#333333"
     }
 }
 
