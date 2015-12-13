@@ -5,6 +5,7 @@
 #include <QCamera>
 #include <QCameraImageCapture>
 
+class UpdatesType;
 class StgActionCaptureImagePrivate;
 class StgActionCaptureImage : public AbstractStgAction
 {
@@ -18,6 +19,7 @@ public:
 
 private slots:
     void imageCaptured(int id, const QString &path);
+    void messagesSendMediaAnswer(qint64 id, const UpdatesType &updates);
 
 private:
     StgActionCaptureImagePrivate *p;

@@ -42,14 +42,12 @@ void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToI
     p->replyToId = replyToId;
 
     p->locationListener = new AsemanLocationListener(this);
-    if (p->locationListener)
-    {
-        connect(p->locationListener, SIGNAL(positionUpdated(QGeoPositionInfo)),
-                SLOT(positionUpdated(QGeoPositionInfo)));
-        p->locationListener->requestLocationUpdates(1000);
-    }
-    else
-        emit finished();
+
+    p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to find the location.\nPlease Wait..."), p->replyToId);
+
+    connect(p->locationListener, SIGNAL(positionUpdated(QGeoPositionInfo)),
+            SLOT(positionUpdated(QGeoPositionInfo)));
+    p->locationListener->requestLocationUpdates(1000);
 }
 
 void StgActionGetGeo::positionUpdated(const QGeoPositionInfo &update)
@@ -57,6 +55,7 @@ void StgActionGetGeo::positionUpdated(const QGeoPositionInfo &update)
     if(!update.isValid())
     {
         qDebug() << "The update is invalid!";
+        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Sorry. There is an error.\nI can't find the location :("), p->replyToId);
         emit finished();
         return;
     }
@@ -67,7 +66,9 @@ void StgActionGetGeo::positionUpdated(const QGeoPositionInfo &update)
 
     p->telegram->messagesSendGeoPoint(p->peer, SuperTelegramService::generateRandomId(), geo, p->replyToId);
     if(!p->attachedMsg.isEmpty())
-        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), p->attachedMsg, p->replyToId);
+        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(),
+                                         p->attachedMsg.replace("%location%","%1, %2").arg(geo.lat()).arg(geo.longValue()),
+                                         p->replyToId);
 
     emit finished();
 }
