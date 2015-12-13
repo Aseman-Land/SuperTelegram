@@ -44,7 +44,8 @@ void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToI
     p->locationListener = new AsemanLocationListener(this);
     if (p->locationListener)
     {
-        connect(p->locationListener, SIGNAL(positionUpdated(QGeoPositionInfo)), SLOT(positionUpdated(QGeoPositionInfo)));
+        connect(p->locationListener, SIGNAL(positionUpdated(QGeoPositionInfo)),
+                SLOT(positionUpdated(QGeoPositionInfo)));
         p->locationListener->requestLocationUpdates(1000);
     }
     else

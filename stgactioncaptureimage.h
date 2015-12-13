@@ -17,15 +17,7 @@ public:
     void start(Telegram *tg, const InputPeer &peer, qint64 replyToId = 0, const QString &attachedMsg = QString());
 
 private slots:
-    void cameraStartFailed(QCamera::Error error);
-    void cameraStateChanged(QCamera::State state);
-    void cameraLocked();
-    void cameraLockFailed();
-    void cameraCaptureImageSaved(int id, const QString &fileName);
-    void cameraCaptureError(int id, QCameraImageCapture::Error error, const QString &errorString);
-
-private:
-    void finish();
+    void imageCaptured(int id, const QString &path);
 
 private:
     StgActionCaptureImagePrivate *p;

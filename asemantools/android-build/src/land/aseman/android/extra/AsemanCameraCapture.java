@@ -34,11 +34,16 @@ import android.view.WindowManager;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.os.Environment;
 import java.util.HashMap;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Date;
 import java.lang.Runnable;
+import java.text.SimpleDateFormat;
 import android.os.Handler;
 
 public class AsemanCameraCapture
@@ -47,10 +52,27 @@ public class AsemanCameraCapture
 
     public native void _imageCaptured(int id, String path);
 
-    public void capture(final int id, final String path) {
+    public void capture(final int id, final String path, final boolean frontCamera) {
+        Context context;
+        context = AsemanApplication.getAppContext();
+
+        Handler mainHandler = new Handler(context.getMainLooper());
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    takePhoto(id, path,
+                              frontCamera? Camera.CameraInfo.CAMERA_FACING_FRONT :
+                                           Camera.CameraInfo.CAMERA_FACING_BACK);
+                } catch (Exception e) {
+                    _imageCaptured(id, "");
+                }
+            }
+        };
+        mainHandler.post(myRunnable);
     }
 
-    private static void takePhoto() {
+    private void takePhoto(final int actionId, final String path, final int cameraType) {
         Context context;
         context = AsemanApplication.getAppContext();
 
@@ -68,7 +90,12 @@ public class AsemanCameraCapture
                 Camera camera = null;
 
                 try {
-                    camera = Camera.open();
+                    camera = openCamera(cameraType);
+                    if(camera == null) {
+                        _imageCaptured(actionId, "");
+                        return;
+                    }
+
                     Log.d(TAG, "Opened camera");
 
                     try {
@@ -85,12 +112,15 @@ public class AsemanCameraCapture
                         @Override
                         public void onPictureTaken(byte[] data, Camera camera) {
                             Log.d(TAG, "Took picture");
+                            savePicture(data, path);
                             camera.release();
+                            _imageCaptured(actionId, path);
                         }
                     });
                 } catch (Exception e) {
                     if (camera != null)
                         camera.release();
+                    _imageCaptured(actionId, "");
                     throw new RuntimeException(e);
                 }
             }
@@ -109,5 +139,39 @@ public class AsemanCameraCapture
 
         //Don't set the preview visibility to GONE or INVISIBLE
         wm.addView(preview, params);
+    }
+
+    /** null if unable to save the file */
+    public boolean savePicture(byte[] data, String filePath) {
+        try {
+            File pictureFile = new File(filePath);
+
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            fos.write(data);
+            fos.close();
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Camera openCamera(final int type) {
+        int cameraCount = 0;
+        Camera cam = null;
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        cameraCount = Camera.getNumberOfCameras();
+        for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+            Camera.getCameraInfo(camIdx, cameraInfo);
+            if (cameraInfo.facing == type) {
+                try {
+                    cam = Camera.open(camIdx);
+                } catch (RuntimeException e) {
+                    Log.e(TAG, "Camera failed to open: " + e.getLocalizedMessage());
+                }
+            }
+        }
+
+        return cam;
     }
 }
