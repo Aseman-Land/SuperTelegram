@@ -96,7 +96,7 @@ Item {
                         width: parent.width
                         horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                         text: name
-                        font.pixelSize: 11*Devices.fontDensity
+                        font.pixelSize: 11*fontRatio*Devices.fontDensity
                         font.family: AsemanApp.globalFont.family
                         color: "#333333"
                     }
@@ -105,7 +105,7 @@ Item {
                         width: parent.width
                         horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                         text: model.component? description : qsTr("Coming Soon")
-                        font.pixelSize: 9*Devices.fontDensity
+                        font.pixelSize: 9*fontRatio*Devices.fontDensity
                         font.family: AsemanApp.globalFont.family
                         color: model.component? "#aaaaaa" : "#aa0000"
                         wrapMode: Text.WrapAnywhere

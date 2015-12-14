@@ -56,7 +56,7 @@ Item {
             Text {
                 anchors.centerIn: parent
                 color: "#333333"
-                font.pixelSize: 10*Devices.fontDensity
+                font.pixelSize: 10*fontRatio*Devices.fontDensity
                 text: name
             }
 
@@ -92,14 +92,14 @@ Item {
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#ffffff"
-            font.pixelSize: 17*Devices.fontDensity
+            font.pixelSize: 17*fontRatio*Devices.fontDensity
             text: qsTr("Make Telegram Easier")
         }
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#ffffff"
-            font.pixelSize: 11*Devices.fontDensity
+            font.pixelSize: 11*fontRatio*Devices.fontDensity
             text: qsTr("Many useful tools for telegram")
         }
     }

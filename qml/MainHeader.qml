@@ -96,7 +96,7 @@ Item {
 
     Text {
         text: main.telegram.myUser? (main.telegram.myUser.firstName + " " + main.telegram.myUser.lastName).trim() : qsTr("Updating...")
-        font.pixelSize: 14*Devices.fontDensity
+        font.pixelSize: 14*fontRatio*Devices.fontDensity
         color: "#ffffff"
         y: {
             var second = minHeaderHeight/2-height/2+statusBarHeight/2

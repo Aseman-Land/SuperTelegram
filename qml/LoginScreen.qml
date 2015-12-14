@@ -164,7 +164,7 @@ Rectangle {
 
     Text {
         text: "Super Telegram"
-        font.pixelSize: 14*Devices.fontDensity
+        font.pixelSize: 14*fontRatio*Devices.fontDensity
         color: "#ffffff"
         y: {
             var second = minHeaderHeight/2-height/2+statusBarHeight/2
@@ -191,8 +191,9 @@ Rectangle {
         height: 42*Devices.density
         text: qsTr("Try It")
         style: ButtonStyle {
-            fontPixelSize: 10*Devices.fontDensity
+            fontPixelSize: 9*fontRatio*Devices.fontDensity
             buttonColor: "#0d80ec"
+            buttonTextColor: "#ffffff"
         }
         onClicked: ls_country.gotoZero()
     }
@@ -234,7 +235,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.verticalCenter
             anchors.topMargin: 25*Devices.density
-            font.pixelSize: 11*Devices.fontDensity
+            font.pixelSize: 11*fontRatio*Devices.fontDensity
             color: "#ffffff"
             text: qsTr("Please Wait...")
         }

@@ -230,21 +230,21 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
         foreach(const SensMessage &sens, p->sensMessages)
             if(message.toLower().trimmed() == sens.key.toLower().trimmed())
             {
-                if(sens.value.contains("%location%"))
+                if(sens.value.contains(StgActionGetGeo::keyword()))
                 {
-                    QString attachedText = tr("Auto message by SuperTelegram: %1").arg(QString(sens.value));
+                    QString attachedText = tr("%1\nby SuperTelegram").arg(QString(sens.value));
                     StgActionGetGeo *action = new StgActionGetGeo(this);
                     action->start(p->telegram, input, id, attachedText);
                 }
                 else
-                if(sens.value.contains("%camera%"))
+                if(sens.value.contains(StgActionCaptureImage::keyword()))
                 {
-                    QString attachedText = tr("Auto message by SuperTelegram: %1").arg(QString(sens.value));
+                    QString attachedText = tr("%1\nby SuperTelegram").arg(QString(sens.value));
                     StgActionCaptureImage *action = new StgActionCaptureImage(this);
                     action->start(p->telegram, input, id, attachedText);
                 }
                 else
-                    p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(QString(sens.value)));
+                    p->telegram->messagesSendMessage(input, generateRandomId(), tr("%1\nby SuperTelegram").arg(QString(sens.value)));
 
                 p->answeredMessages.insert(id);
                 break;

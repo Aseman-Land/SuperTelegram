@@ -35,7 +35,7 @@ Item {
             width: parent.width
             anchors.top: add_header.bottom
             anchors.bottom: parent.bottom
-            root: "/home/bardia"
+            root: AsemanApp.startPath
             gridWidth: 100*Devices.density
             onClickedOnFile: add_item.clickedOnFile(fileUrl)
             onRootChanged: {
@@ -45,7 +45,7 @@ Item {
                 back_stack.append(root)
             }
 
-            property string startRoot: "/home/bardia"
+            property string startRoot: AsemanApp.startPath
         }
 
         Rectangle {

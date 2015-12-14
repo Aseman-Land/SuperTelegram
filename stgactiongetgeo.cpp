@@ -23,9 +23,9 @@ StgActionGetGeo::StgActionGetGeo(QObject *parent) :
     p->replyToId = 0;
 }
 
-QStringList StgActionGetGeo::keywords() const
+QString StgActionGetGeo::keyword()
 {
-    return QStringList() << "%location%";
+    return "%location%";
 }
 
 void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToId, const QString &attachedMsg)
@@ -67,7 +67,7 @@ void StgActionGetGeo::positionUpdated(const QGeoPositionInfo &update)
     p->telegram->messagesSendGeoPoint(p->peer, SuperTelegramService::generateRandomId(), geo, p->replyToId);
     if(!p->attachedMsg.isEmpty())
         p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(),
-                                         p->attachedMsg.replace("%location%","%1, %2").arg(geo.lat()).arg(geo.longValue()),
+                                         p->attachedMsg.replace(keyword(),"%1, %2").arg(geo.lat()).arg(geo.longValue()),
                                          p->replyToId);
 
     emit finished();

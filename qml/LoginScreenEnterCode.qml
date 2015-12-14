@@ -50,8 +50,9 @@ Item {
             height: 42*Devices.density
             text: qsTr("Login")
             style: ButtonStyle {
-                fontPixelSize: 10*Devices.fontDensity
+                fontPixelSize: 9*fontRatio*Devices.fontDensity
                 buttonColor: "#0d80ec"
+                buttonTextColor: "#ffffff"
             }
             onClicked: column.accept()
         }
@@ -77,7 +78,7 @@ Item {
         Controls.TextField {
             width: parent.width
             placeholderText: qsTr("Code")
-            font.pixelSize: 10*Devices.fontDensity
+            font.pixelSize: 10*fontRatio*Devices.fontDensity
             validator: RegExpValidator{regExp: /\d*/}
             onAccepted: column.accept()
         }
@@ -89,7 +90,7 @@ Item {
             width: parent.width
             placeholderText: qsTr("Code")
             textColor: "#ffffff"
-            font.pixelSize: 10*Devices.fontDensity
+            font.pixelSize: 10*fontRatio*Devices.fontDensity
             validator: RegExpValidator{regExp: /\d*/}
             inputMethodHints: Qt.ImhDigitsOnly
             onAccepted: column.accept()

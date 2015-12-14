@@ -38,7 +38,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             color: "#ffffff"
             font.family: AsemanApp.globalFont.family
-            font.pixelSize: 14*Devices.fontDensity
+            font.pixelSize: 14*fontRatio*Devices.fontDensity
         }
     }
 
@@ -76,7 +76,7 @@ Rectangle {
             width: preference_list.width
             anchors.margins: 8*Devices.density
             font.family: AsemanApp.globalFont.family
-            font.pixelSize: 9*Devices.fontDensity
+            font.pixelSize: 9*fontRatio*Devices.fontDensity
             color: "#444444"
             text: qsTr("List of other opensource projects used in Meikade.")
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
@@ -103,7 +103,7 @@ Rectangle {
 
                     Text {
                         id: title_txt
-                        font.pixelSize: 14*Devices.fontDensity
+                        font.pixelSize: 14*fontRatio*Devices.fontDensity
                         font.family: AsemanApp.globalFont.family
                         anchors.left: parent.left
                         color: "#444444"
@@ -112,7 +112,7 @@ Rectangle {
 
                     Text {
                         id: license_txt
-                        font.pixelSize: 10*Devices.fontDensity
+                        font.pixelSize: 10*fontRatio*Devices.fontDensity
                         font.family: AsemanApp.globalFont.family
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
@@ -123,7 +123,7 @@ Rectangle {
 
                 Text {
                     id: description_txt
-                    font.pixelSize: 9*Devices.fontDensity
+                    font.pixelSize: 9*fontRatio*Devices.fontDensity
                     font.family: AsemanApp.globalFont.family
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -134,7 +134,7 @@ Rectangle {
 
                 Text {
                     id: link_txt
-                    font.pixelSize: 9*Devices.fontDensity
+                    font.pixelSize: 9*fontRatio*Devices.fontDensity
                     font.family: AsemanApp.globalFont.family
                     color: "#0d80ec"
                     text: link

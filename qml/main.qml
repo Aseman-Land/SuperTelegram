@@ -15,22 +15,37 @@ AsemanMain {
     property alias stg: s_tg
     property alias telegram: tg
     property alias storeManager: str_mgr
+    property alias emojis: emjs
 
     property LoginScreen loginScreen
     property TelegramMain superTelegram
 
     property color backButtonColor: "#ffffff"
+    property bool fontsLoaded: false
+
+    property real fontRatio: 1
 
     SuperTelegram {
         id: s_tg
         view: View
-        onCurrentLanguageChanged: if(currentLanguage == "Persian") AsemanApp.globalFont.family = "IranSans"
         onLanguageDirectionChanged: View.layoutDirection = languageDirection
+        onCurrentLanguageChanged: refreshFont()
         Component.onDestruction: startService()
         Component.onCompleted: {
-            AsemanApp.globalFont.family = "IranSans"
-            View.layoutDirection = languageDirection
+            refreshFont()
             stopService()
+        }
+
+        function refreshFont() {
+            if(currentLanguage == "Persian") {
+                AsemanApp.globalFont.family = "Iran-Sans"
+                View.layoutDirection = languageDirection
+                fontRatio = 0.86
+            } else {
+                AsemanApp.globalFont.family = "Droid Sans"
+                View.layoutDirection = languageDirection
+                fontRatio = 1
+            }
         }
     }
 
@@ -52,8 +67,6 @@ AsemanMain {
 
         property bool isPremiumNumber: stg.checkPremiumNumber(tg.phoneNumber)
         property bool is30DayTrialNumber: stg.check30DayTrialNumber(tg.phoneNumber)
-
-        onIsPremiumNumberChanged: console.debug(isPremiumNumber)
 
         Component.onCompleted: setup()
     }
@@ -89,6 +102,15 @@ AsemanMain {
             loginScreen.moveToCode(phoneNumber)
         }
         onTelegramChanged: if(telegram) service.start(telegram, stg, hostChecker)
+        onAuthLoggedOut: {
+            stg.phoneNumber = ""
+            View.tryClose()
+        }
+    }
+
+    Emojis {
+        id: emjs
+        currentTheme: "twitter"
     }
 
     Component {
@@ -104,6 +126,25 @@ AsemanMain {
             anchors.fill: parent
             onColorChanged: main.color = color
         }
+    }
+
+    Component {
+        id: font_loader_component
+        FontLoader{
+            source: Devices.resourcePath + "/fonts/" + fontName + ".ttf"
+            property string fontName
+        }
+    }
+
+    function loadFonts() {
+        if(fontsLoaded)
+            return
+
+        var fonts = stg.availableFonts()
+        for(var i=0; i<fonts.length; i++)
+            font_loader_component.createObject(main, {"fontName": fonts[i]})
+
+        fontsLoaded = true
     }
 
     function refresh() {
@@ -127,6 +168,7 @@ AsemanMain {
     }
 
     Component.onCompleted: {
+        loadFonts()
         refresh()
     }
 }

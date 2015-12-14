@@ -11,7 +11,7 @@ FeaturePageType1 {
     height: 62
     model: smodel.stickerSets
     disableMaterialDesign: true
-    activeIndicator: smodel.stickerSets.length == 0
+    activeIndicator: smodel.initializing
 
     property string editId
 
@@ -78,7 +78,7 @@ FeaturePageType1 {
                 anchors.verticalCenter: parent.verticalCenter
                 text: sitem.stickerSet.title
                 color: "#333333"
-                font.pixelSize: 11*Devices.fontDensity
+                font.pixelSize: 11*fontRatio*Devices.fontDensity
             }
         }
 
@@ -111,7 +111,7 @@ FeaturePageType1 {
                 id: text_area
                 width: parent.width
                 text: qsTr("Are you sure about removing this sticker set?")
-                font.pixelSize: 11*Devices.fontDensity
+                font.pixelSize: 11*fontRatio*Devices.fontDensity
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 color: "#333333"
             }

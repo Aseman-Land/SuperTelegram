@@ -15,6 +15,9 @@ PageManagerItem {
     property alias editMode: mbtn.opened
     property alias addMode: add_dialog.addMode
 
+    property alias description: desc_txt.text
+    property alias descriptionVisiblity: desc_txt.visible
+
     property Component editDelegate
     property alias itemDelegate: listv.delegate
     property alias model: listv.model
@@ -100,7 +103,7 @@ PageManagerItem {
             Text {
                 id: header_txt
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 14*Devices.fontDensity
+                font.pixelSize: 14*fontRatio*Devices.fontDensity
                 color: backButtonColor
                 x: View.layoutDirection==Qt.RightToLeft? parent.width-width : 0
             }
@@ -139,6 +142,18 @@ PageManagerItem {
         id: listv
         anchors.fill: parent
         anchors.topMargin: headerY
+    }
+
+    Text {
+        id: desc_txt
+        anchors.centerIn: listv
+        horizontalAlignment: Text.AlignHCenter
+        width: parent.width-40*Devices.density
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        color: "#888888"
+        font.family: AsemanApp.globalFont.family
+        font.pixelSize: 9*fontRatio*Devices.fontDensity
+        visible: listv.count == 0
     }
 
     ScrollBar {

@@ -39,7 +39,7 @@ Item {
             id: code_txt
             width: parent.width
             color: "#ffffff"
-            font.pixelSize: 30*Devices.fontDensity
+            font.pixelSize: 30*fontRatio*Devices.fontDensity
             text: "+" + callingCode
         }
 
@@ -61,8 +61,9 @@ Item {
             height: 42*Devices.density
             text: qsTr("Request Code")
             style: ButtonStyle {
-                fontPixelSize: 10*Devices.fontDensity
+                fontPixelSize: 9*fontRatio*Devices.fontDensity
                 buttonColor: "#0d80ec"
+                buttonTextColor: "#ffffff"
             }
             onClicked: column.accept()
         }
@@ -91,7 +92,7 @@ Item {
         Controls.TextField {
             width: parent.width
             placeholderText: qsTr("Phone Number")
-            font.pixelSize: 10*Devices.fontDensity
+            font.pixelSize: 10*fontRatio*Devices.fontDensity
             validator: RegExpValidator{regExp: /\d*/}
             onAccepted: column.accept()
         }
@@ -103,7 +104,7 @@ Item {
             width: parent.width
             placeholderText: qsTr("Phone Number")
             textColor: "#ffffff"
-            font.pixelSize: 10*Devices.fontDensity
+            font.pixelSize: 10*fontRatio*Devices.fontDensity
             validator: RegExpValidator{regExp: /\d*/}
             inputMethodHints: Qt.ImhDigitsOnly
             onAccepted: column.accept()

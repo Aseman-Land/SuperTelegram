@@ -246,6 +246,11 @@ bool SuperTelegram::check30DayTrialNumber(const QString &number)
         return false;
 }
 
+QStringList SuperTelegram::availableFonts()
+{
+    return QStringList() << "IRAN-Sans";
+}
+
 int SuperTelegram::languageDirection() const
 {
     return p->locales.value(currentLanguage()).textDirection();

@@ -51,7 +51,7 @@ Item {
                 Text {
                     color: "#ffffff"
                     text: name
-                    font.pixelSize: 11*Devices.fontDensity
+                    font.pixelSize: 11*fontRatio*Devices.fontDensity
                     font.family: AsemanApp.globalFont.family
                 }
             }

@@ -8,6 +8,9 @@ import "../"
 FeaturePageType1 {
     id: smsg
     model: smodel
+    description: qsTr("Description of the Timer Message.\n" +
+                      "It's important\n" +
+                      "Because Because Because.")
 
     property string editKey
     property string editValue
@@ -69,7 +72,7 @@ FeaturePageType1 {
                     id: name_text
                     width: parent.width
                     horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
-                    font.pixelSize: 11*Devices.fontDensity
+                    font.pixelSize: 11*fontRatio*Devices.fontDensity
                     color: "#333333"
                     text: model.key
                 }
@@ -78,7 +81,7 @@ FeaturePageType1 {
                     id: desc_text
                     width: parent.width
                     horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
-                    font.pixelSize: 9*Devices.fontDensity
+                    font.pixelSize: 9*fontRatio*Devices.fontDensity
                     color: "#aaaaaa"
                     wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight
@@ -126,6 +129,14 @@ FeaturePageType1 {
                 width: parent.width
                 height: 100*Devices.density
                 placeholder: qsTr("Your Message")
+            }
+
+            Text {
+                id: keywords
+                font.family: AsemanApp.globalFont.family
+                font.pixelSize: 8*fontRatio*Devices.fontDensity
+                color: "#888888"
+                text: qsTr("Available keywords: %location% %camera%")
             }
 
             Item {width: 1; height: 10*Devices.density}

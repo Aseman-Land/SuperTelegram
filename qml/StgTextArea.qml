@@ -18,7 +18,7 @@ Item {
 
     Text {
         id: txt
-        font.pixelSize: 10*Devices.fontDensity
+        font.pixelSize: 10*fontRatio*Devices.fontDensity
         color: "#888888"
         x: {
             var result = 8*Devices.density

@@ -9,6 +9,9 @@ FeaturePageType1 {
     model: tmodel
     activeIndicator: tmodel.initializing
     autoAddDialog: true
+    description: qsTr("Description of the Timer Message.\n" +
+                      "It's important\n" +
+                      "Because Because Because.")
 
     property string editText
     property string editGuid
@@ -83,7 +86,7 @@ FeaturePageType1 {
         Text {
             anchors.verticalCenter: parent.verticalCenter
             x: View.layoutDirection==Qt.RightToLeft? 10*Devices.density : parent.width-width-10*Devices.density
-            font.pixelSize: 10*Devices.fontDensity
+            font.pixelSize: 10*fontRatio*Devices.fontDensity
             font.weight: Font.DemiBold
             color: "#ff5555"
             text: stg.getTimesDiff(new Date, model.dateTime)

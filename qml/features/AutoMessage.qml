@@ -8,6 +8,10 @@ import "../"
 FeaturePageType1 {
     id: amp
     model: amodel
+    descriptionVisiblity: amodel.count <= 1
+    description: qsTr("Description of the Timer Message.\n" +
+                      "It's important\n" +
+                      "Because Because Because.")
 
     property string editGuid
     property string editMessage
@@ -59,7 +63,7 @@ FeaturePageType1 {
                 anchors.verticalCenter: parent.verticalCenter
                 text: model.message
                 color: "#333333"
-                font.pixelSize: 11*Devices.fontDensity
+                font.pixelSize: 11*fontRatio*Devices.fontDensity
             }
         }
 

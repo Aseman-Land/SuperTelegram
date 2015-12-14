@@ -15,7 +15,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         color: "#333333"
         font.family: AsemanApp.globalFont.family
-        font.pixelSize: 14*Devices.fontDensity
+        font.pixelSize: 14*fontRatio*Devices.fontDensity
         text: qsTr("Donate")
     }
 

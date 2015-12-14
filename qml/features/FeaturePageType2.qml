@@ -97,7 +97,7 @@ PageManagerItem {
             Text {
                 id: header_txt
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 14*Devices.fontDensity
+                font.pixelSize: 14*fontRatio*Devices.fontDensity
                 color: backButtonColor
                 x: View.layoutDirection==Qt.RightToLeft? parent.width-width : 0
             }

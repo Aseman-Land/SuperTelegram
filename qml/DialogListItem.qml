@@ -39,6 +39,7 @@ Item {
         anchors.centerIn: parent
         layoutDirection: View.layoutDirection
         spacing: 10*Devices.density
+        height: parent.height
 
         ProfilePicture {
             id: pic_frame
@@ -55,13 +56,17 @@ Item {
             spacing: 2*Devices.density
             anchors.verticalCenter: parent.verticalCenter
             width: parent.width - parent.spacing - pic_frame.width
+            height: parent.height
 
             Text {
                 id: name_text
                 width: parent.width
+                height: parent.height/2
+                verticalAlignment: Text.AlignBottom
                 horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
-                font.pixelSize: 11*Devices.fontDensity
+                font.pixelSize: 11*fontRatio*Devices.fontDensity
                 color: "#333333"
+                textFormat: Text.RichText
                 text: {
                     var result = ""
                     if(pic_frame.isChat)
@@ -69,15 +74,17 @@ Item {
                     else
                         result = pic_frame.user.firstName + " " + pic_frame.user.lastName
                     result = result.trim()
-                    return result
+                    return emojis.textToEmojiText(result,16*Devices.density,true,Devices.isAndroid)
                 }
             }
 
             Text {
                 id: desc_text
                 width: parent.width
+                height: parent.height/2
+                verticalAlignment: Text.AlignTop
                 horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
-                font.pixelSize: 9*Devices.fontDensity
+                font.pixelSize: 9*fontRatio*Devices.fontDensity
                 color: "#aaaaaa"
                 wrapMode: Text.WrapAnywhere
                 elide: Text.ElideRight

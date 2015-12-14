@@ -60,6 +60,7 @@ public:
 
     Q_INVOKABLE bool checkPremiumNumber(const QString &number);
     Q_INVOKABLE bool check30DayTrialNumber(const QString &number);
+    Q_INVOKABLE QStringList availableFonts();
 
     int languageDirection() const;
 

@@ -20,7 +20,7 @@ Rectangle {
             verticalAlignment: Text.AlignVCenter
             color: "#ffffff"
             font.family: AsemanApp.globalFont.family
-            font.pixelSize: 14*Devices.fontDensity
+            font.pixelSize: 14*fontRatio*Devices.fontDensity
             text: qsTr("Store")
         }
     }

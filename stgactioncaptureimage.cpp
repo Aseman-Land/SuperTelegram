@@ -32,9 +32,9 @@ StgActionCaptureImage::StgActionCaptureImage(QObject *parent) :
     p->reqId = 0;
 }
 
-QStringList StgActionCaptureImage::keywords() const
+QString StgActionCaptureImage::keyword()
 {
-    return QStringList() << "%camera%" << "%capture%";
+    return "%camera%";
 }
 
 void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 replyToId, const QString &attachedMsg)

@@ -128,7 +128,6 @@ public class AsemanJavaLayer
     {
         Context oContext;
         oContext = AsemanApplication.getAppContext();
-        Log.d("asdd", oContext.getPackageName());
         return oContext.getPackageName();
     }
 

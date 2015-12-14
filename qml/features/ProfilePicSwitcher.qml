@@ -135,7 +135,7 @@ FeaturePageType2 {
             Text {
                 id: header_txt
                 anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 14*Devices.fontDensity
+                font.pixelSize: 14*fontRatio*Devices.fontDensity
                 color: backButtonColor
                 x: View.layoutDirection==Qt.RightToLeft? parent.width-width : 0
                 text: qsTr("Picture switcher")
@@ -173,7 +173,7 @@ FeaturePageType2 {
                 id: text_area
                 width: parent.width
                 text: qsTr("Are you sure about removing this sticker set?")
-                font.pixelSize: 11*Devices.fontDensity
+                font.pixelSize: 11*fontRatio*Devices.fontDensity
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 color: "#333333"
             }

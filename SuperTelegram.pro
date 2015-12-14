@@ -11,7 +11,11 @@ server.source = tg-server.pub
 server.target = $${DESTDIR}
 translationFiles.source = translations
 translationFiles.target = files
-DEPLOYMENTFOLDERS = server translationFiles
+fonts.source = fonts
+fonts.target = .
+emojis.source = emojis
+emojis.target = $${DESTDIR}
+DEPLOYMENTFOLDERS = server translationFiles fonts emojis
 
 include(asemantools/asemantools.pri)
 include(qmake/qtcAddDeployment.pri)
@@ -34,7 +38,8 @@ SOURCES += main.cpp \
     servicedatabase.cpp \
     abstractstgaction.cpp \
     stgactiongetgeo.cpp \
-    stgactioncaptureimage.cpp
+    stgactioncaptureimage.cpp \
+    emojis.cpp
 
 RESOURCES += \
     resource.qrc
@@ -54,7 +59,8 @@ HEADERS += \
     servicedatabase.h \
     abstractstgaction.h \
     stgactiongetgeo.h \
-    stgactioncaptureimage.h
+    stgactioncaptureimage.h \
+    emojis.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

@@ -4,17 +4,17 @@
 <context>
     <name>AboutNileGroup</name>
     <message>
-        <location filename="../qml/AboutNileGroup.qml" line="20"/>
+        <location filename="../qml/AboutNileGroup.qml" line="19"/>
         <source>About Team</source>
         <translation>درباره تیم</translation>
     </message>
     <message>
-        <location filename="../qml/AboutNileGroup.qml" line="52"/>
+        <location filename="../qml/AboutNileGroup.qml" line="51"/>
         <source>Nile Group</source>
         <translation>گروه نیل</translation>
     </message>
     <message>
-        <location filename="../qml/AboutNileGroup.qml" line="74"/>
+        <location filename="../qml/AboutNileGroup.qml" line="73"/>
         <source>Home Page</source>
         <translation>صفحه خانگی</translation>
     </message>
@@ -22,12 +22,12 @@
 <context>
     <name>AboutStg</name>
     <message>
-        <location filename="../qml/AboutStg.qml" line="20"/>
+        <location filename="../qml/AboutStg.qml" line="22"/>
         <source>About Application</source>
         <translation>درباره برنامه</translation>
     </message>
     <message>
-        <location filename="../qml/AboutStg.qml" line="72"/>
+        <location filename="../qml/AboutStg.qml" line="95"/>
         <source>Home Page</source>
         <translation>صفحه خانگی</translation>
     </message>
@@ -53,7 +53,7 @@
 <context>
     <name>AsemanApplication</name>
     <message>
-        <location filename="../main.cpp" line="63"/>
+        <location filename="../main.cpp" line="64"/>
         <source>It&apos;s super telegram application, contains many advance tools, works under the telegram.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -132,17 +132,24 @@
 <context>
     <name>AutoMessage</name>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="22"/>
+        <location filename="../qml/features/AutoMessage.qml" line="12"/>
+        <source>Description of the Timer Message.
+It&apos;s important
+Because Because Because.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/AutoMessage.qml" line="26"/>
         <source>Add new Message</source>
         <translation>پیغام جدید</translation>
     </message>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="24"/>
+        <location filename="../qml/features/AutoMessage.qml" line="28"/>
         <source>Auto Message</source>
         <translation>پیغام اوتوماتیک</translation>
     </message>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="108"/>
+        <location filename="../qml/features/AutoMessage.qml" line="112"/>
         <source>Your Message</source>
         <translation>پیغام شما</translation>
     </message>
@@ -206,12 +213,12 @@
 <context>
     <name>Configure</name>
     <message>
-        <location filename="../qml/Configure.qml" line="20"/>
+        <location filename="../qml/Configure.qml" line="114"/>
         <source>Configure</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location filename="../qml/Configure.qml" line="44"/>
+        <location filename="../qml/Configure.qml" line="115"/>
         <source>Languages</source>
         <translation>زبان‌ها</translation>
     </message>
@@ -273,32 +280,32 @@
 <context>
     <name>DialogListItem</name>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="88"/>
+        <location filename="../qml/DialogListItem.qml" line="95"/>
         <source>%1 participants</source>
         <translation>%1 عضو</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="93"/>
+        <location filename="../qml/DialogListItem.qml" line="100"/>
         <source>Recently</source>
         <translation>به تازگی</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="96"/>
+        <location filename="../qml/DialogListItem.qml" line="103"/>
         <source>Last Month</source>
         <translation>ماه گذشته</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="99"/>
+        <location filename="../qml/DialogListItem.qml" line="106"/>
         <source>Last Week</source>
         <translation>هفته گذشته</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="102"/>
+        <location filename="../qml/DialogListItem.qml" line="109"/>
         <source>Online</source>
         <translation>آنلاین</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="105"/>
+        <location filename="../qml/DialogListItem.qml" line="112"/>
         <source>%1 was online</source>
         <translation>%1 آنلاین بود</translation>
     </message>
@@ -673,26 +680,30 @@
     </message>
     <message>
         <location filename="../qml/MenuList.qml" line="71"/>
+        <source>Store</source>
+        <translation>فروشگاه</translation>
+    </message>
+    <message>
+        <location filename="../qml/MenuList.qml" line="72"/>
         <source>Configure</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="72"/>
         <source>Donate</source>
         <translation>حمایت</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="73"/>
+        <location filename="../qml/MenuList.qml" line="74"/>
         <source>OpenSource Projects</source>
         <translation>پروژه‌های منبع‌باز</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="74"/>
+        <location filename="../qml/MenuList.qml" line="75"/>
         <source>About Nile Group</source>
         <translation>درباره گروه نیل</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="75"/>
+        <location filename="../qml/MenuList.qml" line="76"/>
         <source>About Application</source>
         <translation>درباره برنامه</translation>
     </message>
@@ -708,14 +719,14 @@
 <context>
     <name>OpenSourceProjects</name>
     <message>
-        <location filename="../qml/OpenSourceProjects.qml" line="59"/>
+        <location filename="../qml/OpenSourceProjects.qml" line="81"/>
         <source>List of other opensource projects used in Meikade.</source>
-        <translation type="unfinished"></translation>
+        <translation>لیست پروژه‌های اپن سورسی که در این برنامه از آن‌ها استفاده شده است.</translation>
     </message>
     <message>
-        <location filename="../qml/OpenSourceProjects.qml" line="176"/>
+        <location filename="../qml/OpenSourceProjects.qml" line="179"/>
         <source>Open Source Projects</source>
-        <translation type="unfinished"></translation>
+        <translation>پروژه‌های منبع باز</translation>
     </message>
 </context>
 <context>
@@ -723,7 +734,7 @@
     <message>
         <location filename="../asemantools/qml/AsemanTools/PasteButton.qml" line="46"/>
         <source>Paste</source>
-        <translation type="unfinished">پیست</translation>
+        <translation>پیست</translation>
     </message>
 </context>
 <context>
@@ -731,23 +742,23 @@
     <message>
         <location filename="../qml/features/ProfilePicSwitcher.qml" line="22"/>
         <source>Delete Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>پاک کردن عکس</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePicSwitcher.qml" line="24"/>
         <location filename="../qml/features/ProfilePicSwitcher.qml" line="141"/>
         <source>Picture switcher</source>
-        <translation type="unfinished"></translation>
+        <translation>تغغیر عکس</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePicSwitcher.qml" line="97"/>
         <source>Select file</source>
-        <translation type="unfinished"></translation>
+        <translation>انتخاب فایل</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePicSwitcher.qml" line="175"/>
         <source>Are you sure about removing this sticker set?</source>
-        <translation type="unfinished"></translation>
+        <translation>آیا از پاک کردن این عکس مطمئن هستید؟</translation>
     </message>
 </context>
 <context>
@@ -755,37 +766,37 @@
     <message>
         <location filename="../qml/features/ProfilePictureDialStyle.qml" line="51"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>خاموش</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePictureDialStyle.qml" line="54"/>
         <source>Hour</source>
-        <translation type="unfinished"></translation>
+        <translation>ساعت</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePictureDialStyle.qml" line="57"/>
         <source>Hours</source>
-        <translation type="unfinished"></translation>
+        <translation>ساعت</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePictureDialStyle.qml" line="60"/>
         <source>Day</source>
-        <translation type="unfinished"></translation>
+        <translation>روز</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePictureDialStyle.qml" line="63"/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>روز</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePictureDialStyle.qml" line="66"/>
         <source>Week</source>
-        <translation type="unfinished"></translation>
+        <translation>هفته</translation>
     </message>
     <message>
         <location filename="../qml/features/ProfilePictureDialStyle.qml" line="68"/>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>هفته</translation>
     </message>
 </context>
 <context>
@@ -793,30 +804,42 @@
     <message>
         <location filename="../telegram/telegramqml/demos/Search/SearchList.qml" line="20"/>
         <source>Search Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>کلید جستجو</translation>
     </message>
 </context>
 <context>
     <name>SensMessage</name>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="22"/>
+        <location filename="../qml/features/SensMessage.qml" line="11"/>
+        <source>Description of the Timer Message.
+It&apos;s important
+Because Because Because.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/SensMessage.qml" line="25"/>
         <source>Add new Message</source>
-        <translation type="unfinished">پیغام جدید</translation>
+        <translation>پیغام جدید</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="24"/>
+        <location filename="../qml/features/SensMessage.qml" line="27"/>
         <source>Sensitive Message</source>
-        <translation type="unfinished"></translation>
+        <translation>پیغام حساس</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="120"/>
+        <location filename="../qml/features/SensMessage.qml" line="123"/>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>کلمه</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="127"/>
+        <location filename="../qml/features/SensMessage.qml" line="131"/>
         <source>Your Message</source>
-        <translation type="unfinished">پیغام شما</translation>
+        <translation>پیغام شما</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/SensMessage.qml" line="139"/>
+        <source>Available keywords: %location% %camera%</source>
+        <translation>کلید‌های اضافی: %location% %camera%</translation>
     </message>
 </context>
 <context>
@@ -828,11 +851,44 @@
     </message>
 </context>
 <context>
+    <name>StgActionCaptureImage</name>
+    <message>
+        <location filename="../stgactioncaptureimage.cpp" line="71"/>
+        <source>Image taken and Uploading %1KB :)
+Please Wait...</source>
+        <translation>عکس گرفته شد و در حال آپلود %1KB است :)
+لطفا صبر کنید...</translation>
+    </message>
+    <message>
+        <location filename="../stgactioncaptureimage.cpp" line="75"/>
+        <source>Sorry. There is an error! I can&apos;t take image...</source>
+        <translation>متاسفم. هنگام انداختن عکس خطایی رخ داد...</translation>
+    </message>
+</context>
+<context>
+    <name>StgActionGetGeo</name>
+    <message>
+        <location filename="../stgactiongetgeo.cpp" line="46"/>
+        <source>Your message is recieved my Lord.
+Trying to find the location.
+Please Wait...</source>
+        <translation>پیغام شما دریافت شد سرورم.
+در حال تلاش برای پیدا کردن موقعیت هستم.
+لطفا صبر کنید...</translation>
+    </message>
+    <message>
+        <location filename="../stgactiongetgeo.cpp" line="58"/>
+        <source>Sorry. There is an error.
+I can&apos;t find the location :(</source>
+        <translation>متاسفم. موقعیت پیدا نشد. خطایی رخ داد :(</translation>
+    </message>
+</context>
+<context>
     <name>StickerList</name>
     <message>
         <location filename="../telegram/telegramqml/demos/StickerViewer/StickerList.qml" line="18"/>
         <source>Sticker short name</source>
-        <translation type="unfinished"></translation>
+        <translation>نام کوتاه استیکر</translation>
     </message>
 </context>
 <context>
@@ -845,57 +901,74 @@
     <message>
         <location filename="../qml/features/StickerManager.qml" line="27"/>
         <source>Sticker Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>مدیریت استیکرها</translation>
     </message>
     <message>
         <location filename="../qml/features/StickerManager.qml" line="113"/>
         <source>Are you sure about removing this sticker set?</source>
-        <translation type="unfinished"></translation>
+        <translation>آیا از پاک کردن این استیکر مطمئن هستید؟</translation>
+    </message>
+</context>
+<context>
+    <name>Store</name>
+    <message>
+        <location filename="../qml/Store.qml" line="24"/>
+        <source>Store</source>
+        <translation>فروشگاه</translation>
     </message>
 </context>
 <context>
     <name>SuperTelegramService</name>
     <message>
-        <location filename="../supertelegramservice.cpp" line="210"/>
-        <location filename="../supertelegramservice.cpp" line="225"/>
+        <location filename="../supertelegramservice.cpp" line="224"/>
+        <location filename="../supertelegramservice.cpp" line="235"/>
+        <location filename="../supertelegramservice.cpp" line="242"/>
+        <location filename="../supertelegramservice.cpp" line="247"/>
         <source>Auto message by SuperTelegram: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>پیغام اوتوماتیک توسط SuperTelegram: %1</translation>
     </message>
 </context>
 <context>
     <name>TelegramQml</name>
     <message>
-        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4791"/>
+        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4793"/>
         <source>Secret Chat</source>
-        <translation type="unfinished"></translation>
+        <translation>چت خصوصی</translation>
     </message>
 </context>
 <context>
     <name>TimerMessage</name>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="19"/>
-        <source>Select Contact</source>
+        <location filename="../qml/features/TimerMessage.qml" line="12"/>
+        <source>Description of the Timer Message.
+It&apos;s important
+Because Because Because.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/features/TimerMessage.qml" line="22"/>
+        <source>Select Contact</source>
+        <translation>انتخاب کاربر</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/TimerMessage.qml" line="25"/>
         <source>Add Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>تایمر جدید</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="24"/>
+        <location filename="../qml/features/TimerMessage.qml" line="27"/>
         <source>Timer Message</source>
-        <translation type="unfinished"></translation>
+        <translation>پیغام زمانی</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="35"/>
+        <location filename="../qml/features/TimerMessage.qml" line="38"/>
         <source>Please fill message.</source>
-        <translation type="unfinished"></translation>
+        <translation>لطفا متن را پر کنید.</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="41"/>
+        <location filename="../qml/features/TimerMessage.qml" line="44"/>
         <source>Wrong Date/Time!</source>
-        <translation type="unfinished"></translation>
+        <translation>تاریخ یا ساعت اشتباه است!</translation>
     </message>
 </context>
 <context>
@@ -903,7 +976,7 @@
     <message>
         <location filename="../qml/features/TimerMessageEditPanel.qml" line="64"/>
         <source>Your Message</source>
-        <translation type="unfinished">پیغام شما</translation>
+        <translation>پیغام شما</translation>
     </message>
 </context>
 <context>
@@ -921,12 +994,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="68"/>
+        <location filename="../main.cpp" line="69"/>
         <source>Verbose mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="70"/>
+        <location filename="../main.cpp" line="71"/>
         <source>Run is service mode.</source>
         <translation type="unfinished"></translation>
     </message>

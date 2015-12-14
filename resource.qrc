@@ -64,5 +64,6 @@
         <file>qml/Configure.qml</file>
         <file>qml/Donate.qml</file>
         <file>qml/Store.qml</file>
+        <file>qml/ClassicLoginScreen.qml</file>
     </qresource>
 </RCC>

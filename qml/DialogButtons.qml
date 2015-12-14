@@ -21,7 +21,7 @@ Row {
         Text {
             text: edit? qsTr("DELETE") : qsTr("CANCEL")
             anchors.centerIn: parent
-            font.pixelSize: 10*Devices.fontDensity
+            font.pixelSize: 10*fontRatio*Devices.fontDensity
             font.weight: Font.DemiBold
             color: "#B30D0D"
         }
@@ -45,7 +45,7 @@ Row {
         Text {
             text: qsTr("DONE")
             anchors.centerIn: parent
-            font.pixelSize: 10*Devices.fontDensity
+            font.pixelSize: 10*fontRatio*Devices.fontDensity
             font.weight: Font.DemiBold
             color: "#0d80ec"
         }

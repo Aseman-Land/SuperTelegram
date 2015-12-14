@@ -18,7 +18,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         color: "#333333"
         font.family: AsemanApp.globalFont.family
-        font.pixelSize: 14*Devices.fontDensity
+        font.pixelSize: 14*fontRatio*Devices.fontDensity
         text: qsTr("About Application")
     }
 
@@ -69,7 +69,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "#333333"
                 font.family: AsemanApp.globalFont.family
-                font.pixelSize: 17*Devices.fontDensity
+                font.pixelSize: 17*fontRatio*Devices.fontDensity
                 text: AsemanApp.applicationDisplayName
             }
 
@@ -78,7 +78,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "#333333"
                 font.family: AsemanApp.globalFont.family
-                font.pixelSize: 10*Devices.fontDensity
+                font.pixelSize: 10*fontRatio*Devices.fontDensity
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 text: AsemanApp.applicationAbout
             }
