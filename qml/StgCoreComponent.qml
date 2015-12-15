@@ -135,5 +135,27 @@ Item {
             property string fontName
         }
     }
+
+    Component {
+        id: activity_connections_component
+        Connections {
+            target: JavaLayer
+            onActivityStopped: {
+                service.sleep()
+                s_tg.startService()
+                console.debug("Activity Stopped")
+            }
+            onActivityStarted: {
+                s_tg.stopService()
+                service.wake()
+                console.debug("Activity Started")
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        if(Devices.isAndroid)
+            activity_connections_component.createObject(core_object)
+    }
 }
 

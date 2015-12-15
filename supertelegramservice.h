@@ -22,6 +22,8 @@ public:
 public slots:
     void start(Telegram *tg = 0, SuperTelegram *stg = 0, AsemanNetworkSleepManager *sleepManager = 0);
     void stop();
+    void wake();
+    void sleep();
 
 private slots:
     void authNeeded();
@@ -43,9 +45,6 @@ private slots:
     void initTelegram();
     void hostCheckerStateChanged();
     void updatesGetState();
-
-    void wake();
-    void sleep();
 
 protected:
     void timerEvent(QTimerEvent *e);

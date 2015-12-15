@@ -55,6 +55,8 @@ void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 re
     AsemanTools::clearDirectory(newDirPath);
 
     QString filePath = newDirPath + "/" + QString(QUuid::createUuid().toString()).remove("{").remove("}") + ".jpg";
+
+    p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to start camera.\nPlease Wait..."), p->replyToId);
     p->camera = new AsemanCameraCapture(this);
 
     connect(p->camera, SIGNAL(imageCaptured(int,QString)), SLOT(imageCaptured(int,QString)));
