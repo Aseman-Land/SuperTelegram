@@ -65,5 +65,8 @@
         <file>qml/Donate.qml</file>
         <file>qml/Store.qml</file>
         <file>qml/ClassicLoginScreen.qml</file>
+        <file>qml/StgCoreComponent.qml</file>
+        <file>qml/FavoriteMessage.qml</file>
+        <file>qml/LogoutWarning.qml</file>
     </qresource>
 </RCC>

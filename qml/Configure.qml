@@ -120,7 +120,7 @@ Rectangle {
                     buttonColor: "#B70D0D"
                     buttonTextColor: "#ffffff"
                 }
-                onClicked: tg.authLogout()
+                onClicked: messageDialog.show(logout_warn_component)
             }
         }
     }
@@ -134,6 +134,11 @@ Rectangle {
             GradientStop { position: 0.0; color: "#33000000" }
             GradientStop { position: 1.0; color: "#00000000" }
         }
+    }
+
+    Component {
+        id: logout_warn_component
+        LogoutWarning {}
     }
 
     Connections {

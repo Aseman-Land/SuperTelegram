@@ -12,49 +12,16 @@ AsemanMain {
     visible: true
     color: "#CC5633"
 
-    property alias stg: s_tg
-    property alias telegram: tg
+    property SuperTelegram stg
+    property Telegram telegram
+    property StgCoreComponent core
     property alias storeManager: str_mgr
     property alias emojis: emjs
-
-    property LoginScreen loginScreen
-    property TelegramMain superTelegram
 
     property color backButtonColor: "#ffffff"
     property bool fontsLoaded: false
 
     property real fontRatio: 1
-
-    SuperTelegram {
-        id: s_tg
-        view: View
-        onLanguageDirectionChanged: View.layoutDirection = languageDirection
-        onCurrentLanguageChanged: refreshFont()
-        Component.onDestruction: startService()
-        Component.onCompleted: {
-            refreshFont()
-            stopService()
-        }
-
-        function refreshFont() {
-            if(currentLanguage == "Persian") {
-                AsemanApp.globalFont.family = "Iran-Sans"
-                View.layoutDirection = languageDirection
-                fontRatio = 0.86
-            } else {
-                AsemanApp.globalFont.family = "Droid Sans"
-                View.layoutDirection = languageDirection
-                fontRatio = 1
-            }
-        }
-    }
-
-    NetworkSleepManager {
-        id: hostChecker
-        host: stg.defaultHostAddress
-        port: stg.defaultHostPort
-        interval: 5000
-    }
 
     StoreManager {
         id: str_mgr
@@ -65,47 +32,10 @@ AsemanMain {
 
         property int meikade_donate_1000
 
-        property bool isPremiumNumber: stg.checkPremiumNumber(tg.phoneNumber)
-        property bool is30DayTrialNumber: stg.check30DayTrialNumber(tg.phoneNumber)
+        property bool isPremiumNumber: stg && telegram? stg.checkPremiumNumber(telegram.phoneNumber) : false
+        property bool is30DayTrialNumber: stg && telegram? stg.check30DayTrialNumber(telegram.phoneNumber) : false
 
         Component.onCompleted: setup()
-    }
-
-    StgService {
-        id: service
-    }
-
-    Telegram {
-        id: tg
-        defaultHostAddress: stg.defaultHostAddress
-        defaultHostDcId: stg.defaultHostDcId
-        defaultHostPort: stg.defaultHostPort
-        appId: stg.appId
-        appHash: stg.appHash
-        configPath: AsemanApp.homePath
-        publicKeyFile: s_tg.publicKey
-        autoCleanUpMessages: true
-        autoRewakeInterval: 30*60*1000
-        onAuthLoggedInChanged: {
-            if(authLoggedIn) {
-                stg.phoneNumber = phoneNumber
-            }
-
-            main.refresh()
-        }
-        onAuthCodeRequested: {
-            if(loginScreen)
-                return
-
-            stg.phoneNumber = ""
-            main.refresh()
-            loginScreen.moveToCode(phoneNumber)
-        }
-        onTelegramChanged: if(telegram) service.start(telegram, stg, hostChecker)
-        onAuthLoggedOut: {
-            stg.phoneNumber = ""
-            View.tryClose()
-        }
     }
 
     Emojis {
@@ -114,61 +44,22 @@ AsemanMain {
     }
 
     Component {
-        id: login_component
-        LoginScreen {
+        id: stg_core_component
+        StgCoreComponent {
             anchors.fill: parent
+            Component.onCompleted: {
+                main.stg = stg
+                main.telegram = telegram
+                refresh()
+            }
         }
     }
 
-    Component {
-        id: tgmain_component
-        TelegramMain {
-            anchors.fill: parent
-            onColorChanged: main.color = color
-        }
+    function restart() {
+        if(core)
+            core.destroy()
+        core = stg_core_component.createObject(main)
     }
 
-    Component {
-        id: font_loader_component
-        FontLoader{
-            source: Devices.resourcePath + "/fonts/" + fontName + ".ttf"
-            property string fontName
-        }
-    }
-
-    function loadFonts() {
-        if(fontsLoaded)
-            return
-
-        var fonts = stg.availableFonts()
-        for(var i=0; i<fonts.length; i++)
-            font_loader_component.createObject(main, {"fontName": fonts[i]})
-
-        fontsLoaded = true
-    }
-
-    function refresh() {
-        var phoneNumber = stg.phoneNumber
-        if(phoneNumber == null || phoneNumber == "") {
-            if(loginScreen)
-                return
-            if(superTelegram)
-                superTelegram.destroy()
-
-            loginScreen = login_component.createObject(main)
-        } else {
-            if(superTelegram)
-                return
-            if(loginScreen)
-                loginScreen.destroy()
-
-            tg.phoneNumber = phoneNumber
-            superTelegram = tgmain_component.createObject(main)
-        }
-    }
-
-    Component.onCompleted: {
-        loadFonts()
-        refresh()
-    }
+    Component.onCompleted: restart()
 }
