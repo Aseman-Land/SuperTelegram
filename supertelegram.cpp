@@ -284,6 +284,29 @@ QString SuperTelegram::currentLanguage() const
     return p->language;
 }
 
+bool SuperTelegram::bazaarBuild() const
+{
+#ifdef BAZAAR_BUILD
+    return true;
+#else
+    return false;
+#endif
+}
+
+bool SuperTelegram::googlePlayBuild() const
+{
+#ifdef GOOGLE_PLAY_BUILD
+    return true;
+#else
+    return false;
+#endif
+}
+
+bool SuperTelegram::freeBuild() const
+{
+    return !bazaarBuild() && !googlePlayBuild();
+}
+
 bool SuperTelegram::startService()
 {
 #ifndef STG_TEST_BUILD

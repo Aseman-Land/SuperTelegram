@@ -99,6 +99,10 @@ Rectangle {
                 menu.show()
         }
 
+        Behavior on color {
+            ColorAnimation{easing.type: Easing.OutCubic; duration: 400}
+        }
+
         property real animatedRatio: page_manager.count? 1 : 0
         Behavior on animatedRatio {
             NumberAnimation{easing.type: Easing.OutCubic; duration: 500}

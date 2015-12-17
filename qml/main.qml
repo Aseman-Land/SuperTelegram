@@ -43,6 +43,11 @@ AsemanMain {
         currentTheme: "twitter"
     }
 
+    ClassicLoginScreen {
+        anchors.fill: parent
+        z: 100
+    }
+
     Component {
         id: stg_core_component
         StgCoreComponent {

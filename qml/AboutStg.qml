@@ -37,32 +37,11 @@ Rectangle {
 
             Item { width: 1; height: 20*Devices.density }
 
-            Item {
+            Image {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: about.width/3
                 height: width
-
-                DropShadow {
-                    anchors.fill: img_frame
-                    source: img_frame
-                    horizontalOffset: 1*Devices.density
-                    verticalOffset: 1*Devices.density
-                    radius: 4*Devices.density
-                    samples: 16
-                    color: "#aa000000"
-                }
-
-                Item {
-                    id: img_frame
-                    anchors.fill: parent
-                    anchors.margins: -10*Devices.density
-
-                    Image {
-                        anchors.fill: parent
-                        anchors.margins: 10*Devices.density
-                        source: "img/stg.png"
-                    }
-                }
+                source: "img/stg.png"
             }
 
             Text {

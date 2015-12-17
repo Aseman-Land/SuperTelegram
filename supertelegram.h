@@ -25,6 +25,10 @@ class SuperTelegram : public QObject
     Q_PROPERTY(QString currentLanguage READ currentLanguage WRITE setCurrentLanguage NOTIFY currentLanguageChanged)
     Q_PROPERTY(int languageDirection READ languageDirection NOTIFY languageDirectionChanged)
 
+    Q_PROPERTY(bool bazaarBuild READ bazaarBuild NOTIFY fakeSignal)
+    Q_PROPERTY(bool googlePlayBuild READ googlePlayBuild NOTIFY fakeSignal)
+    Q_PROPERTY(bool freeBuild READ freeBuild NOTIFY fakeSignal)
+
 public:
     SuperTelegram(QObject *parent = 0);
     ~SuperTelegram();
@@ -68,6 +72,10 @@ public:
     void setCurrentLanguage( const QString & lang );
     QString currentLanguage() const;
 
+    bool bazaarBuild() const;
+    bool googlePlayBuild() const;
+    bool freeBuild() const;
+
 public slots:
     bool startService();
     bool stopService();
@@ -87,6 +95,7 @@ signals:
     void currentLanguageChanged();
     void languageDirectionChanged();
     void languagesChanged();
+    void fakeSignal();
 
 private:
     void init_languages();

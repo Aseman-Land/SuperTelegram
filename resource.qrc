@@ -68,5 +68,7 @@
         <file>qml/StgCoreComponent.qml</file>
         <file>qml/FavoriteMessage.qml</file>
         <file>qml/LogoutWarning.qml</file>
+        <file>qml/ClassicLoginScreenStart.qml</file>
+        <file>qml/ClassicLoginScreenNumber.qml</file>
     </qresource>
 </RCC>
