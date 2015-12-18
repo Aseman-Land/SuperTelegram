@@ -12,9 +12,9 @@ AsemanMain {
     visible: true
     color: "#CC5633"
 
-    property SuperTelegram stg
-    property Telegram telegram
-    property StgCoreComponent core
+    property alias stg: stg_core.stg
+    property alias telegram: stg_core.telegram
+    property alias core: stg_core
     property alias storeManager: str_mgr
     property alias emojis: emjs
 
@@ -43,28 +43,14 @@ AsemanMain {
         currentTheme: "twitter"
     }
 
+    StgCoreComponent {
+        id: stg_core
+        anchors.fill: parent
+        Component.onCompleted: refresh()
+    }
+
     ClassicLoginScreen {
         anchors.fill: parent
-        z: 100
+        z: 8
     }
-
-    Component {
-        id: stg_core_component
-        StgCoreComponent {
-            anchors.fill: parent
-            Component.onCompleted: {
-                main.stg = stg
-                main.telegram = telegram
-                refresh()
-            }
-        }
-    }
-
-    function restart() {
-        if(core)
-            core.destroy()
-        core = stg_core_component.createObject(main)
-    }
-
-    Component.onCompleted: restart()
 }

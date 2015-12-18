@@ -70,5 +70,7 @@
         <file>qml/LogoutWarning.qml</file>
         <file>qml/ClassicLoginScreenStart.qml</file>
         <file>qml/ClassicLoginScreenNumber.qml</file>
+        <file>qml/img/ok-light.png</file>
+        <file>qml/ClassicLoginScreenCode.qml</file>
     </qresource>
 </RCC>
