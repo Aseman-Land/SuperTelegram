@@ -12,7 +12,10 @@ Rectangle {
 
     signal done()
 
-    onDone: code_field.focus = false
+    onDone: {
+        wait_rect.visible = true
+        code_field.focus = false
+    }
 
     Header {
         id: header
@@ -94,6 +97,45 @@ Rectangle {
                 if(second < 10)
                     second = "0" + second
                 return minute + ":" + second
+            }
+        }
+    }
+
+    Rectangle {
+        id: wait_rect
+        anchors.fill: parent
+        color: "#88000000"
+        visible: false
+
+        Rectangle {
+            width: wait_row.width + 40*Devices.density
+            height: wait_row.height + 40*Devices.density
+            radius: 5*Devices.density
+            anchors.centerIn: parent
+
+            Row {
+                id: wait_row
+                anchors.centerIn: parent
+                spacing: 8*Devices.density
+
+                Indicator {
+                    id: wait_indict
+                    height: 22*Devices.density
+                    width: height
+                    indicatorSize: height
+                    light: false
+                    modern: true
+                    running: wait_rect.visible
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.family: AsemanApp.globalFont.family
+                    font.pixelSize: 9*Devices.fontDensity
+                    color: "#333333"
+                    text: qsTr("Sending code. Please wait...")
+                }
             }
         }
     }

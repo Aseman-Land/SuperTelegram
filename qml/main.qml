@@ -48,9 +48,4 @@ AsemanMain {
         anchors.fill: parent
         Component.onCompleted: refresh()
     }
-
-    ClassicLoginScreen {
-        anchors.fill: parent
-        z: 8
-    }
 }

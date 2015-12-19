@@ -9,7 +9,7 @@ Item {
     property alias stg: s_tg
     property alias telegram: tg
 
-    property LoginScreen loginScreen
+    property ClassicLoginScreen loginScreen
     property TelegramMain superTelegram
 
     NetworkSleepManager {
@@ -73,16 +73,18 @@ Item {
         onAuthLoggedInChanged: {
             if(authLoggedIn) {
                 s_tg.phoneNumber = phoneNumber
+                if(loginScreen)
+                    loginScreen.finish()
             }
 
             refresh()
         }
         onAuthCodeRequested: {
-            if(loginScreen)
-                return
+            if(!loginScreen) {
+                s_tg.phoneNumber = ""
+                refresh()
+            }
 
-            s_tg.phoneNumber = ""
-            refresh()
             loginScreen.moveToCode(phoneNumber)
         }
         onTelegramChanged: if(telegram) service.start(telegram, s_tg, hostChecker)
@@ -115,7 +117,7 @@ Item {
 
     Component {
         id: login_component
-        LoginScreen {
+        ClassicLoginScreen {
             anchors.fill: parent
         }
     }

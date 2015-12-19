@@ -22,12 +22,16 @@ Rectangle {
         lastStep = step
     }
 
+    Behavior on y {
+        NumberAnimation{easing.type: Easing.OutCubic; duration: 400}
+    }
+
     ClassicLoginScreenStart {
         width: parent.width
         height: parent.height
         scale: step<1? 1 : 0.9
         transformOrigin: Item.Bottom
-        onStart: step = 1
+        onStart: moveToNumber()
 
         Behavior on scale {
             NumberAnimation {easing.type: Easing.OutCubic; duration: 400}
@@ -77,10 +81,8 @@ Rectangle {
         width: parent.width
         height: parent.height
         y: step<2? height: 0
-        scale: step<3? 1 : 0.9
-        transformOrigin: Item.Bottom
         visible: !init_timer.running
-        onDone: step++
+        onDone: telegram.authSignIn(code)
 
         Behavior on y {
             NumberAnimation {easing.type: Easing.OutCubic; duration: 400}
@@ -96,7 +98,18 @@ Rectangle {
         Component.onCompleted: restart()
     }
 
+    Timer {
+        id: destroy_timer
+        interval: 400
+        onTriggered: classic_login.destroy()
+    }
+
     function moveToStart() {
+        visible = true
+        step = 0
+    }
+
+    function moveToNumber() {
         visible = true
         step = 1
     }
@@ -104,12 +117,13 @@ Rectangle {
     function moveToCode(phoneNumber) {
         visible = true
         step = 2
+        cls_number.stop()
         cls_code.phoneNumber = phoneNumber
     }
 
-    function moveToNumber() {
-        visible = true
-        step = 3
+    function finish() {
+        y = height
+        destroy_timer.restart()
     }
 }
 

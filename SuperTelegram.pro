@@ -1,4 +1,5 @@
 TEMPLATE = app
+CONFIG += debug_and_release
 QT += qml quick sql positioning
 
 android {
@@ -6,6 +7,8 @@ android {
 } else {
     QT += widgets
 }
+
+DEFINES += QT_MESSAGELOGCONTEXT
 
 server.source = tg-server.pub
 server.target = $${DESTDIR}

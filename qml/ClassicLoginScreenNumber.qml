@@ -104,7 +104,9 @@ Rectangle {
                     if(newText.length!=10) {
                         messageDialog.show(invalid_phone_component)
                     } else {
-//                        telegram.phoneNumber = countryCode + phoneNumber
+                        var number = countryCode + phoneNumber
+                        telegram.phoneNumber = number
+                        Tools.deleteFile(telegram.configPath + "/" + number + "/auth" )
                         wait_rect.visible = true
                     }
                 }
@@ -165,6 +167,10 @@ Rectangle {
     function start() {
         phone_field.forceActiveFocus()
         phone_field.cursorPosition = 0
+    }
+
+    function stop() {
+        wait_rect.visible = false
     }
 
     Component {
