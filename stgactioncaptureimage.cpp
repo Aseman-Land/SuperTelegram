@@ -18,10 +18,12 @@ class StgActionCaptureImagePrivate
 public:
     QPointer<Telegram> telegram;
     QString attachedMsg;
+    bool extraMessages;
     InputPeer peer;
     qint64 replyToId;
     AsemanCameraCapture *camera;
     qint64 reqId;
+    QString path;
 };
 
 StgActionCaptureImage::StgActionCaptureImage(QObject *parent) :
@@ -30,6 +32,7 @@ StgActionCaptureImage::StgActionCaptureImage(QObject *parent) :
     p = new StgActionCaptureImagePrivate;
     p->camera = 0;
     p->reqId = 0;
+    p->extraMessages = true;
 }
 
 QString StgActionCaptureImage::keyword()
@@ -37,7 +40,7 @@ QString StgActionCaptureImage::keyword()
     return "%camera%";
 }
 
-void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 replyToId, const QString &attachedMsg)
+void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 replyToId, const QString &attachedMsg, bool extraMessages)
 {
     if(p->telegram || !tg)
     {
@@ -49,6 +52,7 @@ void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 re
     p->peer = peer;
     p->attachedMsg = attachedMsg;
     p->replyToId = replyToId;
+    p->extraMessages = extraMessages;
 
     QString newDirPath = AsemanApplication::homePath() + "/camera/";
     QDir().mkpath(newDirPath);
@@ -56,7 +60,9 @@ void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 re
 
     QString filePath = newDirPath + "/" + QString(QUuid::createUuid().toString()).remove("{").remove("}") + ".jpg";
 
-    p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to start camera.\nPlease Wait..."), p->replyToId);
+    if(!p->attachedMsg.isEmpty())
+        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to start camera.\nPlease Wait..."), p->replyToId);
+
     p->camera = new AsemanCameraCapture(this);
 
     connect(p->camera, SIGNAL(imageCaptured(int,QString)), SLOT(imageCaptured(int,QString)));
@@ -69,12 +75,16 @@ void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 re
 void StgActionCaptureImage::imageCaptured(int id, const QString &path)
 {
     if(id && !path.isEmpty() && QFileInfo::exists(path)) {
-        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(),
-                                         tr("Image taken and Uploading %1KB :)\nPlease Wait...").arg(QFileInfo(path).size()/1024),
-                                         p->replyToId);
-        p->telegram->messagesSendPhoto(p->peer, SuperTelegramService::generateRandomId(), path, p->replyToId);
+        if(p->extraMessages)
+            p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(),
+                                             tr("Image taken and Uploading %1KB :)\nPlease Wait...").arg(QFileInfo(path).size()/1024),
+                                             p->replyToId);
+
+        p->path = path;
+        p->telegram->messagesSendPhoto(p->peer, SuperTelegramService::generateRandomId(), p->path, p->replyToId);
     } else {
-        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Sorry. There is an error! I can't take image..."), p->replyToId);
+        if(p->extraMessages)
+            p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Sorry. There is an error! I can't take image..."), p->replyToId);
         emit finished();
     }
 }
@@ -87,6 +97,7 @@ void StgActionCaptureImage::messagesSendMediaAnswer(qint64 id, const UpdatesType
     if(!p->attachedMsg.isEmpty())
         p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), p->attachedMsg, p->replyToId);
 
+    QFile::remove(p->path);
     emit finished();
 }
 

@@ -37,6 +37,7 @@ public:
 
     QTimer *timerMessageClock;
     QTimer *updateClock;
+    QTimer *picChangerClock;
 
     QTimer *tgSleepTimer;
     QTimer *tgWakeTimer;
@@ -45,6 +46,7 @@ public:
 
     AutoMessage activeAutoMessages;
     QList<SensMessage> sensMessages;
+    qint64 profilePictureInterval;
 
     QHash<qint64, qint64> userSentBlockTimer;
 
@@ -61,6 +63,7 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->tgSleepTimer = 0;
     p->tgWakeTimer = 0;
     p->sleepManager = 0;
+    p->profilePictureInterval = 0;
     p->external = false;
 
     p->updateClock = new QTimer(this);
@@ -68,6 +71,9 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
 
     p->timerMessageClock = new QTimer(this);
     p->timerMessageClock->setSingleShot(true);
+
+    p->picChangerClock = new QTimer(this);
+    p->picChangerClock->setSingleShot(true);
 
     p->tgUpdateTimer = new QTimer(this);
     p->tgUpdateTimer->setInterval(3000);
@@ -82,6 +88,7 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     connect(p->updateClock, SIGNAL(timeout()), SLOT(update()));
     connect(p->tgUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
     connect(p->tgAutoUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
+    connect(p->picChangerClock, SIGNAL(timeout()), SLOT(switchPicture()));
 }
 
 void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetworkSleepManager *sleepManager)
@@ -146,8 +153,9 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetwork
 
     p->timerMessageClock->start();
 
-    connect(p->db, SIGNAL(autoMessageChanged()), SLOT(updateAutoMessage()));
-    connect(p->db, SIGNAL(sensMessageChanged()), SLOT(updateSensMessage()));
+    connect(p->db, SIGNAL(autoMessageChanged())        , SLOT(updateAutoMessage()));
+    connect(p->db, SIGNAL(sensMessageChanged())        , SLOT(updateSensMessage()));
+    connect(p->db, SIGNAL(profilePictureTimerChanged()), SLOT(updatePPicChanged()));
 
     connect(p->telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
     connect(p->telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),
@@ -157,6 +165,7 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetwork
 
     updateAutoMessage();
     updateSensMessage();
+    updatePPicChanged();
     startClock();
 }
 
@@ -191,6 +200,11 @@ void SuperTelegramService::clockTriggred()
     startClock();
 }
 
+void SuperTelegramService::switchPicture()
+{
+
+}
+
 void SuperTelegramService::update()
 {
     if(!p->telegram)
@@ -221,7 +235,7 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
 
     if(!p->activeAutoMessages.guid.isEmpty())
     {
-        p->telegram->messagesSendMessage(input, generateRandomId(), tr("Auto message by SuperTelegram: %1").arg(p->activeAutoMessages.message), id);
+        processOnTheMessage(id, input, p->activeAutoMessages.message);
         p->answeredMessages.insert(id);
         ADD_USER_BLOCK_TIMER(userId)
     }
@@ -229,27 +243,27 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
     {
         foreach(const SensMessage &sens, p->sensMessages)
             if(message.toLower().trimmed() == sens.key.toLower().trimmed())
-            {
-                if(sens.value.contains(StgActionGetGeo::keyword()))
-                {
-                    QString attachedText = tr("%1\nby SuperTelegram").arg(QString(sens.value));
-                    StgActionGetGeo *action = new StgActionGetGeo(this);
-                    action->start(p->telegram, input, id, attachedText);
-                }
-                else
-                if(sens.value.contains(StgActionCaptureImage::keyword()))
-                {
-                    QString attachedText = tr("%1\nby SuperTelegram").arg(QString(sens.value));
-                    StgActionCaptureImage *action = new StgActionCaptureImage(this);
-                    action->start(p->telegram, input, id, attachedText);
-                }
-                else
-                    p->telegram->messagesSendMessage(input, generateRandomId(), tr("%1\nby SuperTelegram").arg(QString(sens.value)));
-
-                p->answeredMessages.insert(id);
-                break;
-            }
+                processOnTheMessage(id, input, sens.value);
     }
+}
+
+void SuperTelegramService::processOnTheMessage(qint32 id, const InputPeer &input, const QString &msg)
+{
+    if(msg.contains(StgActionGetGeo::keyword()))
+    {
+        QString attachedText = tr("%1\nby SuperTelegram").arg(msg);
+        StgActionGetGeo *action = new StgActionGetGeo(this);
+        action->start(p->telegram, input, id, attachedText);
+    }
+    else
+    if(msg.contains(StgActionCaptureImage::keyword()))
+    {
+        QString attachedText = tr("%1\nby SuperTelegram").arg(msg);
+        StgActionCaptureImage *action = new StgActionCaptureImage(this);
+        action->start(p->telegram, input, id, attachedText);
+    }
+    else
+        p->telegram->messagesSendMessage(input, generateRandomId(), tr("%1\nby SuperTelegram").arg(msg));
 }
 
 void SuperTelegramService::updated(int reason)
@@ -277,6 +291,12 @@ void SuperTelegramService::updateSensMessage()
 {
     if(!p->db) return;
     p->sensMessages = p->db->sensMessageFetchAll();
+}
+
+void SuperTelegramService::updatePPicChanged()
+{
+    if(!p->db) return;
+    p->profilePictureInterval = p->db->profilePictureTimer();
 }
 
 void SuperTelegramService::initTelegram()

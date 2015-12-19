@@ -112,6 +112,14 @@ FeaturePageType1 {
                 placeholder: qsTr("Your Message")
             }
 
+            Text {
+                id: keywords
+                font.family: AsemanApp.globalFont.family
+                font.pixelSize: 8*fontRatio*Devices.fontDensity
+                color: "#888888"
+                text: qsTr("Available keywords: %location% %camera%")
+            }
+
             Item {width: 1; height: 10*Devices.density}
 
             DialogButtons {

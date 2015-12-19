@@ -15,7 +15,7 @@ public:
     ~StgActionCaptureImage();
 
     static QString keyword();
-    void start(Telegram *tg, const InputPeer &peer, qint64 replyToId = 0, const QString &attachedMsg = QString());
+    void start(Telegram *tg, const InputPeer &peer, qint64 replyToId = 0, const QString &attachedMsg = QString(), bool extraMessages = true);
 
 private slots:
     void imageCaptured(int id, const QString &path);

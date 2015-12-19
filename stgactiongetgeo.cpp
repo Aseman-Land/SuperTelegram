@@ -13,6 +13,7 @@ public:
     QPointer<Telegram> telegram;
     QString attachedMsg;
     InputPeer peer;
+    bool extraMessages;
     qint64 replyToId;
 };
 
@@ -21,6 +22,7 @@ StgActionGetGeo::StgActionGetGeo(QObject *parent) :
 {
     p = new StgActionGetGeoPrivate;
     p->replyToId = 0;
+    p->extraMessages = true;
 }
 
 QString StgActionGetGeo::keyword()
@@ -28,7 +30,7 @@ QString StgActionGetGeo::keyword()
     return "%location%";
 }
 
-void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToId, const QString &attachedMsg)
+void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToId, const QString &attachedMsg, bool extraMessages)
 {
     if(p->telegram || !tg)
     {
@@ -40,10 +42,12 @@ void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToI
     p->peer = peer;
     p->attachedMsg = attachedMsg;
     p->replyToId = replyToId;
+    p->extraMessages = extraMessages;
 
     p->locationListener = new AsemanLocationListener(this);
 
-    p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to find the location.\nPlease Wait..."), p->replyToId);
+    if(!p->attachedMsg.isEmpty())
+        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to find the location.\nPlease Wait..."), p->replyToId);
 
     connect(p->locationListener, SIGNAL(positionUpdated(QGeoPositionInfo)),
             SLOT(positionUpdated(QGeoPositionInfo)));
@@ -55,7 +59,8 @@ void StgActionGetGeo::positionUpdated(const QGeoPositionInfo &update)
     if(!update.isValid())
     {
         qDebug() << "The update is invalid!";
-        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Sorry. There is an error.\nI can't find the location :("), p->replyToId);
+        if(p->extraMessages)
+            p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Sorry. There is an error.\nI can't find the location :("), p->replyToId);
         emit finished();
         return;
     }
