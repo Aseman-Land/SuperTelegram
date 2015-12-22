@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QPointer>
 #include <QUrl>
+#include <QDebug>
 
 class ProfilePicSwitcherModelPrivate
 {

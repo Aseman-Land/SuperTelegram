@@ -9,6 +9,7 @@
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemandevices.h"
 #include "asemantools/asemannetworksleepmanager.h"
+#include "asemantools/asemantools.h"
 #include "commandsdatabase.h"
 #include "stghbclient.h"
 
@@ -27,6 +28,12 @@
 #include <QCameraInfo>
 #include <QSet>
 #include <QEventLoop>
+#include <QHash>
+#include <QImageReader>
+#include <QBuffer>
+#include <QCryptographicHash>
+#include <QDataStream>
+#include <QPair>
 
 class SuperTelegramServicePrivate
 {
@@ -48,23 +55,29 @@ public:
     QList<SensMessage> sensMessages;
     qint64 profilePictureInterval;
 
+    QList< QPair<QVariant,int> > pendingActions;
+    QHash<qint64, QString> uploadingProfilePictures;
     QHash<qint64, qint64> userSentBlockTimer;
 
     AsemanNetworkSleepManager *sleepManager;
     bool external;
 
     QSet<qint64> answeredMessages;
+    QDateTime uptime;
 };
 
 SuperTelegramService::SuperTelegramService(QObject *parent) :
     QObject(parent)
 {
+    qsrand(QTime::currentTime().msec());
+
     p = new SuperTelegramServicePrivate;
     p->tgSleepTimer = 0;
     p->tgWakeTimer = 0;
     p->sleepManager = 0;
     p->profilePictureInterval = 0;
     p->external = false;
+    p->uptime = QDateTime::currentDateTime();
 
     p->updateClock = new QTimer(this);
     p->updateClock->setInterval(5*60*1000);
@@ -86,6 +99,7 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
 
     connect(p->timerMessageClock, SIGNAL(timeout()), SLOT(clockTriggred()));
     connect(p->updateClock, SIGNAL(timeout()), SLOT(update()));
+    connect(p->updateClock, SIGNAL(timeout()), SLOT(updateDialogs()));
     connect(p->tgUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
     connect(p->tgAutoUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
     connect(p->picChangerClock, SIGNAL(timeout()), SLOT(switchPicture()));
@@ -160,6 +174,10 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetwork
     connect(p->telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
     connect(p->telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),
             SLOT(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)));
+    connect(p->telegram, SIGNAL(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)),
+            SLOT(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)));
+    connect(p->telegram, SIGNAL(photosUploadProfilePhotoAnswer(qint64,Photo,QList<User>)),
+            SLOT(photosUploadProfilePhotoAnswer(qint64,Photo,QList<User>)));
 
     connect(p->sleepManager, SIGNAL(availableChanged()), SLOT(hostCheckerStateChanged()));
 
@@ -193,16 +211,13 @@ void SuperTelegramService::authLoggedIn()
 
 void SuperTelegramService::clockTriggred()
 {
-    const QDateTime &dt = QDateTime::currentDateTime();
+    QDateTime dt = QDateTime::currentDateTime();
 
+    checkPendingActions();
     checkTimerMessages(dt);
+    checkProfilePicState(dt);
 
     startClock();
-}
-
-void SuperTelegramService::switchPicture()
-{
-
 }
 
 void SuperTelegramService::update()
@@ -211,6 +226,14 @@ void SuperTelegramService::update()
         return;
 
     p->telegram->updatesGetState();
+}
+
+void SuperTelegramService::updateDialogs()
+{
+    if(!p->telegram)
+        return;
+
+    p->telegram->messagesGetDialogs();
 }
 
 void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QString &message, qint32 pts, qint32 pts_count, qint32 date, qint32 fwd_from_id, qint32 fwd_date, qint32 reply_to_msg_id, bool unread, bool out)
@@ -247,6 +270,48 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
     }
 }
 
+void SuperTelegramService::messagesGetDialogsAnswer(qint64 id, qint32 sliceCount, const QList<Dialog> &dialogs, const QList<Message> &messages, const QList<Chat> &chats, const QList<User> &users)
+{
+    Q_UNUSED(id)
+    Q_UNUSED(sliceCount)
+    Q_UNUSED(dialogs)
+    Q_UNUSED(users)
+    Q_UNUSED(chats)
+
+    const QDateTime &ct = QDateTime::currentDateTime();
+    const qint64 uptimeDiff = p->uptime.secsTo(ct);
+    qint64 maxTime = 15*60;
+    if(maxTime > uptimeDiff)
+        maxTime = uptimeDiff;
+
+    foreach(const Message &m, messages)
+    {
+        if(m.toId().classType() == Peer::typePeerChat)
+            continue;
+        const qint64 secs = QDateTime::fromTime_t(m.date()).secsTo(ct);
+        if(secs > maxTime)
+            continue;
+
+        updateShortMessage(id, m.fromId(), m.message(), 0, 0, m.date(), m.fwdFromId(), m.fwdDate()
+                           , m.replyToMsgId(), m.flags()&1, m.flags()&2);
+    }
+}
+
+void SuperTelegramService::photosUploadProfilePhotoAnswer(qint64 id, const Photo &photo, const QList<User> &users)
+{
+    Q_UNUSED(users)
+
+    const QString &hash = p->uploadingProfilePictures.take(id);
+    if(hash.isEmpty())
+        return;
+
+    FileAccessHash acs_hash;
+    acs_hash.fileId = photo.id();
+    acs_hash.accessHash = photo.accessHash();
+
+    p->db->addAccessHash(hash, acs_hash);
+}
+
 void SuperTelegramService::processOnTheMessage(qint32 id, const InputPeer &input, const QString &msg)
 {
     if(msg.contains(StgActionGetGeo::keyword()))
@@ -264,6 +329,44 @@ void SuperTelegramService::processOnTheMessage(qint32 id, const InputPeer &input
     }
     else
         p->telegram->messagesSendMessage(input, generateRandomId(), tr("%1\nby SuperTelegram").arg(msg));
+}
+
+void SuperTelegramService::switchPicture()
+{
+    const QString &newFile = getNextProfilePicture();
+    if(newFile.isEmpty())
+        return;
+
+    QImageReader reader(newFile);
+    reader.setScaledSize(QSize(128,128));
+    QImage img = reader.read();
+
+    QByteArray data;
+    QDataStream stream(&data, QIODevice::WriteOnly);
+    stream << img;
+
+    QString hash = QCryptographicHash::hash(data, QCryptographicHash::Md5).toHex();
+    FileAccessHash fa_hash = p->db->getAccessHash(hash);
+    if(fa_hash.accessHash)
+    {
+        p->telegram->photosUpdateProfilePhoto(fa_hash.fileId, fa_hash.accessHash);
+        return;
+    }
+
+    qint64 id = p->telegram->photosUploadProfilePhoto(newFile);
+    if(!id)
+        return;
+
+    p->uploadingProfilePictures[id] = hash;
+}
+
+QString SuperTelegramService::getNextProfilePicture() const
+{
+    QStringList files = QDir(p->stg->profilePicSwitcherLocation()).entryList(QDir::Files);
+    if(files.isEmpty())
+        return QString();
+
+    return p->stg->profilePicSwitcherLocation() + "/" + files[qrand()%files.length()];
 }
 
 void SuperTelegramService::updated(int reason)
@@ -363,7 +466,60 @@ void SuperTelegramService::checkTimerMessages(const QDateTime &dt)
     const QList<TimerMessage> &timerMessages = p->db->timerMessageFetch(dt);
     foreach(const TimerMessage &tm, timerMessages)
     {
-        p->telegram->messagesSendMessage(tm.peer, generateRandomId(), tm.message);
+        qint64 id = p->telegram->messagesSendMessage(tm.peer, generateRandomId(), tm.message);
+        if(!id)
+        {
+            QPair<QVariant, int> pair;
+            pair.first = QVariant::fromValue<TimerMessage>(tm);
+            pair.second = 0;
+            p->pendingActions << pair;
+        }
+    }
+}
+
+void SuperTelegramService::checkProfilePicState(const QDateTime &dt)
+{
+    int interval = 0;
+    int state = p->profilePictureInterval;
+    if(state < 0)
+        return;
+
+    if(state >= 30)
+        interval = (state-29)*7*24*60;
+    else
+    if(state >= 24)
+        interval = (state-23)*24*60;
+    else
+        interval = (state+1)*60;
+
+    QDateTime startDate(dt.date(), QTime(0,0,0));
+    const qint64 seconds = startDate.secsTo(dt)/60;
+    if(seconds%interval != 0)
+        return;
+    else
+        switchPicture();
+}
+
+void SuperTelegramService::checkPendingActions()
+{
+    for(int i=0; i<p->pendingActions.count(); i++)
+    {
+        QPair<QVariant,int> pair = p->pendingActions[i];
+        if(pair.first.type() == QVariant::nameToType(ASEMAN_TYPE_NAME(TimerMessage)))
+        {
+            TimerMessage tm = pair.first.value<TimerMessage>();
+            qint64 id = p->telegram->messagesSendMessage(tm.peer, generateRandomId(), tm.message);
+            if(!id)
+                pair.second++;
+        }
+
+        if(pair.second < 5)
+            p->pendingActions[i] = pair;
+        else
+        {
+            p->pendingActions.removeAt(i);
+            i--;
+        }
     }
 }
 

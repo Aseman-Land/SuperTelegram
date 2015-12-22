@@ -19,6 +19,7 @@ class SuperTelegram : public QObject
     Q_PROPERTY(QString phoneNumber READ phoneNumber WRITE setPhoneNumber NOTIFY phoneNumberChanged)
     Q_PROPERTY(CommandsDatabase* database READ database NOTIFY databaseChanged)
     Q_PROPERTY(QString picturesLocation READ picturesLocation NOTIFY picturesLocationChanged)
+    Q_PROPERTY(QString profilePicSwitcherLocation READ profilePicSwitcherLocation NOTIFY picturesLocationChanged)
     Q_PROPERTY(QString publicKey READ publicKey NOTIFY publicKeyChanged)
 
     Q_PROPERTY(QStringList languages READ languages NOTIFY languagesChanged)
@@ -57,6 +58,7 @@ public:
     QString publicKey() const;
 
     QString picturesLocation() const;
+    QString profilePicSwitcherLocation() const;
 
     CommandsDatabase *database() const;
     Q_INVOKABLE QString getTimeString( const QDateTime & dt );

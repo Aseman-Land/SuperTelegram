@@ -132,7 +132,7 @@ Item {
 
     Component {
         id: font_loader_component
-        FontLoader{
+        FontLoader {
             source: Devices.resourcePath + "/fonts/" + fontName + ".ttf"
             property string fontName
         }

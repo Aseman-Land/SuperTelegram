@@ -177,6 +177,11 @@ QString SuperTelegram::picturesLocation() const
     return AsemanDevices::picturesLocation() + "/SuperTelegram";
 }
 
+QString SuperTelegram::profilePicSwitcherLocation() const
+{
+    return picturesLocation() + "/ProfilePicSwitcher";
+}
+
 CommandsDatabase *SuperTelegram::database() const
 {
     return p->db;

@@ -7,6 +7,21 @@
 
 #include <telegram/types/types.h>
 
+class FileAccessHash
+{
+public:
+    FileAccessHash(): accessHash(0), fileId(0) {}
+
+    qint64 accessHash;
+    qint64 fileId;
+
+    bool operator ==(const FileAccessHash &b) {
+        return accessHash == b.accessHash &&
+               fileId == b.fileId;
+    }
+};
+Q_DECLARE_METATYPE(FileAccessHash)
+
 class TimerMessage
 {
 public:
@@ -22,6 +37,7 @@ public:
                message == b.message;
     }
 };
+Q_DECLARE_METATYPE(TimerMessage)
 
 class AutoMessage
 {
@@ -34,6 +50,7 @@ public:
                message == b.message;
     }
 };
+Q_DECLARE_METATYPE(AutoMessage)
 
 class SensMessage
 {
@@ -46,6 +63,7 @@ public:
                value == b.value;
     }
 };
+Q_DECLARE_METATYPE(SensMessage)
 
 class QSqlQuery;
 class CommandsDatabasePrivate;
@@ -91,6 +109,10 @@ public:
     static CommandPeerType inputPeerToCmdPeer(InputPeer::InputPeerType t);
     static InputPeer::InputPeerType cmdPeerToInputPeer(CommandPeerType t);
 
+    bool addAccessHash(const QString &fileHash, const FileAccessHash &file);
+    FileAccessHash getAccessHash(const QString &fileHash);
+    bool removeAccessHash(const QString &fileHash);
+
 public slots:
     bool setValue(const QString &key, const QVariant &value);
     QVariant value(const QString &key, const QVariant &defaultValue = QVariant()) const;
@@ -105,6 +127,7 @@ private:
     QList<TimerMessage> timerMessageQueryFetch(QSqlQuery &query);
     QList<AutoMessage> autoMessageQueryFetch(QSqlQuery &query);
     void initBuffer();
+    void updateDb();
     QDateTime fixTime(const QDateTime &dt);
 
 private:

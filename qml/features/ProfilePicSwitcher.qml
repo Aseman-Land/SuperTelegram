@@ -31,7 +31,7 @@ FeaturePageType2 {
 
     ProfilePicSwitcherModel {
         id: ppmodel
-        folder: stg.picturesLocation + "/ProfilePicSwitcher"
+        folder: stg.profilePicSwitcherLocation
         database: stg.database
         onTimerChanged: time_slider.value = timer
     }

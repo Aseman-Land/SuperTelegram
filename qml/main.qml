@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.3
 import AsemanTools 1.0
-import AsemanTools.Controls 1.0
+import AsemanTools.Controls 1.0 as Controls
 import TelegramQmlLib 1.0
 import SuperTelegram 1.0
 

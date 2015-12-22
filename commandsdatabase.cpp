@@ -38,6 +38,7 @@ CommandsDatabase::CommandsDatabase(QObject *parent) :
     p->db.open();
 
     initBuffer();
+    updateDb();
 }
 
 QString CommandsDatabase::timerMessageInsert(const TimerMessage &tmsg)
@@ -399,6 +400,23 @@ void CommandsDatabase::initBuffer()
     }
 }
 
+void CommandsDatabase::updateDb()
+{
+    const int version = value("Database/version", "0").toString().toInt();
+    int dyn_version = version;
+    if(dyn_version == 0)
+    {
+        QSqlQuery query(p->db);
+        query.prepare("CREATE TABLE FilesHash (fileHash STRING PRIMARY KEY, fileId STRING NOT NULL, accessHash STRING NOT NULL);");
+        query.exec();
+        dyn_version = 1;
+        qDebug() << QString("Database updated to the %1 version.").arg(dyn_version);
+    }
+
+    if(dyn_version != version)
+        setValue("Database/version", QString::number(dyn_version));
+}
+
 QDateTime CommandsDatabase::fixTime(const QDateTime &dt)
 {
 
@@ -451,6 +469,57 @@ InputPeer::InputPeerType CommandsDatabase::cmdPeerToInputPeer(CommandsDatabase::
     }
 
     return InputPeer::typeInputPeerEmpty;
+}
+
+bool CommandsDatabase::addAccessHash(const QString &fileHash, const FileAccessHash &file)
+{
+    QSqlQuery query(p->db);
+    query.prepare("INSERT OR REPLACE INTO FilesHash (fileHash,fileId,accessHash) "
+                  "VALUES (:hash, :fid, :acsHash)");
+    query.bindValue(":hash", fileHash);
+    query.bindValue(":fid", QString::number(file.fileId));
+    query.bindValue(":acsHash", QString::number(file.accessHash));
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    return true;
+}
+
+FileAccessHash CommandsDatabase::getAccessHash(const QString &fileHash)
+{
+    FileAccessHash result;
+
+    QSqlQuery query(p->db);
+    query.prepare("SELECT fileHash,fileId,accessHash FROM FilesHash WHERE fileHash=:hash");
+    query.bindValue(":hash", fileHash);
+    if(!query.exec())
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+    else
+    if(query.next())
+    {
+        QSqlRecord record = query.record();
+        result.fileId = record.value("fileId").toString().toULongLong();
+        result.accessHash = record.value("accessHash").toString().toULongLong();
+    }
+
+    return result;
+}
+
+bool CommandsDatabase::removeAccessHash(const QString &fileHash)
+{
+    QSqlQuery query(p->db);
+    query.prepare("DELETE FROM FilesHash WHERE fileHash=:hash");
+    query.bindValue(":hash", fileHash);
+    if(!query.exec())
+    {
+        qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
+        return false;
+    }
+
+    return true;
 }
 
 CommandsDatabase::~CommandsDatabase()
