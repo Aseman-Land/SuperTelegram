@@ -19,47 +19,11 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 
-Rectangle {
-    color: "#fcfcfc"
-
-
-    Rectangle {
-        id: title_bar
-        width: parent.width
-        height: Devices.standardTitleBarHeight + View.statusBarHeight
-        color: "#7BCF6A"
-
-        Text {
-            id: title
-            width: parent.width - height - 6*Devices.density
-            height: Devices.standardTitleBarHeight
-            y: View.statusBarHeight
-            x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
-            verticalAlignment: Text.AlignVCenter
-            color: "#ffffff"
-            font.family: AsemanApp.globalFont.family
-            font.pixelSize: 14*fontRatio*Devices.fontDensity
-        }
-    }
-
-    Rectangle {
-        height: 4*Devices.density
-        width: parent.width
-        anchors.top: title_bar.bottom
-        z: 10
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#33000000" }
-            GradientStop { position: 1.0; color: "#00000000" }
-        }
-    }
+Item {
 
     ListView {
         id: preference_list
-        anchors.top: title_bar.bottom
-        anchors.left: parent.left
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.bottomMargin: 20*Devices.density
+        anchors.fill: parent
         highlightMoveDuration: 250
         bottomMargin: View.navigationBarHeight
         clip: true
@@ -87,7 +51,8 @@ Rectangle {
             id: item
             anchors.left: parent.left
             anchors.right: parent.right
-            height: column.height + 20*Devices.density
+            anchors.margins: 10*Devices.density
+            height: column.height + 40*Devices.density
 
             Column {
                 id: column
@@ -95,6 +60,7 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.margins: 10*Devices.density
+                spacing: 3*Devices.density
 
                 Item {
                     id: title_item
@@ -168,18 +134,5 @@ Rectangle {
         width: 6*Devices.density
         anchors.right: preference_list.right; anchors.top: preference_list.top;
         color: "#7BCF6A"
-    }
-
-    Connections {
-        target: stg
-        onCurrentLanguageChanged: initTranslations()
-    }
-
-    function initTranslations(){
-        title.text = qsTr("Open Source Projects")
-    }
-
-    Component.onCompleted: {
-        initTranslations()
     }
 }

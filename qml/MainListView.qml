@@ -118,7 +118,7 @@ Item {
             MouseArea {
                 id: marea
                 anchors.fill: parent
-                onClicked: if(model.component) mainlv.selected(component)
+                onClicked: if(model.component) mainlv.selected(component.createLocalComponent())
             }
         }
 
@@ -163,29 +163,29 @@ Item {
         listv.model.append({"name": qsTr("Send to all")              , "icon": "features/icons/send-to-all.png"         , "component": null, "description": qsTr("Send a message to all or selected contacts.")})
     }
 
-    Component {
+    SmartComponent {
         id: time_msg_component
-        TimerMessage {}
+        source: "features/TimerMessage.qml"
     }
-    Component {
+    SmartComponent {
         id: auto_msg_component
-        AutoMessage {}
+        source: "features/AutoMessage.qml"
     }
-    Component {
+    SmartComponent {
         id: sens_msg_component
-        SensMessage {}
+        source: "features/SensMessage.qml"
     }
-    Component {
+    SmartComponent {
         id: sticker_component
-        StickerManager {}
+        source: "features/StickerManager.qml"
     }
-    Component {
+    SmartComponent {
         id: backuper_component
-        BackupManager {}
+        source: "features/BackupManager.qml"
     }
-    Component {
+    SmartComponent {
         id: prof_pic_component
-        ProfilePicSwitcher {}
+        source: "features/ProfilePicSwitcher.qml"
     }
 
     Connections {

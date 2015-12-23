@@ -5,6 +5,8 @@ import AsemanTools.Controls 1.0
 
 Rectangle {
     id: tgmain
+    anchors.fill: parent
+    onColorChanged: main.color = color
 
     Item {
         id: main_scene
@@ -47,12 +49,12 @@ Rectangle {
                     if(index == 0)
                         menu.close()
                     else
-                        if(component) {
-                            slave_scene.item = component.createObject(slave_scene)
-                            slave_scene.item.anchors.fill = slave_scene
-                        } else {
-                            menu.close()
-                        }
+                    if(component) {
+                        slave_scene.item = component.createObject(slave_scene)
+                        slave_scene.item.anchors.fill = slave_scene
+                    } else {
+                        menu.close()
+                    }
                 }
             }
         }

@@ -59,7 +59,7 @@ Item {
             MouseArea {
                 id: marea
                 anchors.fill: parent
-                onClicked: mlist.selected(index, model.component)
+                onClicked: mlist.selected(index, component.createLocalComponent())
             }
         }
 
@@ -71,52 +71,25 @@ Item {
             model.append({"name":qsTr("Store")              , "type": 0, "component": store_component})
             model.append({"name":qsTr("Configure")          , "type": 0, "component": configure_component})
 //            model.append({"name":qsTr("Donate")             , "type": 1, "component": donate_component})
-            model.append({"name":qsTr("OpenSource Projects"), "type": 1, "component": open_source_component})
-            model.append({"name":qsTr("About Nile Group")   , "type": 1, "component": about_nile_component})
-            model.append({"name":qsTr("About Application")  , "type": 1, "component": about_stg_component})
+            model.append({"name":qsTr("About")              , "type": 1, "component": about_stg_component})
         }
     }
 
-    Component {
+    SmartComponent {
         id: about_stg_component
-        AboutStg {
-            anchors.fill: parent
-        }
+        source: "About.qml"
     }
-
-    Component {
-        id: about_nile_component
-        AboutNileGroup {
-            anchors.fill: parent
-        }
-    }
-
-    Component {
-        id: open_source_component
-        OpenSourceProjects {
-            anchors.fill: parent
-        }
-    }
-
-    Component {
+    SmartComponent {
         id: configure_component
-        Configure {
-            anchors.fill: parent
-        }
+        source: "Configure.qml"
     }
-
-    Component {
+    SmartComponent {
         id: store_component
-        Store {
-            anchors.fill: parent
-        }
+        source: "Store.qml"
     }
-
-    Component {
+    SmartComponent {
         id: donate_component
-        Donate {
-            anchors.fill: parent
-        }
+        source: "Donate.qml"
     }
 
     Connections {

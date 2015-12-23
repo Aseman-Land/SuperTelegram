@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fa_IR">
+<TS version="2.1" language="fa_IR">
 <context>
     <name>AboutNileGroup</name>
     <message>
@@ -27,7 +27,7 @@
         <translation>درباره برنامه</translation>
     </message>
     <message>
-        <location filename="../qml/AboutStg.qml" line="95"/>
+        <location filename="../qml/AboutStg.qml" line="74"/>
         <source>Home Page</source>
         <translation>صفحه خانگی</translation>
     </message>
@@ -53,7 +53,7 @@
 <context>
     <name>AsemanApplication</name>
     <message>
-        <location filename="../main.cpp" line="64"/>
+        <location filename="../main.cpp" line="65"/>
         <source>It&apos;s super telegram application, contains many advance tools, works under the telegram.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -153,6 +153,11 @@ Because Because Because.</source>
         <source>Your Message</source>
         <translation>پیغام شما</translation>
     </message>
+    <message>
+        <location filename="../qml/features/AutoMessage.qml" line="120"/>
+        <source>Available keywords: %location% %camera%</source>
+        <translation type="unfinished">کلید‌های اضافی: %location% %camera%</translation>
+    </message>
 </context>
 <context>
     <name>AutoMessageModel</name>
@@ -207,18 +212,88 @@ Because Because Because.</source>
     <message>
         <location filename="../asemantools/qml/AsemanTools/CheckBox.qml" line="109"/>
         <source>Off</source>
+        <translation type="unfinished">خاموش</translation>
+    </message>
+</context>
+<context>
+    <name>ClassicLoginScreenCode</name>
+    <message>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="42"/>
+        <source>Your code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="71"/>
+        <source>We&apos;ve sent and SMS with an activation code to your phone &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="93"/>
+        <source>Timeout: &lt;b&gt;%1&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="137"/>
+        <source>Sending code. Please wait...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ClassicLoginScreenNumber</name>
+    <message>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="44"/>
+        <source>Your phone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="124"/>
+        <source>Please confirm your country code and enter your phone number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="161"/>
+        <source>Requesting code. Please wait...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="203"/>
+        <source>Invalid phone number!</source>
+        <translation type="unfinished">شماره تلفن اشتباه است!</translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="215"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ClassicLoginScreenStart</name>
+    <message>
+        <location filename="../qml/ClassicLoginScreenStart.qml" line="45"/>
+        <source>The world&apos;s fastest messaging app.
+It is free and secure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenStart.qml" line="79"/>
+        <source>START</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Configure</name>
     <message>
-        <location filename="../qml/Configure.qml" line="114"/>
+        <location filename="../qml/Configure.qml" line="117"/>
+        <source>Log out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Configure.qml" line="150"/>
         <source>Configure</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location filename="../qml/Configure.qml" line="115"/>
+        <location filename="../qml/Configure.qml" line="151"/>
         <source>Languages</source>
         <translation>زبان‌ها</translation>
     </message>
@@ -316,6 +391,26 @@ Because Because Because.</source>
         <location filename="../qml/Donate.qml" line="19"/>
         <source>Donate</source>
         <translation>حمایت</translation>
+    </message>
+</context>
+<context>
+    <name>FavoriteMessage</name>
+    <message>
+        <location filename="../qml/FavoriteMessage.qml" line="18"/>
+        <source>Thank you for choosing SuperTelegram.
+If you are like this app, please rate us on Google play or Bazaar.
+Thank you.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/FavoriteMessage.qml" line="29"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/FavoriteMessage.qml" line="41"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -489,7 +584,7 @@ Because Because Because.</source>
         <translation>امتحان میکنم</translation>
     </message>
     <message>
-        <location filename="../qml/LoginScreen.qml" line="239"/>
+        <location filename="../qml/LoginScreen.qml" line="240"/>
         <source>Please Wait...</source>
         <translation>لطفا صبر کنید...</translation>
     </message>
@@ -515,13 +610,13 @@ Because Because Because.</source>
         <translation>ورود</translation>
     </message>
     <message>
-        <location filename="../qml/LoginScreenEnterCode.qml" line="63"/>
+        <location filename="../qml/LoginScreenEnterCode.qml" line="64"/>
         <source>Invalid code!</source>
         <translation>کد اشتباه است!</translation>
     </message>
     <message>
-        <location filename="../qml/LoginScreenEnterCode.qml" line="79"/>
-        <location filename="../qml/LoginScreenEnterCode.qml" line="90"/>
+        <location filename="../qml/LoginScreenEnterCode.qml" line="80"/>
+        <location filename="../qml/LoginScreenEnterCode.qml" line="91"/>
         <source>Code</source>
         <translation>کد</translation>
     </message>
@@ -534,15 +629,33 @@ Because Because Because.</source>
         <translation>درخواست کد</translation>
     </message>
     <message>
-        <location filename="../qml/LoginScreenPhoneNumber.qml" line="76"/>
+        <location filename="../qml/LoginScreenPhoneNumber.qml" line="77"/>
         <source>Invalid phone number!</source>
         <translation>شماره تلفن اشتباه است!</translation>
     </message>
     <message>
-        <location filename="../qml/LoginScreenPhoneNumber.qml" line="93"/>
-        <location filename="../qml/LoginScreenPhoneNumber.qml" line="104"/>
+        <location filename="../qml/LoginScreenPhoneNumber.qml" line="94"/>
+        <location filename="../qml/LoginScreenPhoneNumber.qml" line="105"/>
         <source>Phone Number</source>
         <translation>شماره تلفن</translation>
+    </message>
+</context>
+<context>
+    <name>LogoutWarning</name>
+    <message>
+        <location filename="../qml/LogoutWarning.qml" line="18"/>
+        <source>&lt;b&gt;SuperTelegram&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Are you sure you want to log out?&lt;br /&gt;&lt;br /&gt;Note that you can seamlessly use Telegram on all your devicesat once.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/LogoutWarning.qml" line="32"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/LogoutWarning.qml" line="44"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -690,7 +803,7 @@ Because Because Because.</source>
     </message>
     <message>
         <source>Donate</source>
-        <translation>حمایت</translation>
+        <translation type="vanished">حمایت</translation>
     </message>
     <message>
         <location filename="../qml/MenuList.qml" line="74"/>
@@ -853,14 +966,21 @@ Because Because Because.</source>
 <context>
     <name>StgActionCaptureImage</name>
     <message>
-        <location filename="../stgactioncaptureimage.cpp" line="71"/>
+        <location filename="../stgactioncaptureimage.cpp" line="64"/>
+        <source>Your message is recieved my Lord.
+Trying to start camera.
+Please Wait...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../stgactioncaptureimage.cpp" line="80"/>
         <source>Image taken and Uploading %1KB :)
 Please Wait...</source>
         <translation>عکس گرفته شد و در حال آپلود %1KB است :)
 لطفا صبر کنید...</translation>
     </message>
     <message>
-        <location filename="../stgactioncaptureimage.cpp" line="75"/>
+        <location filename="../stgactioncaptureimage.cpp" line="87"/>
         <source>Sorry. There is an error! I can&apos;t take image...</source>
         <translation>متاسفم. هنگام انداختن عکس خطایی رخ داد...</translation>
     </message>
@@ -868,7 +988,7 @@ Please Wait...</source>
 <context>
     <name>StgActionGetGeo</name>
     <message>
-        <location filename="../stgactiongetgeo.cpp" line="46"/>
+        <location filename="../stgactiongetgeo.cpp" line="50"/>
         <source>Your message is recieved my Lord.
 Trying to find the location.
 Please Wait...</source>
@@ -877,7 +997,7 @@ Please Wait...</source>
 لطفا صبر کنید...</translation>
     </message>
     <message>
-        <location filename="../stgactiongetgeo.cpp" line="58"/>
+        <location filename="../stgactiongetgeo.cpp" line="63"/>
         <source>Sorry. There is an error.
 I can&apos;t find the location :(</source>
         <translation>متاسفم. موقعیت پیدا نشد. خطایی رخ داد :(</translation>
@@ -920,18 +1040,22 @@ I can&apos;t find the location :(</source>
 <context>
     <name>SuperTelegramService</name>
     <message>
-        <location filename="../supertelegramservice.cpp" line="224"/>
-        <location filename="../supertelegramservice.cpp" line="235"/>
-        <location filename="../supertelegramservice.cpp" line="242"/>
-        <location filename="../supertelegramservice.cpp" line="247"/>
         <source>Auto message by SuperTelegram: %1</source>
-        <translation>پیغام اوتوماتیک توسط SuperTelegram: %1</translation>
+        <translation type="vanished">پیغام اوتوماتیک توسط SuperTelegram: %1</translation>
+    </message>
+    <message>
+        <location filename="../supertelegramservice.cpp" line="319"/>
+        <location filename="../supertelegramservice.cpp" line="326"/>
+        <location filename="../supertelegramservice.cpp" line="331"/>
+        <source>%1
+by SuperTelegram</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TelegramQml</name>
     <message>
-        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4793"/>
+        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4794"/>
         <source>Secret Chat</source>
         <translation>چت خصوصی</translation>
     </message>
@@ -994,12 +1118,12 @@ Because Because Because.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="69"/>
+        <location filename="../main.cpp" line="70"/>
         <source>Verbose mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="71"/>
+        <location filename="../main.cpp" line="72"/>
         <source>Run is service mode.</source>
         <translation type="unfinished"></translation>
     </message>

@@ -49,7 +49,7 @@ FeaturePageType1 {
     editDelegate: Column {
         id: edit_panel
         width: bmng.width
-        y: Devices.standardTitleBarHeight
+        y: Devices.standardTitleBarHeight + View.statusBarHeight
         visible: parent.destHeight == parent.height
 
         DateTimeChooser {
@@ -59,7 +59,7 @@ FeaturePageType1 {
             anchors.margins: 10*Devices.density
             height: 160*Devices.density
             textsColor: "#333333"
-            separatorColors: "#333333"
+            separatorColors: "#0d80ec"
             color: "#ffffff"
         }
 

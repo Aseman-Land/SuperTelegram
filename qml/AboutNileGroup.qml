@@ -1,28 +1,16 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 import AsemanTools.Controls 1.0
+import AsemanTools.Controls.Styles 1.0 as Styles
 
 Rectangle {
     id: about
     color: "#fcfcfc"
 
-    Text {
-        id: title_txt
-        width: parent.width - height - 6*Devices.density
-        height: Devices.standardTitleBarHeight
-        y: View.statusBarHeight
-        x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
-        verticalAlignment: Text.AlignVCenter
-        color: "#333333"
-        font.family: AsemanApp.globalFont.family
-        font.pixelSize: 14*fontRatio*Devices.fontDensity
-        text: qsTr("About Team")
-    }
-
     AsemanFlickable {
         id: flickable
         width: parent.width
-        anchors.top: title_txt.bottom
+        anchors.top: parent.top
         anchors.bottom: home_btn.top
         anchors.bottomMargin: 4*Devices.density
         flickableDirection: Flickable.VerticalFlick
@@ -72,20 +60,10 @@ Rectangle {
         width: 150*Devices.density
         text: qsTr("Home Page")
         onClicked: Qt.openUrlExternally("http://nilegroup.org/")
-    }
-
-    Rectangle {
-        height: 4*Devices.density
-        width: parent.width
-        anchors.top: flickable.top
-        z: 10
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#990d80ec" }
-            GradientStop { position: 1.0; color: "#00000000" }
+        style: Styles.ButtonStyle {
+            buttonColor: "#00A0E3"
+            buttonTextColor: "#ffffff"
         }
     }
-
-    Component.onCompleted: backButtonColor = "#333333"
-    Component.onDestruction: backButtonColor = "#ffffff"
 }
 

@@ -25,7 +25,6 @@
         <file>qml/LoginScreen.qml</file>
         <file>qml/img/login-back.jpg</file>
         <file>qml/img/stg.png</file>
-        <file>qml/img/stg.svg</file>
         <file>qml/LoginScreenCountrySelect.qml</file>
         <file>qml/LoginScreenPhoneNumber.qml</file>
         <file>qml/img/phone.png</file>
@@ -72,5 +71,9 @@
         <file>qml/ClassicLoginScreenNumber.qml</file>
         <file>qml/img/ok-light.png</file>
         <file>qml/ClassicLoginScreenCode.qml</file>
+        <file>qml/About.qml</file>
+        <file>qml/img/simple-icon.png</file>
+        <file>qml/img/simple-nilegroup.png</file>
+        <file>qml/img/simple-opensource.png</file>
     </qresource>
 </RCC>

@@ -103,7 +103,9 @@ Item {
             if(superTelegram)
                 superTelegram.destroy()
 
+            var login_component = login_component_path.createLocalComponent()
             loginScreen = login_component.createObject(main)
+            loginScreen.anchors.fill = main
         } else {
             if(superTelegram)
                 return
@@ -111,23 +113,19 @@ Item {
                 loginScreen.destroy()
 
             tg.phoneNumber = phoneNumber
-            superTelegram = tgmain_component.createObject(main)
+            var component = tgmain_component.createLocalComponent()
+            superTelegram = component.createObject(main)
         }
     }
 
-    Component {
-        id: login_component
-        ClassicLoginScreen {
-            anchors.fill: parent
-        }
+    SmartComponent {
+        id: login_component_path
+        source: "ClassicLoginScreen.qml"
     }
 
-    Component {
+    SmartComponent {
         id: tgmain_component
-        TelegramMain {
-            anchors.fill: parent
-            onColorChanged: main.color = color
-        }
+        source: "TelegramMain.qml"
     }
 
     Component {

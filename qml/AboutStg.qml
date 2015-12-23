@@ -1,31 +1,18 @@
 import QtQuick 2.0
 import AsemanTools 1.0
 import AsemanTools.Controls 1.0
+import AsemanTools.Controls.Styles 1.0 as Styles
 import QtGraphicalEffects 1.0
 
-Rectangle {
+Item {
     id: about
     width: 100
     height: 62
-    color: "#fcfcfc"
-
-    Text {
-        id: title_txt
-        width: parent.width - height - 6*Devices.density
-        height: Devices.standardTitleBarHeight
-        y: View.statusBarHeight
-        x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
-        verticalAlignment: Text.AlignVCenter
-        color: "#333333"
-        font.family: AsemanApp.globalFont.family
-        font.pixelSize: 14*fontRatio*Devices.fontDensity
-        text: qsTr("About Application")
-    }
 
     AsemanFlickable {
         id: flickable
         width: parent.width
-        anchors.top: title_txt.bottom
+        anchors.top: parent.top
         anchors.bottom: home_btn.top
         anchors.bottomMargin: 4*Devices.density
         flickableDirection: Flickable.VerticalFlick
@@ -72,20 +59,10 @@ Rectangle {
         height: 36*Devices.density
         width: 150*Devices.density
         text: qsTr("Home Page")
-    }
-
-    Rectangle {
-        height: 4*Devices.density
-        width: parent.width
-        anchors.top: flickable.top
-        z: 10
-        gradient: Gradient {
-            GradientStop { position: 0.0; color: "#88ff0000" }
-            GradientStop { position: 1.0; color: "#00000000" }
+        style: Styles.ButtonStyle {
+            buttonColor: "#2CA5E0"
+            buttonTextColor: "#ffffff"
         }
     }
-
-    Component.onCompleted: backButtonColor = "#333333"
-    Component.onDestruction: backButtonColor = "#ffffff"
 }
 

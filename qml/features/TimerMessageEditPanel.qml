@@ -49,7 +49,7 @@ Item {
                 width: parent.width*0.9
                 height: 160*Devices.density
                 textsColor: "#333333"
-                separatorColors: "#333333"
+                separatorColors: "#0d80ec"
                 color: "#ffffff"
             }
 
