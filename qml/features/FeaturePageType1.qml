@@ -104,6 +104,7 @@ PageManagerItem {
                 id: header_txt
                 anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: 14*fontRatio*Devices.fontDensity
+                font.family: AsemanApp.globalFont.family
                 color: backButtonColor
                 x: View.layoutDirection==Qt.RightToLeft? parent.width-width : 0
             }

@@ -219,6 +219,8 @@ QString SuperTelegram::getTimesDiff(const QDateTime &a, const QDateTime &b)
         result = getTimesDiffAnalize(secs, 60*60, "hour");
     if(result.isEmpty())
         result = getTimesDiffAnalize(secs, 60, "minute");
+    if(result.isEmpty())
+        result = tr("Expired");
 
     return result;
 }
@@ -287,6 +289,14 @@ void SuperTelegram::setCurrentLanguage(const QString &lang)
 QString SuperTelegram::currentLanguage() const
 {
     return p->language;
+}
+
+QString SuperTelegram::nativeLanguageName(const QString &lang)
+{
+    QString res = p->locales.value(lang).nativeLanguageName();
+    if(res == "American English")
+        res = "English";
+    return res;
 }
 
 bool SuperTelegram::bazaarBuild() const

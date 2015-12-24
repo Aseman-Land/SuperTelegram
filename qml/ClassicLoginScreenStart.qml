@@ -28,7 +28,6 @@ Rectangle {
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             color: "#000000"
-            font.family: AsemanApp.globalFont.family
             font.pixelSize: img.width/5
             text: AsemanApp.applicationDisplayName
         }
@@ -39,10 +38,26 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
             color: "#828282"
-            font.family: AsemanApp.globalFont.family
             font.pixelSize: img.width/10
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            text: qsTr("The world's fastest messaging app.\nIt is free and secure.")
+            text: "Make the telegram easier.\nIt's free and secure."
+        }
+
+        Item { width: 2; height: img.width/6 }
+
+        SelectableList {
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: 100*Devices.density
+            width: parent.width/2
+            textsColor: "#333333"
+            color: classic_login.color
+            Component.onCompleted: {
+                var langs = new Array
+                for(var i=0; i<stg.languages.length; i++)
+                    langs[i] = stg.nativeLanguageName(stg.languages[i])
+                items = langs
+            }
+            onCurrentIndexChanged: stg.currentLanguage = stg.languages[currentIndex]
         }
 
         Item { width: 2; height: img.width/6 }
@@ -74,9 +89,8 @@ Rectangle {
                     Text {
                         anchors.centerIn: parent
                         color: "#ffffff"
-                        font.family: AsemanApp.globalFont.family
                         font.pixelSize: parent.height*0.4
-                        text: qsTr("START")
+                        text: "START"
                     }
                 }
 

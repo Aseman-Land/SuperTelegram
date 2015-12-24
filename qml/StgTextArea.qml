@@ -19,6 +19,7 @@ Item {
     Text {
         id: txt
         font.pixelSize: 10*fontRatio*Devices.fontDensity
+        font.family: AsemanApp.globalFont.family
         color: "#888888"
         x: {
             var result = 8*Devices.density

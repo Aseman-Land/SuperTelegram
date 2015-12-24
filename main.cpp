@@ -36,7 +36,10 @@ extern "C" int mainService(int argc, char *argv[])
 #ifdef Q_OS_ANDROID
     new AsemanQtLogger("/sdcard/stg.log");
 #endif
-    qputenv("QT_LOGGING_RULES", "tg.*=false");
+
+    qputenv("QT_LOGGING_RULES", "tg.core.settings=false\n"
+                                "tg.core.outboundpkt=false\n"
+                                "tg.core.inboundpkt=false");
 
     if(AsemanApplication::instance())
     {

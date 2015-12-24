@@ -65,6 +65,7 @@ Item {
                 verticalAlignment: Text.AlignBottom
                 horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                 font.pixelSize: 11*fontRatio*Devices.fontDensity
+                font.family: AsemanApp.globalFont.family
                 color: "#333333"
                 textFormat: Text.RichText
                 text: {
@@ -85,6 +86,7 @@ Item {
                 verticalAlignment: Text.AlignTop
                 horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                 font.pixelSize: 9*fontRatio*Devices.fontDensity
+                font.family: AsemanApp.globalFont.family
                 color: "#aaaaaa"
                 wrapMode: Text.WrapAnywhere
                 elide: Text.ElideRight

@@ -9,9 +9,9 @@ FeaturePageType1 {
     id: amp
     model: amodel
     descriptionVisiblity: amodel.count <= 1
-    description: qsTr("Description of the Timer Message.\n" +
-                      "It's important\n" +
-                      "Because Because Because.")
+    description: qsTr("Send a message to the friends automatically when they send a message to you.\n" +
+                      "When you're at meeting, driving or …, you can enable auto message to" +
+                      " send an auto message to your friends.")
 
     property string editGuid
     property string editMessage
@@ -64,6 +64,7 @@ FeaturePageType1 {
                 text: model.message
                 color: "#333333"
                 font.pixelSize: 11*fontRatio*Devices.fontDensity
+                font.family: AsemanApp.globalFont.family
             }
         }
 

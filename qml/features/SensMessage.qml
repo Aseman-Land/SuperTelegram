@@ -8,9 +8,10 @@ import "../"
 FeaturePageType1 {
     id: smsg
     model: smodel
-    description: qsTr("Description of the Timer Message.\n" +
-                      "It's important\n" +
-                      "Because Because Because.")
+    description: qsTr("Send a word-sens message.\n" +
+                      "When a users send you a message, contains a special " +
+                      "characters, It detect them automatically and send a " +
+                      "message you set before to them.")
 
     property string editKey
     property string editValue
@@ -73,6 +74,7 @@ FeaturePageType1 {
                     width: parent.width
                     horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                     font.pixelSize: 11*fontRatio*Devices.fontDensity
+                    font.family: AsemanApp.globalFont.family
                     color: "#333333"
                     text: model.key
                 }
@@ -82,6 +84,7 @@ FeaturePageType1 {
                     width: parent.width
                     horizontalAlignment: View.layoutDirection==Qt.RightToLeft? Text.AlignRight : Text.AlignLeft
                     font.pixelSize: 9*fontRatio*Devices.fontDensity
+                    font.family: AsemanApp.globalFont.family
                     color: "#aaaaaa"
                     wrapMode: Text.WrapAnywhere
                     elide: Text.ElideRight

@@ -73,6 +73,7 @@ public:
     QStringList languages() const;
     void setCurrentLanguage( const QString & lang );
     QString currentLanguage() const;
+    Q_INVOKABLE QString nativeLanguageName(const QString &lang);
 
     bool bazaarBuild() const;
     bool googlePlayBuild() const;

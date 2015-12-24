@@ -97,6 +97,7 @@ Item {
     Text {
         text: main.telegram.myUser? (main.telegram.myUser.firstName + " " + main.telegram.myUser.lastName).trim() : qsTr("Updating...")
         font.pixelSize: 14*fontRatio*Devices.fontDensity
+//        font.family: AsemanApp.globalFont.family
         color: "#ffffff"
         y: {
             var second = minHeaderHeight/2-height/2+statusBarHeight/2

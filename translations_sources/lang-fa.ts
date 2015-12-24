@@ -1,33 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fa_IR">
+<TS version="2.0" language="fa_IR">
 <context>
-    <name>AboutNileGroup</name>
+    <name>About</name>
     <message>
-        <location filename="../qml/AboutNileGroup.qml" line="19"/>
-        <source>About Team</source>
-        <translation>درباره تیم</translation>
-    </message>
-    <message>
-        <location filename="../qml/AboutNileGroup.qml" line="51"/>
+        <location filename="../qml/About.qml" line="25"/>
         <source>Nile Group</source>
         <translation>گروه نیل</translation>
     </message>
     <message>
-        <location filename="../qml/AboutNileGroup.qml" line="73"/>
+        <location filename="../qml/About.qml" line="32"/>
+        <source>Open-Source</source>
+        <translation>منبع باز</translation>
+    </message>
+    <message>
+        <location filename="../qml/About.qml" line="42"/>
+        <source>Products</source>
+        <translation>محصولات</translation>
+    </message>
+</context>
+<context>
+    <name>AboutNileGroup</name>
+    <message>
+        <source>About Team</source>
+        <translation>درباره تیم</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutNileGroup.qml" line="39"/>
+        <source>Nile Group</source>
+        <translation>گروه نیل</translation>
+    </message>
+    <message>
+        <location filename="../qml/AboutNileGroup.qml" line="61"/>
         <source>Home Page</source>
         <translation>صفحه خانگی</translation>
     </message>
 </context>
 <context>
+    <name>AboutPageAseman</name>
+    <message>
+        <location filename="../asemantools/qml/AsemanTools/AboutPageAseman.qml" line="7"/>
+        <source>Aseman</source>
+        <translation>آسمان</translation>
+    </message>
+    <message>
+        <location filename="../asemantools/qml/AsemanTools/AboutPageAseman.qml" line="42"/>
+        <source>Aseman Team</source>
+        <translation>تیم آسمان</translation>
+    </message>
+    <message>
+        <location filename="../asemantools/qml/AsemanTools/AboutPageAseman.qml" line="52"/>
+        <source>Aseman is a non-profit organization, exists to support and lead the free, open source and cross-platform projects and researches.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../asemantools/qml/AsemanTools/AboutPageAseman.qml" line="62"/>
+        <source>The Goal of the Aseman is to provide free and secure products to keep people’s freedom and their privacy.</source>
+        <translation type="unfinished">هدف آسمان این است که به منظور حفظ آزادی کاربران و امنیت ایشان، محصولاتی آزاد و امن ارائه دهد.</translation>
+    </message>
+    <message>
+        <location filename="../asemantools/qml/AsemanTools/AboutPageAseman.qml" line="74"/>
+        <source>Home</source>
+        <translation type="unfinished">صفحه خانگی</translation>
+    </message>
+</context>
+<context>
     <name>AboutStg</name>
     <message>
-        <location filename="../qml/AboutStg.qml" line="22"/>
         <source>About Application</source>
         <translation>درباره برنامه</translation>
     </message>
     <message>
-        <location filename="../qml/AboutStg.qml" line="74"/>
+        <location filename="../qml/AboutStg.qml" line="61"/>
         <source>Home Page</source>
         <translation>صفحه خانگی</translation>
     </message>
@@ -42,20 +86,20 @@
     <message>
         <location filename="../asemantools/qml/AsemanTools/AsemanAbout.qml" line="67"/>
         <source>The Goal of the Aseman is to provide free and secure products to keep people’s freedom and their privacy.</source>
-        <translation type="unfinished"></translation>
+        <translation>هدف آسمان این است که به منظور حفظ آزادی کاربران و امنیت ایشان، محصولاتی آزاد و امن ارائه دهد.</translation>
     </message>
     <message>
         <location filename="../asemantools/qml/AsemanTools/AsemanAbout.qml" line="80"/>
         <source>Home Page</source>
-        <translation type="unfinished">صفحه خانگی</translation>
+        <translation>صفحه خانگی</translation>
     </message>
 </context>
 <context>
     <name>AsemanApplication</name>
     <message>
-        <location filename="../main.cpp" line="65"/>
+        <location filename="../main.cpp" line="68"/>
         <source>It&apos;s super telegram application, contains many advance tools, works under the telegram.</source>
-        <translation type="unfinished"></translation>
+        <translation>اپلیکیشن سوپرتلگرام به عنوان جعبه ابزاری برای تلگرام، شامل مجموعه ای از ابزارهای بسیار پیشرفته و کاربردی است که به کاربر کمک می کند تا با دست باز و به راحتی از تلگرام استفاده کند.</translation>
     </message>
 </context>
 <context>
@@ -64,6 +108,14 @@
         <location filename="../asemantools/asemanfonthandler.cpp" line="250"/>
         <source>Select font</source>
         <translation>انتخاب فونت</translation>
+    </message>
+</context>
+<context>
+    <name>AsemanProductsList</name>
+    <message>
+        <location filename="../asemantools/qml/AsemanTools/AsemanProductsList.qml" line="107"/>
+        <source>Home</source>
+        <translation>صفحه خانگی</translation>
     </message>
 </context>
 <context>
@@ -119,12 +171,12 @@
         <translation>۹</translation>
     </message>
     <message>
-        <location filename="../asemantools/asemantools.cpp" line="178"/>
+        <location filename="../asemantools/asemantools.cpp" line="183"/>
         <source>Aseman is a not-for-profit research and software development team launched in February 2014 focusing on development of products, technologies and solutions in order to publish them as open-source projects accessible to all people in the universe. Currently, we are focusing on design and development of software applications and tools which have direct connection with end users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../asemantools/asemantools.cpp" line="179"/>
+        <location filename="../asemantools/asemantools.cpp" line="184"/>
         <source>By enabling innovative projects and distributing software to millions of users globally, the lab is working to accelerate the growth of high-impact open source software projects and promote an open source culture of accessibility and increased productivity around the world. The lab partners with industry leaders and policy makers to bring open source technologies to new sectors, including education, health and government.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -132,11 +184,16 @@
 <context>
     <name>AutoMessage</name>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="12"/>
         <source>Description of the Timer Message.
 It&apos;s important
 Because Because Because.</source>
-        <translation type="unfinished"></translation>
+        <translation>فرستادن پیغام به صورت اتوماتیک به دوستانی که به شما پیغام می‌دهند. هنگامی که مشغول به کار هستید، یا در جلسه هستید و یا به هر نحوی توانایی پاسخگویی ندارید، می‌توانید با فعال‌کردن پیغام اتوماتیک و درج یک پیغام مشخص، دوستان خود را از وضعیت خود آگاه کنید.</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/AutoMessage.qml" line="12"/>
+        <source>Send a message to the friends automatically when they send a message to you.
+When you&apos;re at meeting, driving or …, you can enable auto message to send an auto message to your friends.</source>
+        <translation>فرستادن پیغام به صورت اتوماتیک به دوستانی که به شما پیغام می‌دهند. هنگامی که مشغول به کار هستید، یا در جلسه هستید و یا به هر نحوی توانایی پاسخگویی ندارید، می‌توانید با فعال‌کردن پیغام اتوماتیک و درج یک پیغام مشخص، دوستان خود را از وضعیت خود آگاه کنید.</translation>
     </message>
     <message>
         <location filename="../qml/features/AutoMessage.qml" line="26"/>
@@ -149,14 +206,14 @@ Because Because Because.</source>
         <translation>پیغام اوتوماتیک</translation>
     </message>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="112"/>
+        <location filename="../qml/features/AutoMessage.qml" line="113"/>
         <source>Your Message</source>
         <translation>پیغام شما</translation>
     </message>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="120"/>
+        <location filename="../qml/features/AutoMessage.qml" line="121"/>
         <source>Available keywords: %location% %camera%</source>
-        <translation type="unfinished">کلید‌های اضافی: %location% %camera%</translation>
+        <translation>کلید‌های اضافی: %location% %camera%</translation>
     </message>
 </context>
 <context>
@@ -170,17 +227,23 @@ Because Because Because.</source>
 <context>
     <name>BackupManager</name>
     <message>
-        <location filename="../qml/features/BackupManager.qml" line="15"/>
-        <source>Create Backup</source>
-        <translation>بکاپ گرفتن</translation>
+        <location filename="../qml/features/BackupManager.qml" line="12"/>
+        <source>Make a backup from your conversations history.
+You can make a backup from a specified converstion from a date and time using this tools and keep it in a safe place.</source>
+        <translation>بکاپ‌گرفتن از تاریخچه گپ و گفت شما و دوستان‌تان. شما می‌توانید در صورت نیاز از تاریخ مشخصی به بعد و یا از کل تاریخچه گپ و گفت خود با یک مخاطب خاص بکاپ بگیرید و نزد خود نگه دارید.</translation>
     </message>
     <message>
-        <location filename="../qml/features/BackupManager.qml" line="17"/>
+        <location filename="../qml/features/BackupManager.qml" line="18"/>
+        <source>Create Backup</source>
+        <translation>ساخت بکاپ</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/BackupManager.qml" line="20"/>
         <source>Backup Messages</source>
         <translation>بکاپ پیغام‌ها</translation>
     </message>
     <message>
-        <location filename="../qml/features/BackupManager.qml" line="29"/>
+        <location filename="../qml/features/BackupManager.qml" line="32"/>
         <source>Saved to &quot;%1&quot;</source>
         <translation>در آدرس &quot;%1&quot; ذخیره شد</translation>
     </message>
@@ -220,22 +283,22 @@ Because Because Because.</source>
     <message>
         <location filename="../qml/ClassicLoginScreenCode.qml" line="42"/>
         <source>Your code</source>
-        <translation type="unfinished"></translation>
+        <translation>کد شما</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenCode.qml" line="71"/>
         <source>We&apos;ve sent and SMS with an activation code to your phone &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>برای شما پیامی حاوی کد فعالسازی به شماره موبایلی که وارد کردید ارسال کردیم. &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenCode.qml" line="93"/>
         <source>Timeout: &lt;b&gt;%1&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>وقفه زمانی: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenCode.qml" line="137"/>
         <source>Sending code. Please wait...</source>
-        <translation type="unfinished"></translation>
+        <translation>در حال ارسال کد. لطفا منتظر بمانید...</translation>
     </message>
 </context>
 <context>
@@ -243,27 +306,27 @@ Because Because Because.</source>
     <message>
         <location filename="../qml/ClassicLoginScreenNumber.qml" line="44"/>
         <source>Your phone</source>
-        <translation type="unfinished"></translation>
+        <translation>موبایل شما</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenNumber.qml" line="124"/>
         <source>Please confirm your country code and enter your phone number.</source>
-        <translation type="unfinished"></translation>
+        <translation>لطفا بعد از مشخص کردن کشور خود، شماره موبایلتان را وارد کنید.</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenNumber.qml" line="161"/>
         <source>Requesting code. Please wait...</source>
-        <translation type="unfinished"></translation>
+        <translation>درخواست کد. لطفا منتظر بمانید...</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenNumber.qml" line="203"/>
         <source>Invalid phone number!</source>
-        <translation type="unfinished">شماره تلفن اشتباه است!</translation>
+        <translation>شماره تلفن اشتباه است!</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenNumber.qml" line="215"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>اُکی</translation>
     </message>
 </context>
 <context>
@@ -272,12 +335,13 @@ Because Because Because.</source>
         <location filename="../qml/ClassicLoginScreenStart.qml" line="45"/>
         <source>The world&apos;s fastest messaging app.
 It is free and secure.</source>
-        <translation type="unfinished"></translation>
+        <translation>پر سرعت ترین برنامه‌ی پیغام رسان دنیا.
+یک برنامه آزاد و امن.</translation>
     </message>
     <message>
         <location filename="../qml/ClassicLoginScreenStart.qml" line="79"/>
         <source>START</source>
-        <translation type="unfinished"></translation>
+        <translation>شروع</translation>
     </message>
 </context>
 <context>
@@ -285,7 +349,7 @@ It is free and secure.</source>
     <message>
         <location filename="../qml/Configure.qml" line="117"/>
         <source>Log out</source>
-        <translation type="unfinished"></translation>
+        <translation>خروج</translation>
     </message>
     <message>
         <location filename="../qml/Configure.qml" line="150"/>
@@ -318,7 +382,7 @@ It is free and secure.</source>
     <message>
         <location filename="../asemantools/qml/AsemanTools/CursorPicker.qml" line="365"/>
         <source>Delete</source>
-        <translation>پاک‌کردن</translation>
+        <translation>حذف</translation>
     </message>
 </context>
 <context>
@@ -339,48 +403,48 @@ It is free and secure.</source>
     <message>
         <location filename="../qml/DialogButtons.qml" line="22"/>
         <source>DELETE</source>
-        <translation type="unfinished"></translation>
+        <translation>حذف</translation>
     </message>
     <message>
         <location filename="../qml/DialogButtons.qml" line="22"/>
         <source>CANCEL</source>
-        <translation type="unfinished"></translation>
+        <translation>لغو</translation>
     </message>
     <message>
         <location filename="../qml/DialogButtons.qml" line="46"/>
         <source>DONE</source>
-        <translation type="unfinished"></translation>
+        <translation>تمام</translation>
     </message>
 </context>
 <context>
     <name>DialogListItem</name>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="95"/>
+        <location filename="../qml/DialogListItem.qml" line="97"/>
         <source>%1 participants</source>
         <translation>%1 عضو</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="100"/>
+        <location filename="../qml/DialogListItem.qml" line="102"/>
         <source>Recently</source>
         <translation>به تازگی</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="103"/>
+        <location filename="../qml/DialogListItem.qml" line="105"/>
         <source>Last Month</source>
         <translation>ماه گذشته</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="106"/>
+        <location filename="../qml/DialogListItem.qml" line="108"/>
         <source>Last Week</source>
         <translation>هفته گذشته</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="109"/>
+        <location filename="../qml/DialogListItem.qml" line="111"/>
         <source>Online</source>
         <translation>آنلاین</translation>
     </message>
     <message>
-        <location filename="../qml/DialogListItem.qml" line="112"/>
+        <location filename="../qml/DialogListItem.qml" line="114"/>
         <source>%1 was online</source>
         <translation>%1 آنلاین بود</translation>
     </message>
@@ -400,17 +464,19 @@ It is free and secure.</source>
         <source>Thank you for choosing SuperTelegram.
 If you are like this app, please rate us on Google play or Bazaar.
 Thank you.</source>
-        <translation type="unfinished"></translation>
+        <translation>از اینکه از سوپرتلگرام استفاده می کنید از شما ممنونیم.
+در صورتی که از برنامه رضایت دارید، لطفا در بازار به ما امتیاز دهید. همچنین از طریق درج نظر با ما در ارتباط باشید.
+ممنون.</translation>
     </message>
     <message>
         <location filename="../qml/FavoriteMessage.qml" line="29"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>لغو</translation>
     </message>
     <message>
         <location filename="../qml/FavoriteMessage.qml" line="41"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>اُکی</translation>
     </message>
 </context>
 <context>
@@ -423,17 +489,17 @@ Thank you.</source>
     <message>
         <location filename="../asemantools/qml/AsemanTools/GetPassDialog.qml" line="260"/>
         <source>Please enter the password</source>
-        <translation>لطفا کلمه عبور را وارد کنید</translation>
+        <translation>لطفا رمز عبور را وارد کنید</translation>
     </message>
     <message>
         <location filename="../asemantools/qml/AsemanTools/GetPassDialog.qml" line="261"/>
         <source>password</source>
-        <translation>کلمه عبور</translation>
+        <translation>رمز عبور</translation>
     </message>
     <message>
         <location filename="../asemantools/qml/AsemanTools/GetPassDialog.qml" line="262"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>تمام</translation>
     </message>
     <message>
         <location filename="../asemantools/qml/AsemanTools/GetPassDialog.qml" line="263"/>
@@ -540,7 +606,7 @@ Thank you.</source>
     <message>
         <location filename="../asemantools/asemancalendarconvertercore.cpp" line="474"/>
         <source>5Shanbe</source>
-        <translation>پنح‌شنبه</translation>
+        <translation>پنج‌شنبه</translation>
     </message>
     <message>
         <location filename="../asemantools/asemancalendarconvertercore.cpp" line="477"/>
@@ -558,7 +624,7 @@ Thank you.</source>
     <message>
         <location filename="../telegram/telegramqml/demos/share/LoginForm.qml" line="30"/>
         <source>ex: +123456789</source>
-        <translation type="unfinished"></translation>
+        <translation>مثلا: +123456789</translation>
     </message>
     <message>
         <location filename="../telegram/telegramqml/demos/share/LoginForm.qml" line="36"/>
@@ -594,12 +660,12 @@ Thank you.</source>
     <message>
         <location filename="../qml/LoginScreenCountrySelect.qml" line="96"/>
         <source>Make Telegram Easier</source>
-        <translation type="unfinished"></translation>
+        <translation>راهی ساده برای تلگرام</translation>
     </message>
     <message>
         <location filename="../qml/LoginScreenCountrySelect.qml" line="103"/>
         <source>Many useful tools for telegram</source>
-        <translation type="unfinished"></translation>
+        <translation>چندین ابزار پیشرفته و کاربردی برای تلگرام</translation>
     </message>
 </context>
 <context>
@@ -645,17 +711,17 @@ Thank you.</source>
     <message>
         <location filename="../qml/LogoutWarning.qml" line="18"/>
         <source>&lt;b&gt;SuperTelegram&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;Are you sure you want to log out?&lt;br /&gt;&lt;br /&gt;Note that you can seamlessly use Telegram on all your devicesat once.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;سوپرتلگرام&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;آیا برای خروج اطمینان دارید؟&lt;br /&gt;&lt;br /&gt;توجه داشته باشید که شما تنها یک بار می توانید از تلگرام روی تمام دیوایس های خود استفاده کنید.</translation>
     </message>
     <message>
         <location filename="../qml/LogoutWarning.qml" line="32"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>لغو</translation>
     </message>
     <message>
         <location filename="../qml/LogoutWarning.qml" line="44"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>اُکی</translation>
     </message>
 </context>
 <context>
@@ -681,7 +747,7 @@ Thank you.</source>
     <message>
         <location filename="../qml/MainListView.qml" line="153"/>
         <source>Send a message in the selected time to any user</source>
-        <translation>ارسال پیام، به صورت خودکار در زمان مشخص به کاربر مشخص</translation>
+        <translation>فرستادن پیغام در یک زمان مشخص به یک مخاطب خاص. برای فرستادن پیغام‌هایی که در حال حاضر به یاد دارید اما ممکن است در روزهای آتی آن را فراموش کنید، می‌توانید همین حالا متن مورد نظر و تاریخ ارسال آن را مشخص کنید تا در موعد مقرر برای مخاطب مورد نظر شما ارسال شود.</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="154"/>
@@ -691,7 +757,7 @@ Thank you.</source>
     <message>
         <location filename="../qml/MainListView.qml" line="154"/>
         <source>Send a message automatically when you have incomming messages.</source>
-        <translation>ارسال یک پیام به صورت خودکار هنگامی که کاربری به شما پیغام میدهد.</translation>
+        <translation>فرستادن پیغام به صورت اتوماتیک به دوستانی که به شما پیغام می‌دهند. هنگامی که مشغول به کار هستید، یا در جلسه هستید و یا به هر نحوی توانایی پاسخگویی ندارید، می‌توانید با فعال‌کردن پیغام اتوماتیک و درج یک پیغام مشخص، دوستان خود را از وضعیت خود آگاه کنید.</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="155"/>
@@ -701,17 +767,17 @@ Thank you.</source>
     <message>
         <location filename="../qml/MainListView.qml" line="155"/>
         <source>Send word sensitive messages automatically.</source>
-        <translation>ارسال پیغام به کاربر وقتی کاربر کلمه خاصی را در پیغامش به شما ارسال میکند.</translation>
+        <translation>فرستادن پیغام حساس به متن دریافتی. با فعال‌کردن این گزینه می‌توانید تعیین کنید در صورتی که پیغام دریافتی از دوستان شما حاوی کلمات خاصی باشد، به صورت اتوماتیک از طرف شما یک پیغام با متن مورد نظر شما برای ایشان ارسال شود.</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="156"/>
         <source>Backup</source>
-        <translation>پشتبان گیری</translation>
+        <translation>بکاپ</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="156"/>
         <source>Backup from a special contacts.</source>
-        <translation>ایجاد نسخه‌ پشتیبان از پیغام‌های شما.</translation>
+        <translation>بکاپ‌گرفتن از تاریخچه گپ و گفت شما و دوستان‌تان. شما می‌توانید در صورت نیاز از تاریخ مشخصی به بعد و یا از کل تاریخچه گپ و گفت خود با یک مخاطب خاص بکاپ بگیرید و نزد خود نگه دارید.</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="157"/>
@@ -721,17 +787,17 @@ Thank you.</source>
     <message>
         <location filename="../qml/MainListView.qml" line="157"/>
         <source>Manage your installed sticker sets.</source>
-        <translation>مدیریت استیکرهای نصب شده بر روی اکانت شما.</translation>
+        <translation>مدیریت استیکرهای نصب‌شده بر روی تلگرام. شما می‌توانید از این قابلیت برای بررسی استیکرهای نصب‌شده خود استفاده کنید و در صورت نیاز آنها را پاک کنید.</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="158"/>
         <source>Profile picture changer</source>
-        <translation>تغییر عکس اوتوماتیک</translation>
+        <translation>تغییر اتوماتیک عکس پروفایل</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="158"/>
         <source>Change your profile picture frequently.</source>
-        <translation>تغییر عکس پروفایل شما بصورت خودکار در بازه‌های زمانی مشخص.</translation>
+        <translation>تغییر اتوماتیک عکس پروفایل در بازه‌های زمانی مشخص که توسط شما تعیین می‌شود و از عکس‌های مورد نظر شما که به این بخش اضافه می‌کنید.</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="159"/>
@@ -746,12 +812,12 @@ Thank you.</source>
     <message>
         <location filename="../qml/MainListView.qml" line="160"/>
         <source>Save avatars</source>
-        <translation>ذخیره تصاویر</translation>
+        <translation>ذخیره تصاویر پروفایل</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="160"/>
         <source>Save contact avatars automatically.</source>
-        <translation>ذخیره تصاویر پروفایل‌های یک کاربر به صورت خودکار.</translation>
+        <translation>ذخیره تصاویر پروفایل‌ یک کاربر به صورت خودکار.</translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="161"/>
@@ -802,21 +868,23 @@ Thank you.</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <source>Donate</source>
-        <translation type="vanished">حمایت</translation>
+        <location filename="../qml/MenuList.qml" line="74"/>
+        <source>About</source>
+        <translation>درباره</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="74"/>
+        <source>Donate</source>
+        <translation>حمایت</translation>
+    </message>
+    <message>
         <source>OpenSource Projects</source>
         <translation>پروژه‌های منبع‌باز</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="75"/>
         <source>About Nile Group</source>
         <translation>درباره گروه نیل</translation>
     </message>
     <message>
-        <location filename="../qml/MenuList.qml" line="76"/>
         <source>About Application</source>
         <translation>درباره برنامه</translation>
     </message>
@@ -832,12 +900,11 @@ Thank you.</source>
 <context>
     <name>OpenSourceProjects</name>
     <message>
-        <location filename="../qml/OpenSourceProjects.qml" line="81"/>
+        <location filename="../qml/OpenSourceProjects.qml" line="45"/>
         <source>List of other opensource projects used in Meikade.</source>
         <translation>لیست پروژه‌های اپن سورسی که در این برنامه از آن‌ها استفاده شده است.</translation>
     </message>
     <message>
-        <location filename="../qml/OpenSourceProjects.qml" line="179"/>
         <source>Open Source Projects</source>
         <translation>پروژه‌های منبع باز</translation>
     </message>
@@ -853,23 +920,29 @@ Thank you.</source>
 <context>
     <name>ProfilePicSwitcher</name>
     <message>
-        <location filename="../qml/features/ProfilePicSwitcher.qml" line="22"/>
+        <location filename="../qml/features/ProfilePicSwitcher.qml" line="15"/>
+        <source>Switch you telegram profile picture automatically.
+It switch your telegram profile picture in the selected period and from the selected photos.</source>
+        <translation>تغییر اتوماتیک عکس پروفایل در بازه‌های زمانی مشخص که توسط شما تعیین می‌شود و از عکس‌های مورد نظر شما که به این بخش اضافه می‌کنید.</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/ProfilePicSwitcher.qml" line="25"/>
         <source>Delete Picture</source>
         <translation>پاک کردن عکس</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePicSwitcher.qml" line="24"/>
-        <location filename="../qml/features/ProfilePicSwitcher.qml" line="141"/>
+        <location filename="../qml/features/ProfilePicSwitcher.qml" line="27"/>
+        <location filename="../qml/features/ProfilePicSwitcher.qml" line="145"/>
         <source>Picture switcher</source>
-        <translation>تغغیر عکس</translation>
+        <translation>تغییر عکس</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePicSwitcher.qml" line="97"/>
+        <location filename="../qml/features/ProfilePicSwitcher.qml" line="100"/>
         <source>Select file</source>
         <translation>انتخاب فایل</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePicSwitcher.qml" line="175"/>
+        <location filename="../qml/features/ProfilePicSwitcher.qml" line="179"/>
         <source>Are you sure about removing this sticker set?</source>
         <translation>آیا از پاک کردن این عکس مطمئن هستید؟</translation>
     </message>
@@ -877,37 +950,37 @@ Thank you.</source>
 <context>
     <name>ProfilePictureDialStyle</name>
     <message>
-        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="51"/>
+        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="53"/>
         <source>Off</source>
         <translation>خاموش</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="54"/>
+        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="56"/>
         <source>Hour</source>
         <translation>ساعت</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="57"/>
+        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="59"/>
         <source>Hours</source>
         <translation>ساعت</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="60"/>
+        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="62"/>
         <source>Day</source>
         <translation>روز</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="63"/>
+        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="65"/>
         <source>Days</source>
         <translation>روز</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="66"/>
+        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="68"/>
         <source>Week</source>
         <translation>هفته</translation>
     </message>
     <message>
-        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="68"/>
+        <location filename="../qml/features/ProfilePictureDialStyle.qml" line="70"/>
         <source>Weeks</source>
         <translation>هفته</translation>
     </message>
@@ -917,40 +990,45 @@ Thank you.</source>
     <message>
         <location filename="../telegram/telegramqml/demos/Search/SearchList.qml" line="20"/>
         <source>Search Keyword</source>
-        <translation>کلید جستجو</translation>
+        <translation>عبارت جستجو</translation>
     </message>
 </context>
 <context>
     <name>SensMessage</name>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="11"/>
         <source>Description of the Timer Message.
 It&apos;s important
 Because Because Because.</source>
-        <translation type="unfinished"></translation>
+        <translation>فرستادن پیغام در یک زمان مشخص برای یک مخاطب خاص. برای فرستادن پیغام‌هایی که در حال حاضر به یاد دارید اما ممکن است در روزهای آتی آن را فراموش کنید، می‌توانید همین حالا متن مورد نظر و تاریخ ارسال آن را مشخص کنید تا در موعد مقرر برای مخاطب مورد نظر شما ارسال شود.</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="25"/>
+        <location filename="../qml/features/SensMessage.qml" line="11"/>
+        <source>Send a word-sens message.
+When a users send you a message, contains a special characters, It detect them automatically and send a message you set before to them.</source>
+        <translation>فرستادن پیغام حساس به متن دریافتی. با فعال‌کردن این گزینه می‌توانید تعیین کنید در صورتی که پیغام دریافتی از دوستان شما حاوی کلمات خاصی باشد، به صورت اتوماتیک از طرف شما یک پیغام با متن مورد نظر شما برای ایشان ارسال شود.</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/SensMessage.qml" line="26"/>
         <source>Add new Message</source>
         <translation>پیغام جدید</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="27"/>
+        <location filename="../qml/features/SensMessage.qml" line="28"/>
         <source>Sensitive Message</source>
         <translation>پیغام حساس</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="123"/>
+        <location filename="../qml/features/SensMessage.qml" line="126"/>
         <source>Keyword</source>
         <translation>کلمه</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="131"/>
+        <location filename="../qml/features/SensMessage.qml" line="134"/>
         <source>Your Message</source>
         <translation>پیغام شما</translation>
     </message>
     <message>
-        <location filename="../qml/features/SensMessage.qml" line="139"/>
+        <location filename="../qml/features/SensMessage.qml" line="142"/>
         <source>Available keywords: %location% %camera%</source>
         <translation>کلید‌های اضافی: %location% %camera%</translation>
     </message>
@@ -960,7 +1038,7 @@ Because Because Because.</source>
     <message>
         <location filename="../asemantools/qml/AsemanTools/ShareDialog.qml" line="55"/>
         <source>Select Application</source>
-        <translation type="unfinished"></translation>
+        <translation>انتخاب اپلیکیشن</translation>
     </message>
 </context>
 <context>
@@ -970,7 +1048,9 @@ Because Because Because.</source>
         <source>Your message is recieved my Lord.
 Trying to start camera.
 Please Wait...</source>
-        <translation type="unfinished"></translation>
+        <translation>پیغام شما دریافت شد.
+تلاش برای عکس گرفتن.
+لطفا منتظر باشید...</translation>
     </message>
     <message>
         <location filename="../stgactioncaptureimage.cpp" line="80"/>
@@ -1014,17 +1094,23 @@ I can&apos;t find the location :(</source>
 <context>
     <name>StickerManager</name>
     <message>
-        <location filename="../qml/features/StickerManager.qml" line="25"/>
-        <source>Delete Sticker</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qml/features/StickerManager.qml" line="15"/>
+        <source>Installed sticker manager.
+It provides to you tools to show and remove installed stickers on your telegram account.</source>
+        <translation>مدیریت استیکرهای نصب‌شده بر روی تلگرام. شما می‌توانید از این قابلیت برای بررسی استیکرهای نصب‌شده خود استفاده کنید و در صورت نیاز آنها را پاک کنید.</translation>
     </message>
     <message>
-        <location filename="../qml/features/StickerManager.qml" line="27"/>
+        <location filename="../qml/features/StickerManager.qml" line="28"/>
+        <source>Delete Sticker</source>
+        <translation>حذف استیکر</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerManager.qml" line="30"/>
         <source>Sticker Manager</source>
         <translation>مدیریت استیکرها</translation>
     </message>
     <message>
-        <location filename="../qml/features/StickerManager.qml" line="113"/>
+        <location filename="../qml/features/StickerManager.qml" line="117"/>
         <source>Are you sure about removing this sticker set?</source>
         <translation>آیا از پاک کردن این استیکر مطمئن هستید؟</translation>
     </message>
@@ -1038,10 +1124,18 @@ I can&apos;t find the location :(</source>
     </message>
 </context>
 <context>
+    <name>SuperTelegram</name>
+    <message>
+        <location filename="../supertelegram.cpp" line="223"/>
+        <source>Expired</source>
+        <translation>تمام شده</translation>
+    </message>
+</context>
+<context>
     <name>SuperTelegramService</name>
     <message>
         <source>Auto message by SuperTelegram: %1</source>
-        <translation type="vanished">پیغام اوتوماتیک توسط SuperTelegram: %1</translation>
+        <translation>پیغام اوتوماتیک توسط SuperTelegram: %1</translation>
     </message>
     <message>
         <location filename="../supertelegramservice.cpp" line="319"/>
@@ -1049,7 +1143,8 @@ I can&apos;t find the location :(</source>
         <location filename="../supertelegramservice.cpp" line="331"/>
         <source>%1
 by SuperTelegram</source>
-        <translation type="unfinished"></translation>
+        <translation>%1
+ارسال شده با سوپرتلگرام</translation>
     </message>
 </context>
 <context>
@@ -1063,34 +1158,39 @@ by SuperTelegram</source>
 <context>
     <name>TimerMessage</name>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="12"/>
         <source>Description of the Timer Message.
 It&apos;s important
 Because Because Because.</source>
-        <translation type="unfinished"></translation>
+        <translation>فرستادن پیغام در یک زمان مشخص برای یک مخاطب خاص. برای فرستادن پیغام‌هایی که در حال حاضر به یاد دارید اما ممکن است در روزهای آتی آن را فراموش کنید، می‌توانید همین حالا متن مورد نظر و تاریخ ارسال آن را مشخص کنید تا در موعد مقرر برای مخاطب مورد نظر شما ارسال شود.</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="22"/>
+        <location filename="../qml/features/TimerMessage.qml" line="12"/>
+        <source>Sending a message to a contact at specified time.
+It help you to send messages,  maybe you forget it to send it later. You select the time and write the message, SuperTelegram send them at the specified time.</source>
+        <translation>فرستادن پیغام در یک زمان مشخص برای یک مخاطب خاص. برای فرستادن پیغام‌هایی که در حال حاضر به یاد دارید اما ممکن است در روزهای آتی آن را فراموش کنید، می‌توانید همین حالا متن مورد نظر و تاریخ ارسال آن را مشخص کنید تا در موعد مقرر برای مخاطب مورد نظر شما ارسال شود.</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/TimerMessage.qml" line="23"/>
         <source>Select Contact</source>
         <translation>انتخاب کاربر</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="25"/>
+        <location filename="../qml/features/TimerMessage.qml" line="26"/>
         <source>Add Timer</source>
         <translation>تایمر جدید</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="27"/>
+        <location filename="../qml/features/TimerMessage.qml" line="28"/>
         <source>Timer Message</source>
         <translation>پیغام زمانی</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="38"/>
+        <location filename="../qml/features/TimerMessage.qml" line="39"/>
         <source>Please fill message.</source>
         <translation>لطفا متن را پر کنید.</translation>
     </message>
     <message>
-        <location filename="../qml/features/TimerMessage.qml" line="44"/>
+        <location filename="../qml/features/TimerMessage.qml" line="45"/>
         <source>Wrong Date/Time!</source>
         <translation>تاریخ یا ساعت اشتباه است!</translation>
     </message>
@@ -1118,12 +1218,12 @@ Because Because Because.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="70"/>
+        <location filename="../main.cpp" line="73"/>
         <source>Verbose mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="72"/>
+        <location filename="../main.cpp" line="75"/>
         <source>Run is service mode.</source>
         <translation type="unfinished"></translation>
     </message>

@@ -35,13 +35,13 @@ Rectangle {
             Item {width: 20*Devices.density; height: 1}
 
             Text {
+                id: title
                 verticalAlignment: Text.AlignVCenter
                 height: parent.height
                 width: parent.width - parent.height - 20*Devices.density
                 font.family: AsemanApp.globalFont.family
                 font.pixelSize: 13*Devices.fontDensity
                 color: "#ffffff"
-                text: qsTr("Your phone")
             }
 
             Button {
@@ -116,12 +116,12 @@ Rectangle {
         Item { width: 2; height: 10*Devices.density }
 
         Text {
+            id: please_txt
             width: parent.width
             font.family: AsemanApp.globalFont.family
             font.pixelSize: 9*Devices.fontDensity
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             color: "#666666"
-            text: qsTr("Please confirm your country code and enter your phone number.")
         }
     }
 
@@ -154,11 +154,11 @@ Rectangle {
                 }
 
                 Text {
+                    id: wait
                     anchors.verticalCenter: parent.verticalCenter
                     font.family: AsemanApp.globalFont.family
                     font.pixelSize: 9*Devices.fontDensity
                     color: "#333333"
-                    text: qsTr("Requesting code. Please wait...")
                 }
             }
         }
@@ -193,6 +193,7 @@ Rectangle {
             anchors.right: parent.right
 
             Text {
+                id: invalid_error
                 width: main.width - 40*Devices.density
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.margins: 10*Devices.density
@@ -207,16 +208,32 @@ Rectangle {
                 anchors.right: parent.right
 
                 Button {
+                    id: ok_btn
                     textFont.family: AsemanApp.globalFont.family
                     textFont.pixelSize: 10*fontRatio*Devices.fontDensity
                     textColor: "#0d80ec"
                     normalColor: "#00000000"
                     highlightColor: "#660d80ec"
-                    text: qsTr("OK")
                     onClicked: messageDialog.hide()
+                    text: qsTr("OK")
                 }
             }
         }
+    }
+
+    Connections {
+        target: stg
+        onCurrentLanguageChanged: initTranslations()
+    }
+
+    function initTranslations(){
+        wait.text = qsTr("Requesting code. Please wait...")
+        title.text = qsTr("Your phone")
+        please_txt.text = qsTr("Please confirm your country code and enter your phone number.")
+    }
+
+    Component.onCompleted: {
+        initTranslations()
     }
 }
 

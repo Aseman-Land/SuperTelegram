@@ -60,4 +60,5 @@ AboutPage 1.0 AboutPage.qml
 AboutPageItem 1.0 AboutPageItem.qml
 AboutPageAseman 1.0 AboutPageAseman.qml
 SmartComponent 1.0 SmartComponent.qml
+AsemanProductsList 1.0 AsemanProductsList.qml
 ArrayTools 1.0 ArrayFunctions.js

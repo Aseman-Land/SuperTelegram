@@ -22,6 +22,7 @@ Row {
             text: edit? qsTr("DELETE") : qsTr("CANCEL")
             anchors.centerIn: parent
             font.pixelSize: 10*fontRatio*Devices.fontDensity
+            font.family: AsemanApp.globalFont.family
             font.weight: Font.DemiBold
             color: "#B30D0D"
         }
@@ -46,6 +47,7 @@ Row {
             text: qsTr("DONE")
             anchors.centerIn: parent
             font.pixelSize: 10*fontRatio*Devices.fontDensity
+            font.family: AsemanApp.globalFont.family
             font.weight: Font.DemiBold
             color: "#0d80ec"
         }

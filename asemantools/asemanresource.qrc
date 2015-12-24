@@ -150,5 +150,6 @@
         <file>qml/AsemanTools/files/aseman-silver.png</file>
         <file>qml/AsemanTools/files/asemanland-logo.png</file>
         <file>qml/AsemanTools/files/aseman-silver-shadowed.png</file>
+        <file>qml/AsemanTools/AsemanProductsList.qml</file>
     </qresource>
 </RCC>

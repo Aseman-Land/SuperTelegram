@@ -24,6 +24,7 @@ DialStyle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: dstyle.color
                 font.pixelSize: 50*Devices.density
+                font.family: AsemanApp.globalFont.family
                 text: {
                     var value = Math.floor(control.value)
                     if(value == -1)
@@ -41,6 +42,7 @@ DialStyle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: dstyle.color
                 font.pixelSize: 20*Devices.density
+                font.family: AsemanApp.globalFont.family
                 font.bold: true
                 text: {
                     var value = Math.floor(control.value)

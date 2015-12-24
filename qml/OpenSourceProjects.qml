@@ -70,7 +70,6 @@ Item {
                     Text {
                         id: title_txt
                         font.pixelSize: 14*fontRatio*Devices.fontDensity
-                        font.family: AsemanApp.globalFont.family
                         anchors.left: parent.left
                         color: "#444444"
                         text: title
@@ -79,7 +78,6 @@ Item {
                     Text {
                         id: license_txt
                         font.pixelSize: 10*fontRatio*Devices.fontDensity
-                        font.family: AsemanApp.globalFont.family
                         anchors.right: parent.right
                         anchors.bottom: parent.bottom
                         color: "#777777"
@@ -90,7 +88,6 @@ Item {
                 Text {
                     id: description_txt
                     font.pixelSize: 9*fontRatio*Devices.fontDensity
-                    font.family: AsemanApp.globalFont.family
                     anchors.left: parent.left
                     anchors.right: parent.right
                     wrapMode: Text.WrapAtWordBoundaryOrAnywhere
@@ -101,7 +98,6 @@ Item {
                 Text {
                     id: link_txt
                     font.pixelSize: 9*fontRatio*Devices.fontDensity
-                    font.family: AsemanApp.globalFont.family
                     color: "#0d80ec"
                     text: link
 

@@ -12,6 +12,9 @@ FeaturePageType1 {
     model: smodel.stickerSets
     disableMaterialDesign: true
     activeIndicator: smodel.initializing
+    description: qsTr("Installed sticker manager.\n" +
+                      "It provides to you tools to show " +
+                      "and remove installed stickers on your telegram account.")
 
     property string editId
 
@@ -79,6 +82,7 @@ FeaturePageType1 {
                 text: sitem.stickerSet.title
                 color: "#333333"
                 font.pixelSize: 11*fontRatio*Devices.fontDensity
+                font.family: AsemanApp.globalFont.family
             }
         }
 

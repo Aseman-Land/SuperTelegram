@@ -33,13 +33,13 @@ Rectangle {
             Item {width: 20*Devices.density; height: 1}
 
             Text {
+                id: title
                 verticalAlignment: Text.AlignVCenter
                 height: parent.height
                 width: parent.width - parent.height - 20*Devices.density
                 font.family: AsemanApp.globalFont.family
                 font.pixelSize: 13*Devices.fontDensity
                 color: "#ffffff"
-                text: qsTr("Your code")
             }
 
             Button {
@@ -63,12 +63,12 @@ Rectangle {
         spacing: 4*Devices.density
 
         Text {
+            id: desc_txt
             width: parent.width
             font.family: AsemanApp.globalFont.family
             font.pixelSize: 9*Devices.fontDensity
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             color: "#666666"
-            text: qsTr("We've sent and SMS with an activation code to your phone <b>%1</b>").arg(phoneNumber)
         }
 
         Item { width: 2; height: 10*Devices.density }
@@ -130,11 +130,11 @@ Rectangle {
                 }
 
                 Text {
+                    id: sending
                     anchors.verticalCenter: parent.verticalCenter
                     font.family: AsemanApp.globalFont.family
                     font.pixelSize: 9*Devices.fontDensity
                     color: "#333333"
-                    text: qsTr("Sending code. Please wait...")
                 }
             }
         }
@@ -163,6 +163,21 @@ Rectangle {
     Component {
         id: textfield_style_component
         Styles.TextFieldStyle{}
+    }
+
+    Connections {
+        target: stg
+        onCurrentLanguageChanged: initTranslations()
+    }
+
+    function initTranslations(){
+        sending.text = qsTr("Sending code. Please wait...")
+        desc_txt.text = qsTr("We've sent and SMS with an activation code to your phone <b>%1</b>").arg(phoneNumber)
+        title.text = qsTr("Your code")
+    }
+
+    Component.onCompleted: {
+        initTranslations()
     }
 }
 

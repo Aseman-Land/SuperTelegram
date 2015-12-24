@@ -12,6 +12,9 @@ FeaturePageType2 {
     anchors.fill: parent
     headColor: main.color
     backgroundColor: "#fefefe"
+    property string description: qsTr("Switch you telegram profile picture automatically.\n" +
+                                      "It switch your telegram profile picture in the" +
+                                      " selected period and from the selected photos.")
 
     property real headerHeight: width*0.6
     property real titleBarHeight: View.statusBarHeight + Devices.standardTitleBarHeight
@@ -136,6 +139,7 @@ FeaturePageType2 {
                 id: header_txt
                 anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: 14*fontRatio*Devices.fontDensity
+                font.family: AsemanApp.globalFont.family
                 color: backButtonColor
                 x: View.layoutDirection==Qt.RightToLeft? parent.width-width : 0
                 text: qsTr("Picture switcher")
@@ -201,6 +205,20 @@ FeaturePageType2 {
 
             editId = ""
         }
+    }
+
+    Text {
+        id: desc_txt
+        y: headerHeight/2 + parent.height/2 - height/2
+        anchors.horizontalCenter: parent.horizontalCenter
+        horizontalAlignment: Text.AlignHCenter
+        width: parent.width-40*Devices.density
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        color: "#888888"
+        font.family: AsemanApp.globalFont.family
+        font.pixelSize: 9*fontRatio*Devices.fontDensity
+        visible: listv.count == 0
+        text: description
     }
 
     Component {
