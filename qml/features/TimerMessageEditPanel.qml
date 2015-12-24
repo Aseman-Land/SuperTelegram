@@ -63,6 +63,20 @@ Item {
                 height: 80*Devices.density
                 placeholder: qsTr("Your Message")
             }
+
+            Text {
+                id: keywords
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: 10*Devices.density
+                font.family: AsemanApp.globalFont.family
+                font.pixelSize: 8*fontRatio*Devices.fontDensity
+                color: "#888888"
+                text: qsTr("Available keywords: %1").arg(
+                          "<a href=\"%location%\">%location%</a> " +
+                          "<a href=\"%camera%\">%camera%</a>")
+                onLinkActivated: tarea.text += (" " + link + " ")
+            }
         }
     }
 

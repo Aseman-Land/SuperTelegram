@@ -94,6 +94,10 @@ PageManagerItem {
             ColorAnimation{easing.type: Easing.OutCubic; duration: 400}
         }
 
+        MouseArea {
+            anchors.fill: parent
+        }
+
         Item {
             width: parent.width - height - 6*Devices.density
             height: Devices.standardTitleBarHeight

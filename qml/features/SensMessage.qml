@@ -127,6 +127,21 @@ FeaturePageType1 {
                 inputMethodHints: Qt.ImhNoPredictiveText
             }
 
+            Text {
+                width: parent.width
+                height: 32*Devices.density
+                verticalAlignment: Text.AlignVCenter
+                font.family: AsemanApp.globalFont.family
+                font.pixelSize: 10*Devices.fontDensity
+                color: smsg.dialogIsNull? "#0d80ec" : "#333333"
+                text: smsg.dialogIsNull? qsTr("Select contact...") : qsTr("Target: <b>%1</b>").arg(smsg.dialogName)
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: smsg.addMode = true
+                }
+            }
+
             StgTextArea {
                 id: text_area
                 width: parent.width
@@ -136,10 +151,14 @@ FeaturePageType1 {
 
             Text {
                 id: keywords
+                width: parent.width
                 font.family: AsemanApp.globalFont.family
                 font.pixelSize: 8*fontRatio*Devices.fontDensity
                 color: "#888888"
-                text: qsTr("Available keywords: %location% %camera%")
+                text: qsTr("Available keywords: %1").arg(
+                          "<a href=\"%location%\">%location%</a> " +
+                          "<a href=\"%camera%\">%camera%</a>")
+                onLinkActivated: text_area.text += (" " + link + " ")
             }
 
             Item {width: 1; height: 10*Devices.density}
