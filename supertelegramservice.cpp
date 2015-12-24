@@ -5,13 +5,11 @@
 
 #include "supertelegramservice.h"
 #include "supertelegram.h"
-#include "stghbserver.h"
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemandevices.h"
 #include "asemantools/asemannetworksleepmanager.h"
 #include "asemantools/asemantools.h"
 #include "commandsdatabase.h"
-#include "stghbclient.h"
 
 #include "stgactiongetgeo.h"
 #include "stgactioncaptureimage.h"
@@ -371,21 +369,6 @@ QString SuperTelegramService::getNextProfilePicture() const
         return QString();
 
     return p->stg->profilePicSwitcherLocation() + "/" + files[qrand()%files.length()];
-}
-
-void SuperTelegramService::updated(int reason)
-{
-    switch(reason)
-    {
-    case StgHBClient::UpdateAutoMessageReason:
-        updateAutoMessage();
-        break;
-
-    case StgHBClient::UpdateRewakeReason:
-        p->telegram->sleep();
-        p->telegram->wake();
-        break;
-    }
 }
 
 void SuperTelegramService::updateAutoMessage()

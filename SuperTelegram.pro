@@ -25,7 +25,6 @@ include(qmake/qtcAddDeployment.pri)
 qtcAddDeployment()
 
 include(telegram/telegram.pri)
-include(hyperbus/hyperbus.pri)
 
 SOURCES += main.cpp \
     supertelegram.cpp \
@@ -36,8 +35,6 @@ SOURCES += main.cpp \
     sensmessagemodel.cpp \
     backupmanager.cpp \
     profilepicswitchermodel.cpp \
-    stghbserver.cpp \
-    stghbclient.cpp \
     servicedatabase.cpp \
     abstractstgaction.cpp \
     stgactiongetgeo.cpp \
@@ -57,8 +54,6 @@ HEADERS += \
     sensmessagemodel.h \
     backupmanager.h \
     profilepicswitchermodel.h \
-    stghbserver.h \
-    stghbclient.h \
     servicedatabase.h \
     abstractstgaction.h \
     stgactiongetgeo.h \

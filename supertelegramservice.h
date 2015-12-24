@@ -40,8 +40,6 @@ private slots:
     void messagesGetDialogsAnswer(qint64 id, qint32 sliceCount, const QList<Dialog> &dialogs, const QList<Message> &messages, const QList<Chat> &chats, const QList<User> &users);
     void photosUploadProfilePhotoAnswer(qint64 id, const Photo &photo, const QList<User> &users);
 
-    void updated(int reason);
-
     void updateAutoMessage();
     void updateSensMessage();
     void updatePPicChanged();

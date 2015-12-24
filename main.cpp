@@ -13,7 +13,6 @@
 #include "supertelegramservice.h"
 #include "supertelegram_macro.h"
 #include "commandsdatabase.h"
-#include "stghbclient.h"
 #include "emojis.h"
 #include "telegram/libqtelegram/telegram.h"
 
@@ -98,7 +97,6 @@ int main(int argc, char *argv[])
 
         qmlRegisterType<SuperTelegram>(QML_URI, 1, 0, "SuperTelegram");
         qmlRegisterType<CommandsDatabase>(QML_URI, 1, 0, "CommandsDatabase");
-        qmlRegisterType<StgHBClient>(QML_URI, 1, 0, "StgHBClient");
         qmlRegisterType<SuperTelegramService>(QML_URI, 1, 0, "StgService");
         qmlRegisterType<Emojis>(QML_URI, 1, 0, "Emojis");
 
