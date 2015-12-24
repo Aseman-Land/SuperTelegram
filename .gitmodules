@@ -1,6 +1,3 @@
-[submodule "telegram/TelegramQML"]
-	path = telegram/TelegramQML
-	url = git@github.com:Aseman-Land/TelegramQML.git
 [submodule "telegram/telegramqml"]
 	path = telegram/telegramqml
 	url = git@github.com:Aseman-Land/TelegramQML.git
