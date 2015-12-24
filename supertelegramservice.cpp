@@ -258,6 +258,7 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
 
     if(!p->activeAutoMessages.guid.isEmpty())
     {
+        qDebug() << QString("Auto message (%1) activated on the new message.").arg(p->activeAutoMessages.message);
         processOnTheMessage(id, input, p->activeAutoMessages.message);
         p->answeredMessages.insert(id);
         ADD_USER_BLOCK_TIMER(userId)
@@ -265,8 +266,11 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
     else
     {
         foreach(const SensMessage &sens, p->sensMessages)
-            if(message.toLower().trimmed() == sens.key.toLower().trimmed())
+            if(message.toLower().trimmed().contains(sens.key.toLower().trimmed()))
+            {
+                qDebug() << QString("Sens message (%1) activated on the new message.").arg(sens.key);
                 processOnTheMessage(id, input, sens.value);
+            }
     }
 }
 

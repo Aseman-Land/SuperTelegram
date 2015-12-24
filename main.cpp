@@ -34,19 +34,22 @@
 extern "C" int mainService(int argc, char *argv[])
 {
 #ifdef Q_OS_ANDROID
-    new AsemanQtLogger("/sdcard/stg.log");
+    AsemanQtLogger logger("/sdcard/stg.log");
+    Q_UNUSED(logger)
 #endif
 
+    qDebug() << "Service started";
     qputenv("QT_LOGGING_RULES", "tg.core.settings=false\n"
                                 "tg.core.outboundpkt=false\n"
                                 "tg.core.inboundpkt=false");
 
+    int result = 0;
     if(AsemanApplication::instance())
     {
         SuperTelegramService service;
         service.start();
 
-        return AsemanApplication::instance()->exec();
+        result = AsemanApplication::instance()->exec();
     }
     else
     {
@@ -56,8 +59,11 @@ extern "C" int mainService(int argc, char *argv[])
         SuperTelegramService service;
         service.start();
 
-        return app.exec();
+        result = app.exec();
     }
+
+    qDebug() << "Service closed";
+    return result;
 }
 
 int main(int argc, char *argv[])
