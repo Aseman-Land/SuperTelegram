@@ -9,7 +9,7 @@ Rectangle {
         id: title_bar
         width: parent.width
         height: Devices.standardTitleBarHeight + View.statusBarHeight
-        color: "#FF8112"
+        color: "#FA8902"
 
         Text {
             id: title_txt

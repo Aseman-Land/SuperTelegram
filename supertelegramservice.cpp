@@ -41,7 +41,7 @@ public:
     QPointer<CommandsDatabase> db;
 
     QTimer *timerMessageClock;
-    QTimer *updateClock;
+    QTimer *tgUpdateDialogTimer;
     QTimer *picChangerClock;
 
     QTimer *tgSleepTimer;
@@ -77,9 +77,6 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->external = false;
     p->uptime = QDateTime::currentDateTime();
 
-    p->updateClock = new QTimer(this);
-    p->updateClock->setInterval(5*60*1000);
-
     p->timerMessageClock = new QTimer(this);
     p->timerMessageClock->setSingleShot(true);
 
@@ -95,9 +92,13 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->tgAutoUpdateTimer->setSingleShot(false);
     p->tgAutoUpdateTimer->start();
 
+    p->tgUpdateDialogTimer = new QTimer(this);
+    p->tgUpdateDialogTimer->setInterval(5*60*1000);
+    p->tgUpdateDialogTimer->setSingleShot(false);
+    p->tgUpdateDialogTimer->start();
+
     connect(p->timerMessageClock, SIGNAL(timeout()), SLOT(clockTriggred()));
-    connect(p->updateClock, SIGNAL(timeout()), SLOT(update()));
-    connect(p->updateClock, SIGNAL(timeout()), SLOT(updateDialogs()));
+    connect(p->tgUpdateDialogTimer, SIGNAL(timeout()), SLOT(updateDialogs()));
     connect(p->tgUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
     connect(p->tgAutoUpdateTimer, SIGNAL(timeout()), SLOT(updatesGetState()));
     connect(p->picChangerClock, SIGNAL(timeout()), SLOT(switchPicture()));
@@ -218,14 +219,6 @@ void SuperTelegramService::clockTriggred()
     startClock();
 }
 
-void SuperTelegramService::update()
-{
-    if(!p->telegram)
-        return;
-
-    p->telegram->updatesGetState();
-}
-
 void SuperTelegramService::updateDialogs()
 {
     if(!p->telegram)
@@ -264,11 +257,15 @@ void SuperTelegramService::updateShortMessage(qint32 id, qint32 userId, const QS
     else
     {
         foreach(const SensMessage &sens, p->sensMessages)
+        {
+            if(sens.userId && sens.userId != userId)
+                continue;
             if(message.toLower().trimmed().contains(sens.key.toLower().trimmed()))
             {
                 qDebug() << QString("Sens message (%1) activated on the new message.").arg(sens.key);
                 processOnTheMessage(id, input, sens.value);
             }
+        }
     }
 }
 
@@ -416,6 +413,8 @@ void SuperTelegramService::wake()
     if(p->telegram) p->telegram->wake();
     p->tgUpdateTimer->stop();
     p->tgUpdateTimer->start();
+    p->tgUpdateDialogTimer->stop();
+    p->tgUpdateDialogTimer->start();
     p->tgAutoUpdateTimer->stop();
     p->tgAutoUpdateTimer->start();
 }
@@ -425,6 +424,7 @@ void SuperTelegramService::sleep()
     qDebug() << __FUNCTION__;
     if(p->telegram) p->telegram->sleep();
     p->tgUpdateTimer->stop();
+    p->tgUpdateDialogTimer->stop();
     p->tgAutoUpdateTimer->stop();
 }
 

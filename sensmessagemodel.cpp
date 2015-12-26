@@ -57,6 +57,10 @@ QVariant SensMessageModel::data(const QModelIndex &index, int role) const
     case ValueRole:
         result = item.value;
         break;
+
+    case UserRole:
+        result = item.userId;
+        break;
     }
 
     return result;
@@ -71,6 +75,7 @@ QHash<qint32, QByteArray> SensMessageModel::roleNames() const
     res = new QHash<qint32, QByteArray>();
     res->insert( KeyRole, "key");
     res->insert( ValueRole, "value");
+    res->insert( UserRole, "user");
     return *res;
 }
 
@@ -90,13 +95,14 @@ void SensMessageModel::refresh()
     changed(list);
 }
 
-bool SensMessageModel::addItem(const QString &key, const QString &value)
+bool SensMessageModel::addItem(const QString &key, const QString &value, qint64 userId)
 {
     SensMessage item;
     item.key = key;
     item.value = value;
+    item.userId = userId;
 
-    p->db->sensMessageInsert(key, value);
+    p->db->sensMessageInsert(key, value, userId);
 
     QList<SensMessage> list = p->list;
     bool added = false;

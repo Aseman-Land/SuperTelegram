@@ -55,12 +55,16 @@ Q_DECLARE_METATYPE(AutoMessage)
 class SensMessage
 {
 public:
+    SensMessage() : userId(0) {}
+
     QString key;
     QString value;
+    qint64 userId;
 
     bool operator ==(const SensMessage &b) {
         return key == b.key &&
-               value == b.value;
+               value == b.value &&
+               userId == b.userId;
     }
 };
 Q_DECLARE_METATYPE(SensMessage)
@@ -99,7 +103,7 @@ public:
     bool autoMessageClearActive();
     AutoMessage autoMessageActiveMessage();
 
-    bool sensMessageInsert(const QString &key, const QString &value);
+    bool sensMessageInsert(const QString &key, const QString &value, qint64 userId = 0);
     bool sensMessageRemove(const QString &key);
     QList<SensMessage> sensMessageFetchAll();
 

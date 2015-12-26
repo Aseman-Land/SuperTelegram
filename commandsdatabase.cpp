@@ -221,16 +221,17 @@ AutoMessage CommandsDatabase::autoMessageActiveMessage()
         return list.first();
 }
 
-bool CommandsDatabase::sensMessageInsert(const QString &key, const QString &value)
+bool CommandsDatabase::sensMessageInsert(const QString &key, const QString &value, qint64 userId)
 {
     if(key.isEmpty())
         return false;
 
     QSqlQuery query(p->db);
-    query.prepare("INSERT OR REPLACE INTO SensitiveMessages (key,value) "
-                  "VALUES (:key, :value)");
+    query.prepare("INSERT OR REPLACE INTO SensitiveMessages (key,value,user) "
+                  "VALUES (:key, :value, :user)");
     query.bindValue(":key", key);
     query.bindValue(":value", value);
+    query.bindValue(":user", userId);
     if(!query.exec())
     {
         qDebug() << __PRETTY_FUNCTION__ << query.lastError().text();
@@ -276,6 +277,7 @@ QList<SensMessage> CommandsDatabase::sensMessageFetchAll()
         SensMessage item;
         item.key = record.value("key").toString();
         item.value = record.value("value").toString();
+        item.userId = record.value("user").toLongLong();
 
         result << item;
     }
@@ -410,6 +412,23 @@ void CommandsDatabase::updateDb()
         query.prepare("CREATE TABLE FilesHash (fileHash STRING PRIMARY KEY, fileId STRING NOT NULL, accessHash STRING NOT NULL);");
         query.exec();
         dyn_version = 1;
+        qDebug() << QString("Database updated to the %1 version.").arg(dyn_version);
+    }
+    if(dyn_version == 1)
+    {
+        QStringList queries;
+        queries << "ALTER TABLE SensitiveMessages RENAME TO sqlitestudio_temp_table;"
+                << "CREATE TABLE SensitiveMessages (\"key\" TEXT PRIMARY KEY, value TEXT NOT NULL, user BIGINT);"
+                << "INSERT INTO SensitiveMessages (\"key\", value) SELECT \"key\", value FROM sqlitestudio_temp_table;"
+                << "DROP TABLE sqlitestudio_temp_table;";
+
+        foreach(const QString &q, queries)
+        {
+            QSqlQuery query(p->db);
+            query.prepare(q);
+            query.exec();
+        }
+        dyn_version = 2;
         qDebug() << QString("Database updated to the %1 version.").arg(dyn_version);
     }
 

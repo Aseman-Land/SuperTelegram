@@ -15,6 +15,7 @@ FeaturePageType1 {
 
     property string editKey
     property string editValue
+    property int editDialogId
 
     SensMessageModel {
         id: smodel
@@ -100,6 +101,7 @@ FeaturePageType1 {
             onClicked: {
                 editKey = model.key
                 editValue = model.value
+                editDialogId = model.user
                 editMode = true
             }
         }
@@ -172,7 +174,7 @@ FeaturePageType1 {
                     if(item.key.length != 0)
                         smodel.removeItem(item.key)
 
-                    smodel.addItem(text_field.text, text_area.text)
+                    smodel.addItem(text_field.text, text_area.text, smsg.dialogId)
                     editMode = false
                 }
                 onDeleteRequest: {
@@ -187,11 +189,17 @@ FeaturePageType1 {
                 key = editKey
                 text_field.text = editKey
                 text_area.text = editValue
+                currentDialog = telegram.dialog(editDialogId)
             }
 
             editKey = ""
             editValue = ""
+            editDialogId = 0
         }
+    }
+
+    DialogsModel {
+        telegram: main.telegram
     }
 }
 

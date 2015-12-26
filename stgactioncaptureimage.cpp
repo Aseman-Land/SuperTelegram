@@ -69,7 +69,7 @@ void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 re
     connect(p->telegram, SIGNAL(messagesSendMediaAnswer(qint64,UpdatesType)),
             this, SLOT(messagesSendMediaAnswer(qint64,UpdatesType)));
 
-    p->camera->capture(filePath, AsemanCameraCapture::CameraFacingBack);
+    p->camera->capture(filePath, AsemanCameraCapture::CameraFacingFront);
 }
 
 void StgActionCaptureImage::imageCaptured(int id, const QString &path)

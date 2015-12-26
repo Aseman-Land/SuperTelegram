@@ -29,13 +29,14 @@ public slots:
     void wake();
     void sleep();
 
+    void updatesGetState();
+    void updateDialogs();
+
 private slots:
     void authNeeded();
     void authLoggedIn();
     void clockTriggred();
     void switchPicture();
-    void update();
-    void updateDialogs();
     void updateShortMessage(qint32 id, qint32 userId, const QString &message, qint32 pts, qint32 pts_count, qint32 date, qint32 fwd_from_id, qint32 fwd_date, qint32 reply_to_msg_id, bool unread, bool out);
     void messagesGetDialogsAnswer(qint64 id, qint32 sliceCount, const QList<Dialog> &dialogs, const QList<Message> &messages, const QList<Chat> &chats, const QList<User> &users);
     void photosUploadProfilePhotoAnswer(qint64 id, const Photo &photo, const QList<User> &users);
@@ -45,7 +46,6 @@ private slots:
     void updatePPicChanged();
     void initTelegram();
     void hostCheckerStateChanged();
-    void updatesGetState();
 
 protected:
     void timerEvent(QTimerEvent *e);

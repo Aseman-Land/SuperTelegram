@@ -15,7 +15,8 @@ class SensMessageModel : public AsemanAbstractListModel
 public:
     enum DataRoles {
         KeyRole = Qt::UserRole,
-        ValueRole
+        ValueRole,
+        UserRole
     };
 
     SensMessageModel(QObject *parent = 0);
@@ -35,7 +36,7 @@ public:
 
 public slots:
     void refresh();
-    bool addItem(const QString &key, const QString &value);
+    bool addItem(const QString &key, const QString &value, qint64 userId);
     bool removeItem(const QString &key);
 
 signals:
