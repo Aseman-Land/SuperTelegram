@@ -75,5 +75,7 @@
         <file>qml/img/simple-icon.png</file>
         <file>qml/img/simple-nilegroup.png</file>
         <file>qml/img/simple-opensource.png</file>
+        <file>qml/img/congratulations.png</file>
+        <file>qml/CongratulationsDialog.qml</file>
     </qresource>
 </RCC>

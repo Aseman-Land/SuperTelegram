@@ -294,7 +294,7 @@ void SuperTelegramService::messagesGetDialogsAnswer(qint64 id, qint32 sliceCount
         if(secs > maxTime)
             continue;
 
-        updateShortMessage(id, m.fromId(), m.message(), 0, 0, m.date(), m.fwdFromId(), m.fwdDate()
+        updateShortMessage(m.id(), m.fromId(), m.message(), 0, 0, m.date(), m.fwdFromId(), m.fwdDate()
                            , m.replyToMsgId(), m.flags()&1, m.flags()&2);
     }
 }

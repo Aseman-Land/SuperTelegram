@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import AsemanTools 1.0
-import AsemanTools.Controls 1.0
+import AsemanTools.Controls 1.0 as Controls
 import AsemanTools.Controls.Styles 1.0 as Styles
 
 Rectangle {
@@ -58,12 +58,12 @@ Rectangle {
         anchors.bottomMargin: 10*Devices.density
         height: 36*Devices.density
         width: 150*Devices.density
+        normalColor: "#00A0E3"
+        highlightColor: Qt.darker(normalColor, 1.1)
+        textColor: "#ffffff"
+        radius: 4*Devices.density
         text: qsTr("Home Page")
         onClicked: Qt.openUrlExternally("http://nilegroup.org/")
-        style: Styles.ButtonStyle {
-            buttonColor: "#00A0E3"
-            buttonTextColor: "#ffffff"
-        }
     }
 }
 

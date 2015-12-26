@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import AsemanTools 1.0
-import AsemanTools.Controls 1.0
+import AsemanTools.Controls 1.0 as Controls
 import AsemanTools.Controls.Styles 1.0 as Styles
 import QtGraphicalEffects 1.0
 
@@ -59,10 +59,10 @@ Item {
         height: 36*Devices.density
         width: 150*Devices.density
         text: qsTr("Home Page")
-        style: Styles.ButtonStyle {
-            buttonColor: "#2CA5E0"
-            buttonTextColor: "#ffffff"
-        }
+        normalColor: "#2CA5E0"
+        highlightColor: Qt.darker(normalColor, 1.1)
+        textColor: "#ffffff"
+        radius: 4*Devices.density
     }
 }
 

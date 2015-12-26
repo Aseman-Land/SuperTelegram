@@ -15,7 +15,7 @@ AsemanMain {
     property alias stg: stg_core.stg
     property alias telegram: stg_core.telegram
     property alias core: stg_core
-    property alias storeManager: str_mgr
+    property alias store: str_mgr
     property alias emojis: emjs
 
     property color backButtonColor: "#ffffff"
@@ -36,6 +36,18 @@ AsemanMain {
         property bool is30DayTrialNumber: stg && telegram? stg.check30DayTrialNumber(telegram.phoneNumber) : false
 
         Component.onCompleted: setup()
+        onIsPremiumNumberChanged: {
+            if(!isPremiumNumber)
+                return
+
+            var dialogShowed = AsemanApp.readSetting("General/premiumDialog", 0)
+            if(dialogShowed != 0)
+                return
+
+            var component = congratulations_component.createLocalComponent()
+            component.createObject(main)
+            AsemanApp.setSetting("General/premiumDialog", 1)
+        }
     }
 
     Emojis {
@@ -47,5 +59,14 @@ AsemanMain {
         id: stg_core
         anchors.fill: parent
         Component.onCompleted: refresh()
+    }
+
+    SmartComponent {
+        id: congratulations_component
+        source: "CongratulationsDialog.qml"
+    }
+
+    Component.onCompleted: {
+
     }
 }
