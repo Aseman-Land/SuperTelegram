@@ -46,8 +46,8 @@ void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToI
 
     p->locationListener = new AsemanLocationListener(this);
 
-    if(!p->attachedMsg.isEmpty())
-        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to find the location.\nPlease Wait..."), p->replyToId);
+    if(!p->attachedMsg.isEmpty() && p->replyToId)
+        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved.\nTrying to find the location.\nPlease Wait..."), p->replyToId);
 
     connect(p->locationListener, SIGNAL(positionUpdated(QGeoPositionInfo)),
             SLOT(positionUpdated(QGeoPositionInfo)));

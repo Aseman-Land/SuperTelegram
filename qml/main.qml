@@ -23,21 +23,17 @@ AsemanMain {
 
     property real fontRatio: 1
 
-    StoreManager {
+    StgStoreManager {
         id: str_mgr
-        publicKey: "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCapdy2RlWlw7g5/s0Iw/pSCYNCVnmqvfPTNTNL1VifE5250K4E4zj34JlinmHuzUSSUWVI3InHboBl1UFDb5bJIKX8O/whfXHTVbiXmICJRrAcHKRE3UM6XCgbIMZRUS72GS6VKYNrcKLiajVNMN2E889+XtcEUqpiCMOKsFoNg5iUFewFScKCNxVtai9TpifGhY7Rm7EyW7yKrT2plUBy7IXSW3FEaoD3R8e75k0CAwEAAQ=="
+        publicKey: "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCq+c11JIpuX0LZ2yzn7gDofHRzyFP1JMv2Vh+fG9UbYbH/kCRSBtkGaZvycrgdozPh5nxgLBb4RQlMuSv3Aozc+tQSt2N8Lxid81VV3n26BeCYQkgKt8yIXFwMFNa0/BIHrxCYbhHZsBx/3JfG7UMkjEXTxsiTjLGG5ntGV9WR3IlbX1q294BlGwG7fbHxMYoKuRN6SOSJX0wCnN4+JpwZTwJZYebhd7j+Zi7J/ycCAwEAAQ=="
         packageName: "com.farsitel.bazaar"
         bindIntent: "ir.cafebazaar.pardakht.InAppBillingService.BIND"
         cacheSource: AsemanApp.homePath + "/store.cache"
+        stg: main.stg
+        telegram: main.telegram
 
-        property int meikade_donate_1000
-
-        property bool isPremiumNumber: stg && telegram? stg.checkPremiumNumber(telegram.phoneNumber) : false
-        property bool is30DayTrialNumber: stg && telegram? stg.check30DayTrialNumber(telegram.phoneNumber) : false
-
-        Component.onCompleted: setup()
-        onIsPremiumNumberChanged: {
-            if(!isPremiumNumber)
+        onPremiumChanged: {
+            if(!premium)
                 return
 
             var dialogShowed = AsemanApp.readSetting("General/premiumDialog", 0)
@@ -64,9 +60,5 @@ AsemanMain {
     SmartComponent {
         id: congratulations_component
         source: "CongratulationsDialog.qml"
-    }
-
-    Component.onCompleted: {
-
     }
 }

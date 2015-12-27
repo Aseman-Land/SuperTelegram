@@ -60,8 +60,8 @@ void StgActionCaptureImage::start(Telegram *tg, const InputPeer &peer, qint64 re
 
     QString filePath = newDirPath + "/" + QString(QUuid::createUuid().toString()).remove("{").remove("}") + ".jpg";
 
-    if(!p->attachedMsg.isEmpty())
-        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved my Lord.\nTrying to start camera.\nPlease Wait..."), p->replyToId);
+    if(!p->attachedMsg.isEmpty() && p->replyToId)
+        p->telegram->messagesSendMessage(p->peer, SuperTelegramService::generateRandomId(), tr("Your message is recieved.\nTrying to start camera.\nPlease Wait..."), p->replyToId);
 
     p->camera = new AsemanCameraCapture(this);
 

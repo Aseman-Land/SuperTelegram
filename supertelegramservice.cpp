@@ -164,8 +164,6 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetwork
     connect(p->tgSleepTimer, SIGNAL(timeout()), p->tgWakeTimer, SLOT(start()));
     connect(p->tgWakeTimer, SIGNAL(timeout()), this, SLOT(wake()));
 
-    p->timerMessageClock->start();
-
     connect(p->db, SIGNAL(autoMessageChanged())        , SLOT(updateAutoMessage()));
     connect(p->db, SIGNAL(sensMessageChanged())        , SLOT(updateSensMessage()));
     connect(p->db, SIGNAL(profilePictureTimerChanged()), SLOT(updatePPicChanged()));
@@ -327,7 +325,7 @@ void SuperTelegramService::processOnTheMessage(qint32 id, const InputPeer &input
         action->start(p->telegram, input, id, attachedText);
     }
     else
-        p->telegram->messagesSendMessage(input, generateRandomId(), tr("%1\nby SuperTelegram").arg(msg));
+        p->telegram->messagesSendMessage(input, generateRandomId(), tr("%1\nby SuperTelegram").arg(msg), id);
 }
 
 void SuperTelegramService::switchPicture()
@@ -453,14 +451,15 @@ void SuperTelegramService::checkTimerMessages(const QDateTime &dt)
     const QList<TimerMessage> &timerMessages = p->db->timerMessageFetch(dt);
     foreach(const TimerMessage &tm, timerMessages)
     {
-        qint64 id = p->telegram->messagesSendMessage(tm.peer, generateRandomId(), tm.message);
-        if(!id)
+        if(p->telegram->isSlept())
         {
             QPair<QVariant, int> pair;
             pair.first = QVariant::fromValue<TimerMessage>(tm);
             pair.second = 0;
             p->pendingActions << pair;
         }
+        else
+            processOnTheMessage(0, tm.peer, tm.message);
     }
 }
 
@@ -495,9 +494,10 @@ void SuperTelegramService::checkPendingActions()
         if(pair.first.type() == QVariant::nameToType(ASEMAN_TYPE_NAME(TimerMessage)))
         {
             TimerMessage tm = pair.first.value<TimerMessage>();
-            qint64 id = p->telegram->messagesSendMessage(tm.peer, generateRandomId(), tm.message);
-            if(!id)
+            if(p->telegram->isSlept())
                 pair.second++;
+            else
+                processOnTheMessage(0, tm.peer, tm.message);
         }
 
         if(pair.second < 5)
