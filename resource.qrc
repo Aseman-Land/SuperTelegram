@@ -78,5 +78,8 @@
         <file>qml/img/congratulations.png</file>
         <file>qml/CongratulationsDialog.qml</file>
         <file>qml/StgStoreManager.qml</file>
+        <file>qml/img/store-bag.png</file>
+        <file>qml/img/store-package.png</file>
+        <file>qml/img/premium-back.jpg</file>
     </qresource>
 </RCC>

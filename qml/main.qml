@@ -32,8 +32,8 @@ AsemanMain {
         stg: main.stg
         telegram: main.telegram
 
-        onPremiumChanged: {
-            if(!premium)
+        onIsPremiumNumberChanged: {
+            if(!isPremiumNumber)
                 return
 
             var dialogShowed = AsemanApp.readSetting("General/premiumDialog", 0)

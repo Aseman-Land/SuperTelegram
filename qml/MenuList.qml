@@ -59,7 +59,7 @@ Item {
             MouseArea {
                 id: marea
                 anchors.fill: parent
-                onClicked: mlist.selected(index, component.createLocalComponent())
+                onClicked: mlist.selected(index, (component?component.createLocalComponent():null))
             }
         }
 
