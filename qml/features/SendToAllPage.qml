@@ -9,9 +9,6 @@ FeaturePageType1 {
     model: dmodel
     activeIndicator: dmodel.initializing
     disableMaterialDesign: true
-    description: qsTr("Make a backup from your conversations history.\n" +
-                      "You can make a backup from a specified converstion " +
-                      "from a date and time using this tools and keep it in a safe place.")
 
     text: {
         if(editMode)
