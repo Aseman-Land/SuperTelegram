@@ -66,6 +66,7 @@ Item {
         highlightColor: Qt.darker(normalColor, 1.1)
         textColor: "#ffffff"
         radius: 4*Devices.density
+        onClicked: Qt.openUrlExternally("http://nilegroup.org/stg")
     }
 }
 
