@@ -7,6 +7,7 @@ Rectangle {
     clip: true
 
     property bool isPremium: store.premium
+    property string highlight
 
     Image {
         width: height
@@ -94,14 +95,41 @@ Rectangle {
         visible: !isPremium
         model: smodel
         clip: true
-        delegate: Rectangle {
+        delegate: Item {
             id: item
             width: listv.width
-            height: row.height + (premiumItem? 60*Devices.density : 20*Devices.density)
-            color: premiumItem? "#00000000" : "#00000000"
+            height: row.height + (premiumItem? 60*Devices.density : 30*Devices.density)
             clip: true
 
             property bool premiumItem: model.sku == "stg_premium_pack"
+
+            Rectangle {
+                id: highlighter
+                anchors.fill: parent
+                color: "#22bb0000"
+                opacity: 0
+
+                Behavior on opacity {
+                    NumberAnimation{easing.type: Easing.InOutCubic; duration: 500}
+                }
+
+                Timer {
+                    interval: 1000
+                    repeat: true
+                    onTriggered: {
+                        if(counter%2==0)
+                            highlighter.opacity = 1
+                        else
+                            highlighter.opacity = 0
+
+                        counter++
+                        if(counter > 5)
+                            stop()
+                    }
+                    Component.onCompleted: if(highlight == model.sku) start()
+                    property int counter: 0
+                }
+            }
 
             Image {
                 width: parent.width
@@ -125,9 +153,9 @@ Rectangle {
                     id: img
                     height: 42*Devices.density
                     width: height
-                    anchors.verticalCenter: parent.verticalCenter
+                    y: 10*Devices.density
                     sourceSize: Qt.size(width*1.5, height*1.5)
-                    source: "img/store-bag.png"
+                    source: "img/store-package.png"
                     visible: !item.premiumItem
                 }
 
@@ -137,9 +165,10 @@ Rectangle {
 
                     Text {
                         id: ttl
-                        width: item.premiumItem? row.width : row.width - img.width - 4*Devices.density
+                        width: item.premiumItem? row.width : row.width - img.width - buy_frame.width - 8*Devices.density
                         font.family: AsemanApp.globalFont.family
                         font.pixelSize: (item.premiumItem?13:10)*fontRatio*Devices.fontDensity
+                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                         text: model.title
                         color: item.premiumItem? "#000000" : "#000000"
                         Component.onCompleted: if(item.premiumItem) horizontalAlignment = Text.AlignHCenter
@@ -176,6 +205,50 @@ Rectangle {
                         radius: 3*Devices.density
                         visible: item.premiumItem
                         onClicked: model.purchasing = true
+                    }
+                }
+
+                Item {
+                    id: buy_frame
+                    y: 10*Devices.density
+                    width: 60*Devices.density
+                    height: buy_btn.height + price_txt.height + 2*Devices.density
+                    visible: !item.premiumItem
+
+                    Button {
+                        id: buy_btn
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 40*Devices.density
+                        normalColor: "#00000000"
+                        highlightColor: "#0d80ec"
+                        textColor: press? "#ffffff" :"#0d80ec"
+                        border.color: highlightColor
+                        border.width: 1*Devices.density
+                        text: qsTr("BUY")
+                        radius: 3*Devices.density
+                        visible: !model.purchased
+                        onClicked: model.purchasing = true
+                    }
+
+                    Image {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: height
+                        height: 30*Devices.density
+                        sourceSize: Qt.size(width, height)
+                        source: "img/ok-blue.png"
+                        visible: model.purchased
+                    }
+
+                    Text {
+                        id: price_txt
+                        width: parent.width
+                        anchors.bottom: parent.bottom
+                        horizontalAlignment: Text.AlignHCenter
+                        font.family: AsemanApp.globalFont.family
+                        font.pixelSize: 8*fontRatio*Devices.fontDensity
+                        color: "#0d80ec"
+                        visible: !model.purchased
+                        text: model.price
                     }
                 }
             }

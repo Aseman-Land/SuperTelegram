@@ -1,5 +1,7 @@
 #include "abstractstgaction.h"
 
+#include <QTimer>
+
 AbstractStgAction::AbstractStgAction(QObject *parent) :
     QObject(parent)
 {
@@ -9,5 +11,12 @@ AbstractStgAction::AbstractStgAction(QObject *parent) :
 AbstractStgAction::~AbstractStgAction()
 {
 
+}
+
+void AbstractStgAction::startTimout(int ms)
+{
+    QTimer *timout = new QTimer(this);
+    timout->start(ms);
+    connect(timout, SIGNAL(timeout()), SIGNAL(finished()));
 }
 

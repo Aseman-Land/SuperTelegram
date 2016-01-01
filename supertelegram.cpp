@@ -220,6 +220,8 @@ QString SuperTelegram::getTimesDiff(const QDateTime &a, const QDateTime &b)
     if(result.isEmpty())
         result = getTimesDiffAnalize(secs, 60, "minute");
     if(result.isEmpty())
+        result = getTimesDiffAnalize(secs, 1, "second");
+    if(result.isEmpty())
         result = tr("Expired");
 
     return result;

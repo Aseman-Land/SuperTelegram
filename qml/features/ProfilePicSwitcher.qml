@@ -20,6 +20,8 @@ FeaturePageType2 {
     property real titleBarHeight: View.statusBarHeight + Devices.standardTitleBarHeight
     property string editId
 
+    property bool unlimited: store.premium || store.stg_ppic_unlimit_plus_IsPurchased
+
     text: {
         if(editMode)
             return qsTr("Delete Picture")
@@ -105,6 +107,12 @@ FeaturePageType2 {
         }
     }
 
+    Timer {
+        id: show_limit_msg_timer
+        interval: 500
+        onTriggered: if(time_slider.value > 9) messageDialog.show(limit_warning_component)
+    }
+
     Rectangle {
         width: parent.width
         height: titleBarHeight + headerHeight*listv.ratio
@@ -122,10 +130,43 @@ FeaturePageType2 {
                 minimumValue: -1
                 maximumValue: 32
                 style: ProfilePictureDialStyle {color: headColor}
-                onValueChanged: ppmodel.timer = Math.floor(value)
                 scale: parent.height/headerHeight
                 opacity: scale
                 visible: opacity != 0
+                onValueChanged: {
+                    if(!unlimited && value>11) {
+                        value = 11
+                        show_limit_msg_timer.restart()
+                    }
+
+                    ppmodel.timer = Math.floor(value)
+                    service.updateProfilePictureEstimatedTime()
+                }
+            }
+
+            Text {
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.margins: 4*Devices.density
+                font.family: AsemanApp.globalFont.family
+                font.pixelSize: 8*fontRatio*Devices.fontDensity
+                color: "#ffffff"
+                scale: time_slider.scale
+                opacity: time_slider.opacity
+                text: {
+                    var m = service.profilePictureEstimatedTime
+                    if(time_slider.value < 0)
+                        return ""
+
+                    var minute = (m%60)
+                    var hour = Math.floor(m/60)
+
+                    if(minute<10)
+                        minute = "0" + minute
+                    if(hour<10)
+                        hour = "0" + hour
+                    return qsTr("Estimated Time: %1").arg(hour + ":" + minute)
+                }
             }
         }
 
@@ -229,6 +270,18 @@ FeaturePageType2 {
             onClickedOnFile: {
                 ppmodel.add(fileUrl)
                 close()
+            }
+        }
+    }
+
+    Component {
+        id: limit_warning_component
+        MessageDialogOkCancelWarning {
+            message: qsTr("<b>Store Message</b><br />It's limited. You can buy below package or premium package from the store to create more than 3 item.<br /><br /><b>%1</b><br />%2")
+                         .arg(store.stg_ppic_unlimit_plus_Title).arg(store.stg_ppic_unlimit_plus_Description)
+            onOk: {
+                BackHandler.back()
+                showStore(store.stg_ppic_unlimit_plus_Sku)
             }
         }
     }

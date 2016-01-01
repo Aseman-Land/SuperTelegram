@@ -2,7 +2,9 @@
 #define SUPERTELEGRAMSERVICE_H
 
 #include <QObject>
+#include <QDateTime>
 
+class StgStoreManagerCore;
 class InputPeer;
 class AsemanNetworkSleepManager;
 class SuperTelegram;
@@ -17,20 +19,30 @@ class SuperTelegramServicePrivate;
 class SuperTelegramService : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(qint64 profilePictureEstimatedTime READ profilePictureEstimatedTime NOTIFY profilePictureEstimatedTimeChanged)
+
 public:
     SuperTelegramService(QObject *parent = 0);
     ~SuperTelegramService();
 
     static qint64 generateRandomId();
+    qint64 profilePictureEstimatedTime() const;
 
 public slots:
-    void start(Telegram *tg = 0, SuperTelegram *stg = 0, AsemanNetworkSleepManager *sleepManager = 0);
+    void start(Telegram *tg = 0,
+               SuperTelegram *stg = 0,
+               AsemanNetworkSleepManager *sleepManager = 0,
+               StgStoreManagerCore *store = 0);
     void stop();
     void wake();
     void sleep();
 
     void updatesGetState();
     void updateDialogs();
+    void updateProfilePictureEstimatedTime(const QDateTime &dt = QDateTime::currentDateTime());
+
+signals:
+    void profilePictureEstimatedTimeChanged();
 
 private slots:
     void authNeeded();

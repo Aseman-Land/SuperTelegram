@@ -8,6 +8,7 @@ Item {
 
     property alias stg: s_tg
     property alias telegram: tg
+    property alias service: stgService
 
     property ClassicLoginScreen loginScreen
     property TelegramMain superTelegram
@@ -56,7 +57,7 @@ Item {
     }
 
     StgService {
-        id: service
+        id: stgService
     }
 
     Telegram {
@@ -87,7 +88,7 @@ Item {
 
             loginScreen.moveToCode(phoneNumber)
         }
-        onTelegramChanged: if(telegram) service.start(telegram, s_tg, hostChecker)
+        onTelegramChanged: if(telegram) service.start(telegram, s_tg, hostChecker, store)
         onAuthLoggedOut: {
             s_tg.phoneNumber = ""
             View.tryClose()

@@ -113,16 +113,10 @@ FeaturePageType1 {
                 placeholder: qsTr("Your Message")
             }
 
-            Text {
+            TextsExtraTags {
                 id: keywords
                 width: parent.width
-                font.family: AsemanApp.globalFont.family
-                font.pixelSize: 8*fontRatio*Devices.fontDensity
-                color: "#888888"
-                text: qsTr("Available keywords: %1").arg(
-                          "<a href=\"%location%\">%location%</a> " +
-                          "<a href=\"%camera%\">%camera%</a>")
-                onLinkActivated: text_area.text += (" " + link + " ")
+                onActivated: text_area.text += (" " + tag + " ")
             }
 
             Item {width: 1; height: 10*Devices.density}

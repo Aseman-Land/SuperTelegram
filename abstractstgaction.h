@@ -17,6 +17,9 @@ public:
 
 signals:
     void finished();
+
+protected:
+    virtual void startTimout(int ms = 30000);
 };
 
 #endif // ABSTRACTSTGACTION_H

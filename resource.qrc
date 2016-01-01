@@ -81,5 +81,7 @@
         <file>qml/img/store-bag.png</file>
         <file>qml/img/store-package.png</file>
         <file>qml/img/premium-back.jpg</file>
+        <file>qml/img/ok-blue.png</file>
+        <file>qml/TextsExtraTags.qml</file>
     </qresource>
 </RCC>

@@ -9,7 +9,7 @@ FeaturePageType1 {
     id: smp
     width: 100
     height: 62
-    model: smodel.stickerSets
+    model: smodel.installedStickerSets
     disableMaterialDesign: true
     activeIndicator: smodel.initializing
     description: qsTr("Installed sticker manager.\n" +

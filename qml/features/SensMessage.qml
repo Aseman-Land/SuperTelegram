@@ -17,6 +17,18 @@ FeaturePageType1 {
     property string editValue
     property int editDialogId
 
+    property bool unlimited: store.premium || store.stg_sens_msg_3plus_IsPurchased
+
+    onEditModeChanged: {
+        if(!editMode)
+            return
+        if(unlimited || smodel.count < 3 || editKey.length != 0)
+            return
+
+        messageDialog.show(limit_warning_component)
+        editMode = false
+    }
+
     SensMessageModel {
         id: smodel
         database: stg.database
@@ -151,16 +163,10 @@ FeaturePageType1 {
                 placeholder: qsTr("Your Message")
             }
 
-            Text {
+            TextsExtraTags {
                 id: keywords
                 width: parent.width
-                font.family: AsemanApp.globalFont.family
-                font.pixelSize: 8*fontRatio*Devices.fontDensity
-                color: "#888888"
-                text: qsTr("Available keywords: %1").arg(
-                          "<a href=\"%location%\">%location%</a> " +
-                          "<a href=\"%camera%\">%camera%</a>")
-                onLinkActivated: text_area.text += (" " + link + " ")
+                onActivated: text_area.text += (" " + tag + " ")
             }
 
             Item {width: 1; height: 10*Devices.density}
@@ -191,7 +197,8 @@ FeaturePageType1 {
                 text_area.text = editValue
                 currentDialog = telegram.dialog(editDialogId)
             }
-
+        }
+        Component.onDestruction: {
             editKey = ""
             editValue = ""
             editDialogId = 0
@@ -200,6 +207,18 @@ FeaturePageType1 {
 
     DialogsModel {
         telegram: main.telegram
+    }
+
+    Component {
+        id: limit_warning_component
+        MessageDialogOkCancelWarning {
+            message: qsTr("<b>Store Message</b><br />It's limited. You can buy below package or premium package from the store to create more than 3 item.<br /><br /><b>%1</b><br />%2")
+                         .arg(store.stg_sens_msg_3plus_Title).arg(store.stg_sens_msg_3plus_Description)
+            onOk: {
+                BackHandler.back()
+                showStore(store.stg_sens_msg_3plus_Sku)
+            }
+        }
     }
 }
 

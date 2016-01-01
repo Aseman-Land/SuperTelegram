@@ -112,5 +112,16 @@ Rectangle {
             NumberAnimation{easing.type: Easing.OutCubic; duration: 500}
         }
     }
+
+    SmartComponent {
+        id: store_component
+        source: "Store.qml"
+    }
+
+    function showStore(sku) {
+        slave_scene.item = store_component.createLocalComponent().createObject(slave_scene)
+        slave_scene.item.anchors.fill = slave_scene
+        slave_scene.item.highlight = sku
+    }
 }
 

@@ -17,9 +17,12 @@ Item {
         anchors.bottomMargin: 4*Devices.density
         flickableDirection: Flickable.VerticalFlick
         clip: true
+        contentWidth: column.width
+        contentHeight: column.height
 
         Column {
-            anchors.horizontalCenter: parent.horizontalCenter
+            id: column
+            width: flickable.width
             spacing: 10*Devices.density
 
             Item { width: 1; height: 20*Devices.density }
@@ -40,11 +43,11 @@ Item {
             }
 
             Text {
-                width: about.width - 40*Devices.density
+                width: about.width - 20*Devices.density
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "#333333"
                 font.family: AsemanApp.globalFont.family
-                font.pixelSize: 10*fontRatio*Devices.fontDensity
+                font.pixelSize: 9*fontRatio*Devices.fontDensity
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                 text: AsemanApp.applicationAbout
             }

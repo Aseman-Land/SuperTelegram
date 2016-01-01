@@ -48,7 +48,10 @@ void ProfilePicSwitcherModel::setTimer(int ms)
 
     p->timer = ms;
     if(p->db)
+    {
         p->db->profilePictureTimerSet(p->timer);
+        p->db->profilePictureTimerSourceSet(QDateTime::currentDateTime().addSecs(-61));
+    }
 
     emit timerChanged();
 }

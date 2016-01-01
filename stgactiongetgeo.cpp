@@ -52,6 +52,7 @@ void StgActionGetGeo::start(Telegram *tg, const InputPeer &peer, qint64 replyToI
     connect(p->locationListener, SIGNAL(positionUpdated(QGeoPositionInfo)),
             SLOT(positionUpdated(QGeoPositionInfo)));
     p->locationListener->requestLocationUpdates(1000);
+    startTimout();
 }
 
 void StgActionGetGeo::positionUpdated(const QGeoPositionInfo &update)

@@ -44,9 +44,10 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "#333333"
                 font.family: AsemanApp.globalFont.family
-                font.pixelSize: 10*fontRatio*Devices.fontDensity
+                font.pixelSize: 9*fontRatio*Devices.fontDensity
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                text: AsemanApp.applicationAbout
+                text: qsTr("Nile is an Iranian software corporation that makes software for Desktop computers, Android, iOS, Mac, Windows Phone, Ubuntu Phone and ...\n"+
+                           "Nile create Free and OpenSource projects.")
             }
         }
     }

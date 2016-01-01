@@ -6,10 +6,6 @@ Item {
 
     signal clickedOnFile(variant fileUrl)
 
-    ListObject {
-        id: back_stack
-    }
-
     Rectangle {
         id: back_rect
         anchors.fill: parent
@@ -32,20 +28,15 @@ Item {
         }
 
         FileSystemView {
+            id: fs_view
             width: parent.width
             anchors.top: add_header.bottom
             anchors.bottom: parent.bottom
             root: AsemanApp.startPath
             gridWidth: 100*Devices.density
             onClickedOnFile: add_item.clickedOnFile(fileUrl)
-            onRootChanged: {
-                if(root == startRoot)
-                    return
-
-                back_stack.append(root)
-            }
-
-            property string startRoot: AsemanApp.startPath
+            Component.onCompleted: BackHandler.pushHandler(fs_view, function(){return !fs_view.back()})
+            Component.onDestruction: BackHandler.removeHandler(fs_view)
         }
 
         Rectangle {

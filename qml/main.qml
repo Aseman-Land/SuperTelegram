@@ -17,6 +17,7 @@ AsemanMain {
     property alias core: stg_core
     property alias store: str_mgr
     property alias emojis: emjs
+    property alias service: stg_core.service
 
     property color backButtonColor: "#ffffff"
     property bool fontsLoaded: false
@@ -25,10 +26,6 @@ AsemanMain {
 
     StgStoreManager {
         id: str_mgr
-        publicKey: "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCq+c11JIpuX0LZ2yzn7gDofHRzyFP1JMv2Vh+fG9UbYbH/kCRSBtkGaZvycrgdozPh5nxgLBb4RQlMuSv3Aozc+tQSt2N8Lxid81VV3n26BeCYQkgKt8yIXFwMFNa0/BIHrxCYbhHZsBx/3JfG7UMkjEXTxsiTjLGG5ntGV9WR3IlbX1q294BlGwG7fbHxMYoKuRN6SOSJX0wCnN4+JpwZTwJZYebhd7j+Zi7J/ycCAwEAAQ=="
-        packageName: "com.farsitel.bazaar"
-        bindIntent: "ir.cafebazaar.pardakht.InAppBillingService.BIND"
-        cacheSource: AsemanApp.homePath + "/store.cache"
         stg: main.stg
         telegram: main.telegram
 
@@ -60,5 +57,9 @@ AsemanMain {
     SmartComponent {
         id: congratulations_component
         source: "CongratulationsDialog.qml"
+    }
+
+    function showStore() {
+        core.superTelegram.showStore()
     }
 }

@@ -7,6 +7,8 @@
 
 #include <telegram/types/types.h>
 
+#define PPIC_TIMER_SRC_KEY "ppictimer/source"
+
 class FileAccessHash
 {
 public:
@@ -109,6 +111,8 @@ public:
 
     bool profilePictureTimerSet(qint64 ms);
     qint64 profilePictureTimer() const;
+    bool profilePictureTimerSourceSet(const QDateTime &time) { return setValue(PPIC_TIMER_SRC_KEY, time.toString()); }
+    QDateTime profilePictureTimerSource() { return QDateTime::fromString(value(PPIC_TIMER_SRC_KEY).toString()); }
 
     static CommandPeerType inputPeerToCmdPeer(InputPeer::InputPeerType t);
     static InputPeer::InputPeerType cmdPeerToInputPeer(CommandPeerType t);

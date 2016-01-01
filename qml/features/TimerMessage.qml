@@ -47,9 +47,9 @@ FeaturePageType1 {
             }
 
             if(guid.length == 0)
-                tmodel.createItem(tmsg.dialogId, getDate(), text)
+                tmodel.createItem(tmsg.dialogId, date, text)
             else
-                tmodel.updateItem(guid, tmsg.dialogId, getDate(), text)
+                tmodel.updateItem(guid, tmsg.dialogId, date, text)
             editMode = false
         }
         onDeleteRequest: {
@@ -75,6 +75,15 @@ FeaturePageType1 {
         }
     }
 
+    Timer {
+        id: clock_timer
+        interval: 1000
+        repeat: true
+        onTriggered: count++
+        Component.onCompleted: start()
+        property int count
+    }
+
     itemDelegate: DialogListItem {
         id: item
         width: tmsg.width
@@ -91,7 +100,13 @@ FeaturePageType1 {
             font.family: AsemanApp.globalFont.family
             font.weight: Font.DemiBold
             color: "#ff5555"
-            text: stg.getTimesDiff(new Date, model.dateTime)
+            text: {
+                var result = clock_timer.count
+                if(result>=0)
+                    result = stg.getTimesDiff(new Date, model.dateTime)
+
+                return result
+            }
         }
 
         onClicked: {

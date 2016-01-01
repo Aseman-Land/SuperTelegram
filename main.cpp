@@ -21,6 +21,7 @@
 #include "timermessagemodel.h"
 #include "backupmanager.h"
 #include "profilepicswitchermodel.h"
+#include "stgstoremanagercore.h"
 
 #include <telegramqmlinitializer.h>
 
@@ -70,7 +71,10 @@ int main(int argc, char *argv[])
     AsemanApplication app(argc, argv);
 
     app.setWindowIcon(QIcon(":/qml/img/stg.png"));
-    app.setApplicationAbout(AsemanApplication::tr("It's super telegram application, contains many advance tools, works under the telegram."));
+    app.setApplicationAbout(AsemanApplication::tr("SuperTelegram is a set of tools for Telegram messaging service by NileGroup.<br /><br />"
+                                                  "It's based on the Aseman's Telegram developer tools and created using C++/Qt and Qml technologies.<br /><br />"
+                                                  "SuperTelegram is a cross-platform application. It's Free and OpenSource and released under the GPLv3 license.<br /><br />"
+                                                  "<b>Developer Team:</b><br /> - Bardia Daneshvar<br /> - AmirHossein Mousavi<br />"));
     app.setApplicationDisplayName("Super Telegram");
     INITIALIZE_APP(app);
 
@@ -98,6 +102,7 @@ int main(int argc, char *argv[])
         qmlRegisterType<SuperTelegram>(QML_URI, 1, 0, "SuperTelegram");
         qmlRegisterType<CommandsDatabase>(QML_URI, 1, 0, "CommandsDatabase");
         qmlRegisterType<SuperTelegramService>(QML_URI, 1, 0, "StgService");
+        qmlRegisterType<StgStoreManagerCore>(QML_URI, 1, 0, "StgStoreManagerCore");
         qmlRegisterType<Emojis>(QML_URI, 1, 0, "Emojis");
 
         qmlRegisterType<TimerMessageModel>(QML_URI, 1, 0, "TimerMessageModel");
