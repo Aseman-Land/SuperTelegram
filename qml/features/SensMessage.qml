@@ -8,6 +8,7 @@ import "../"
 FeaturePageType1 {
     id: smsg
     model: smodel
+    dialogMode: false
     description: qsTr("Send a word-sens message.\n" +
                       "When a users send you a message, contains a special " +
                       "characters, It detect them automatically and send a " +

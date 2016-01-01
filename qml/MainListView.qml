@@ -156,11 +156,11 @@ Item {
         listv.model.append({"name": qsTr("Backup")                   , "icon": "features/icons/backup.png"              , "component": backuper_component, "description": qsTr("Backup from a special contacts.")})
         listv.model.append({"name": qsTr("Sticker manager")          , "icon": "features/icons/sticker-manager.png"     , "component": sticker_component , "description": qsTr("Manage your installed sticker sets.")})
         listv.model.append({"name": qsTr("Profile picture changer")  , "icon": "features/icons/profile-pic-changer.png" , "component": prof_pic_component, "description": qsTr("Change your profile picture frequently.")})
-        listv.model.append({"name": qsTr("Mute timer")               , "icon": "features/icons/mute-timer.png"          , "component": null, "description": qsTr("Mute a contact in the special day time.")})
+        listv.model.append({"name": qsTr("Send to all")              , "icon": "features/icons/send-to-all.png"         , "component": s2all_component   , "description": qsTr("Send a message to all or selected contacts.")})
         listv.model.append({"name": qsTr("Save avatars")             , "icon": "features/icons/save-avatars.png"        , "component": null, "description": qsTr("Save contact avatars automatically.")})
         listv.model.append({"name": qsTr("Usage info")               , "icon": "features/icons/usage-info.png"          , "component": null, "description": qsTr("Your usage informations.")})
         listv.model.append({"name": qsTr("Auto check-in")            , "icon": "features/icons/auto-checkin.png"        , "component": null, "description": qsTr("Send your geo position to selected contacts automatically.")})
-        listv.model.append({"name": qsTr("Send to all")              , "icon": "features/icons/send-to-all.png"         , "component": null, "description": qsTr("Send a message to all or selected contacts.")})
+        listv.model.append({"name": qsTr("Mute timer")               , "icon": "features/icons/mute-timer.png"          , "component": null, "description": qsTr("Mute a contact in the special day time.")})
     }
 
     SmartComponent {
@@ -186,6 +186,10 @@ Item {
     SmartComponent {
         id: prof_pic_component
         source: "features/ProfilePicSwitcher.qml"
+    }
+    SmartComponent {
+        id: s2all_component
+        source: "features/SendToAllPage.qml"
     }
 
     Connections {

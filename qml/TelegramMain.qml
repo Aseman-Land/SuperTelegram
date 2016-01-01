@@ -8,6 +8,8 @@ Rectangle {
     anchors.fill: parent
     onColorChanged: main.color = color
 
+    property int runCount: AsemanApp.readSetting("General/runCount", 0)
+
     Item {
         id: main_scene
         width: parent.width
@@ -118,10 +120,25 @@ Rectangle {
         source: "Store.qml"
     }
 
+    SmartComponent {
+        id: thanks_component
+        source: "StgRateMessage.qml"
+    }
+
     function showStore(sku) {
         slave_scene.item = store_component.createLocalComponent().createObject(slave_scene)
         slave_scene.item.anchors.fill = slave_scene
         slave_scene.item.highlight = sku
+    }
+
+    Component.onCompleted: {
+        runCount++
+        AsemanApp.setSetting("General/runCount", runCount)
+
+        if(runCount == 2 && Devices.isAndroid) {
+            var component = thanks_component.createLocalComponent()
+            messageDialog.show(component)
+        }
     }
 }
 

@@ -451,7 +451,7 @@ void SuperTelegramService::hostCheckerStateChanged()
 
 void SuperTelegramService::updatesGetState()
 {
-    if(p->telegram) p->telegram->updatesGetState();
+    if(p->telegram && p->telegram->isLoggedIn()) p->telegram->updatesGetState();
 }
 
 void SuperTelegramService::wake()

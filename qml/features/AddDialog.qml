@@ -11,6 +11,7 @@ Item {
 
     property bool addMode: false
     property Dialog currentDialog: telegram.nullDialog
+    property bool dialogMode: true
 
     property bool dialogIsNull: currentDialog == telegram.nullDialog
     property bool isChat: currentDialog.peer.chatId != 0
@@ -80,8 +81,12 @@ Item {
 
                 onAvailableChanged: {
                     if(available) {
-                        if(!dialogList)
-                            dialogList = dialog_list_component.createObject(main_scene)
+                        if(!dialogList) {
+                            if(dialogMode)
+                                dialogList = dialog_list_component.createObject(main_scene)
+                            else
+                                dialogList = contact_list_component.createObject(main_scene)
+                        }
                     } else {
                         if(dialogList)
                             dialogList.destroy()
@@ -114,6 +119,17 @@ Item {
     Component {
         id: dialog_list_component
         DialogList {
+            anchors.fill: parent
+            onSelected: {
+                currentDialog = dialog
+                addMode = false
+            }
+        }
+    }
+
+    Component {
+        id: contact_list_component
+        ContactList {
             anchors.fill: parent
             onSelected: {
                 currentDialog = dialog

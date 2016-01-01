@@ -24,6 +24,8 @@ Item {
     property real typeUserStatusLastWeek: 0x7bf09fc
     property real typeUserStatusLastMonth: 0x77ebc742
 
+    property bool selected: false
+
     signal clicked()
 
     Rectangle {
@@ -31,7 +33,7 @@ Item {
         anchors.margins: 6*Devices.density
         radius: 4*Devices.density
         color: "#0d80ec"
-        opacity: marea.pressed? 0.2 : 0
+        opacity: marea.pressed || selected? 0.2 : 0
     }
 
     Row {
@@ -48,8 +50,6 @@ Item {
             height: 46*Devices.density
             anchors.verticalCenter: parent.verticalCenter
             sourceSize: Qt.size(width*2, height*2)
-            dialog: item.dialog
-            telegram: dmodel.telegram
         }
 
         Column {

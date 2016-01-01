@@ -11,6 +11,7 @@ PageManagerItem {
     headColor: main.color
     backgroundColor: "#fefefe"
 
+    property alias dialogMode: add_dialog.dialogMode
     property bool autoAddDialog: false
     property alias editMode: mbtn.opened
     property alias addMode: add_dialog.addMode

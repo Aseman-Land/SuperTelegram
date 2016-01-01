@@ -114,6 +114,10 @@ public:
     bool profilePictureTimerSourceSet(const QDateTime &time) { return setValue(PPIC_TIMER_SRC_KEY, time.toString()); }
     QDateTime profilePictureTimerSource() { return QDateTime::fromString(value(PPIC_TIMER_SRC_KEY).toString()); }
 
+    bool saveAvatarsAdd(qint64 peerId, const QString &path);
+    qint64 saveAvatarsRemovePeer(qint64 peer);
+    QMap<qint64, QString> saveAvatarsFetchAll();
+
     static CommandPeerType inputPeerToCmdPeer(InputPeer::InputPeerType t);
     static InputPeer::InputPeerType cmdPeerToInputPeer(CommandPeerType t);
 

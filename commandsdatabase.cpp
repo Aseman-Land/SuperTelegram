@@ -297,6 +297,21 @@ qint64 CommandsDatabase::profilePictureTimer() const
     return value("profilePictureTimer", -1).toLongLong();
 }
 
+bool CommandsDatabase::saveAvatarsAdd(qint64 peerId, const QString &path)
+{
+
+}
+
+qint64 CommandsDatabase::saveAvatarsRemovePeer(qint64 peer)
+{
+
+}
+
+QMap<qint64, QString> CommandsDatabase::saveAvatarsFetchAll()
+{
+
+}
+
 bool CommandsDatabase::setValue(const QString &key, const QVariant &value)
 {
     if(CommandsDatabase::value(key) == value)

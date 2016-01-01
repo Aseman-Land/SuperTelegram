@@ -83,5 +83,8 @@
         <file>qml/img/premium-back.jpg</file>
         <file>qml/img/ok-blue.png</file>
         <file>qml/TextsExtraTags.qml</file>
+        <file>qml/ContactList.qml</file>
+        <file>qml/features/SendToAllPage.qml</file>
+        <file>qml/StgRateMessage.qml</file>
     </qresource>
 </RCC>
