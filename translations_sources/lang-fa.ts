@@ -220,7 +220,7 @@ When you&apos;re at meeting, driving or …, you can enable auto message to send
         <translation>پیغام اوتوماتیک</translation>
     </message>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="114"/>
+        <location filename="../qml/features/AutoMessage.qml" line="117"/>
         <source>Your Message</source>
         <translation>پیغام شما</translation>
     </message>
@@ -294,7 +294,7 @@ You can make a backup from a specified converstion from a date and time using th
 <context>
     <name>ClassicLoginScreenCode</name>
     <message>
-        <location filename="../qml/ClassicLoginScreenCode.qml" line="176"/>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="180"/>
         <source>Your code</source>
         <translation>کد شما</translation>
     </message>
@@ -308,12 +308,12 @@ You can make a backup from a specified converstion from a date and time using th
         <translation>وقفه زمانی: &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenCode.qml" line="174"/>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="178"/>
         <source>Sending code. Please wait...</source>
         <translation>در حال ارسال کد. لطفا منتظر بمانید...</translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenCode.qml" line="175"/>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="179"/>
         <source>We&apos;ve sent a SMS with an activation code to your phone &lt;b&gt;%1&lt;/b&gt;</source>
         <translation>برای شما پیامی حاوی کد فعالسازی به شماره موبایلی که وارد کردید ارسال کردیم. &lt;b&gt;%1&lt;/b&gt;</translation>
     </message>
@@ -321,27 +321,27 @@ You can make a backup from a specified converstion from a date and time using th
 <context>
     <name>ClassicLoginScreenNumber</name>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="231"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="235"/>
         <source>Your phone</source>
         <translation>موبایل شما</translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="232"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="236"/>
         <source>Please confirm your country code and enter your phone number.</source>
         <translation>لطفا بعد از مشخص کردن کشور خود، شماره موبایلتان را وارد کنید.</translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="230"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="234"/>
         <source>Requesting code. Please wait...</source>
         <translation>درخواست کد. لطفا منتظر بمانید...</translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="204"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="208"/>
         <source>Invalid phone number!</source>
         <translation>شماره تلفن اشتباه است!</translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="218"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="222"/>
         <source>OK</source>
         <translation>اُکی</translation>
     </message>
@@ -753,7 +753,17 @@ Thank you.</source>
 <context>
     <name>MainHeader</name>
     <message>
-        <location filename="../qml/MainHeader.qml" line="98"/>
+        <location filename="../qml/MainHeader.qml" line="103"/>
+        <source>Waiting for network...</source>
+        <translation>اتصال به شبکه...</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainHeader.qml" line="106"/>
+        <source>Connecting...</source>
+        <translation>اتصال به سرور...</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainHeader.qml" line="109"/>
         <source>Updating...</source>
         <translation>در حال به روزرسانی...</translation>
     </message>
@@ -817,61 +827,81 @@ Thank you.</source>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="158"/>
+        <source>Sticker store</source>
+        <translation>فروشگاه استیکر</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="158"/>
+        <source>Sticker store, contains many sticker.</source>
+        <translation>فروشگاه استیکر که استیکرهای زیادی از آنجا قابل دریافت است.</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="159"/>
         <source>Profile picture changer</source>
         <translation>تغییر اتوماتیک عکس پروفایل</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="158"/>
+        <location filename="../qml/MainListView.qml" line="159"/>
         <source>Change your profile picture frequently.</source>
         <translation>تغییر اتوماتیک عکس پروفایل در بازه‌های زمانی مشخص که توسط شما تعیین می‌شود و از عکس‌های مورد نظر شما که به این بخش اضافه می‌کنید.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="163"/>
+        <location filename="../qml/MainListView.qml" line="162"/>
+        <source>Sticker creator</source>
+        <translation>استیکر ساز</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="162"/>
+        <source>Tool to create your own stickers.</source>
+        <translation>ابزاری برای ساخت استیکرهای شخصی.</translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="165"/>
         <source>Mute timer</source>
         <translation>بی‌صدا</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="163"/>
+        <location filename="../qml/MainListView.qml" line="165"/>
         <source>Mute a contact in the special day time.</source>
         <translation>غیر فعال کردن صدای یک کاربر در بازه‌ی زمانی خاص در روز.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="160"/>
+        <location filename="../qml/MainListView.qml" line="161"/>
         <source>Save avatars</source>
         <translation>ذخیره تصاویر پروفایل</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="160"/>
+        <location filename="../qml/MainListView.qml" line="161"/>
         <source>Save contact avatars automatically.</source>
         <translation>ذخیره تصاویر پروفایل‌ یک کاربر به صورت خودکار.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="161"/>
+        <location filename="../qml/MainListView.qml" line="163"/>
         <source>Usage info</source>
         <translation>اطلاعات آماری</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="161"/>
+        <location filename="../qml/MainListView.qml" line="163"/>
         <source>Your usage informations.</source>
         <translation>اطلاعات آماری اکانت شما.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="162"/>
+        <location filename="../qml/MainListView.qml" line="164"/>
         <source>Auto check-in</source>
         <translation>جی‌پی‌اس خودکار</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="162"/>
+        <location filename="../qml/MainListView.qml" line="164"/>
         <source>Send your geo position to selected contacts automatically.</source>
         <translation>ارسال محل گوشی شما، در بازه‌های زمانی خاص به کاربری دیگر بصورت خودکار.</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="159"/>
+        <location filename="../qml/MainListView.qml" line="160"/>
         <source>Send to all</source>
         <translation>ارسال به همه</translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="159"/>
+        <location filename="../qml/MainListView.qml" line="160"/>
         <source>Send a message to all or selected contacts.</source>
         <translation>ارسال پیغامی به همه یا تعدادی از کاربرها.</translation>
     </message>
@@ -1247,6 +1277,24 @@ It provides to you tools to show and remove installed stickers on your telegram 
     </message>
 </context>
 <context>
+    <name>StickerStorePage</name>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="33"/>
+        <source>Install Sticker</source>
+        <translation>نصب استیکر</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="35"/>
+        <source>Sticker Store</source>
+        <translation>فروشگاه استیکر</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="122"/>
+        <source>Are you sure about removing this sticker set?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Store</name>
     <message>
         <location filename="../qml/Store.qml" line="28"/>
@@ -1265,21 +1313,28 @@ It provides to you tools to show and remove installed stickers on your telegram 
     </message>
     <message>
         <location filename="../qml/Store.qml" line="86"/>
+        <source>Can not connect to the Bazaar. Please check:&lt;ul&gt;&lt;li&gt;Bazaar is installed in your device.&lt;/li&gt;&lt;li&gt;You are logged in to the bazaar.&lt;/li&gt;&lt;li&gt;Your device connected to the internet.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>&lt;ul&gt;خطا در برقراری ارتباط با بازار، لطفا بررسی کنید که:
+&lt;li&gt;بازار بر روی دستگاه شما نصب باشد&lt;/li&gt;
+&lt;li&gt;شما در بازار با شناسه کاربری خود وارد شده باشید.&lt;/li&gt;
+&lt;li&gt;دستگاه شما به اینترنت متصل باشد&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
         <source>Can&apos;t find Logged-in Bazaar on your device!</source>
         <translation>اکانت بازار لاگین شده یافت نشد!</translation>
     </message>
     <message>
-        <location filename="../qml/Store.qml" line="204"/>
+        <location filename="../qml/Store.qml" line="207"/>
         <source>BUY PREMIUM</source>
         <translation>خرید پکیج طلایی</translation>
     </message>
     <message>
-        <location filename="../qml/Store.qml" line="227"/>
+        <location filename="../qml/Store.qml" line="230"/>
         <source>BUY</source>
         <translation>خرید</translation>
     </message>
     <message>
-        <location filename="../qml/Store.qml" line="272"/>
+        <location filename="../qml/Store.qml" line="275"/>
         <source>Other Inventories</source>
         <translation>دیگر موارد</translation>
     </message>
@@ -1308,7 +1363,7 @@ by SuperTelegram</source>
 <context>
     <name>TelegramQml</name>
     <message>
-        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4800"/>
+        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4805"/>
         <source>Secret Chat</source>
         <translation>چت خصوصی</translation>
     </message>

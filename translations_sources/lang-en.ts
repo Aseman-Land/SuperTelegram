@@ -195,7 +195,7 @@ When you&apos;re at meeting, driving or …, you can enable auto message to send
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="114"/>
+        <location filename="../qml/features/AutoMessage.qml" line="117"/>
         <source>Your Message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -265,7 +265,7 @@ You can make a backup from a specified converstion from a date and time using th
 <context>
     <name>ClassicLoginScreenCode</name>
     <message>
-        <location filename="../qml/ClassicLoginScreenCode.qml" line="176"/>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="180"/>
         <source>Your code</source>
         <translation type="unfinished"></translation>
     </message>
@@ -275,12 +275,12 @@ You can make a backup from a specified converstion from a date and time using th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenCode.qml" line="174"/>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="178"/>
         <source>Sending code. Please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenCode.qml" line="175"/>
+        <location filename="../qml/ClassicLoginScreenCode.qml" line="179"/>
         <source>We&apos;ve sent a SMS with an activation code to your phone &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -288,27 +288,27 @@ You can make a backup from a specified converstion from a date and time using th
 <context>
     <name>ClassicLoginScreenNumber</name>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="231"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="235"/>
         <source>Your phone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="232"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="236"/>
         <source>Please confirm your country code and enter your phone number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="230"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="234"/>
         <source>Requesting code. Please wait...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="204"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="208"/>
         <source>Invalid phone number!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenNumber.qml" line="218"/>
+        <location filename="../qml/ClassicLoginScreenNumber.qml" line="222"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -688,7 +688,17 @@ Thank you.</source>
 <context>
     <name>MainHeader</name>
     <message>
-        <location filename="../qml/MainHeader.qml" line="98"/>
+        <location filename="../qml/MainHeader.qml" line="103"/>
+        <source>Waiting for network...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainHeader.qml" line="106"/>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainHeader.qml" line="109"/>
         <source>Updating...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -752,61 +762,81 @@ Thank you.</source>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="158"/>
-        <source>Profile picture changer</source>
+        <source>Sticker store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/MainListView.qml" line="158"/>
+        <source>Sticker store, contains many sticker.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="159"/>
+        <source>Profile picture changer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="159"/>
         <source>Change your profile picture frequently.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="163"/>
+        <location filename="../qml/MainListView.qml" line="162"/>
+        <source>Sticker creator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="162"/>
+        <source>Tool to create your own stickers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/MainListView.qml" line="165"/>
         <source>Mute timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="163"/>
+        <location filename="../qml/MainListView.qml" line="165"/>
         <source>Mute a contact in the special day time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="160"/>
+        <location filename="../qml/MainListView.qml" line="161"/>
         <source>Save avatars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="160"/>
+        <location filename="../qml/MainListView.qml" line="161"/>
         <source>Save contact avatars automatically.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="161"/>
+        <location filename="../qml/MainListView.qml" line="163"/>
         <source>Usage info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="161"/>
+        <location filename="../qml/MainListView.qml" line="163"/>
         <source>Your usage informations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="162"/>
+        <location filename="../qml/MainListView.qml" line="164"/>
         <source>Auto check-in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="162"/>
+        <location filename="../qml/MainListView.qml" line="164"/>
         <source>Send your geo position to selected contacts automatically.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="159"/>
+        <location filename="../qml/MainListView.qml" line="160"/>
         <source>Send to all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/MainListView.qml" line="159"/>
+        <location filename="../qml/MainListView.qml" line="160"/>
         <source>Send a message to all or selected contacts.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1120,6 +1150,24 @@ It provides to you tools to show and remove installed stickers on your telegram 
     </message>
 </context>
 <context>
+    <name>StickerStorePage</name>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="33"/>
+        <source>Install Sticker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="35"/>
+        <source>Sticker Store</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="122"/>
+        <source>Are you sure about removing this sticker set?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Store</name>
     <message>
         <location filename="../qml/Store.qml" line="28"/>
@@ -1138,21 +1186,21 @@ It provides to you tools to show and remove installed stickers on your telegram 
     </message>
     <message>
         <location filename="../qml/Store.qml" line="86"/>
-        <source>Can&apos;t find Logged-in Bazaar on your device!</source>
+        <source>Can not connect to the Bazaar. Please check:&lt;ul&gt;&lt;li&gt;Bazaar is installed in your device.&lt;/li&gt;&lt;li&gt;You are logged in to the bazaar.&lt;/li&gt;&lt;li&gt;Your device connected to the internet.&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Store.qml" line="204"/>
+        <location filename="../qml/Store.qml" line="207"/>
         <source>BUY PREMIUM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Store.qml" line="227"/>
+        <location filename="../qml/Store.qml" line="230"/>
         <source>BUY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Store.qml" line="272"/>
+        <location filename="../qml/Store.qml" line="275"/>
         <source>Other Inventories</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1168,7 +1216,7 @@ It provides to you tools to show and remove installed stickers on your telegram 
 <context>
     <name>TelegramQml</name>
     <message>
-        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4800"/>
+        <location filename="../telegram/telegramqml/telegramqml.cpp" line="4805"/>
         <source>Secret Chat</source>
         <translation type="unfinished"></translation>
     </message>

@@ -86,5 +86,7 @@
         <file>qml/ContactList.qml</file>
         <file>qml/features/SendToAllPage.qml</file>
         <file>qml/StgRateMessage.qml</file>
+        <file>qml/features/icons/sticker-store.png</file>
+        <file>qml/features/StickerStorePage.qml</file>
     </qresource>
 </RCC>

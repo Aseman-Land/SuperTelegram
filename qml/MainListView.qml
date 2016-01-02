@@ -155,9 +155,11 @@ Item {
         listv.model.append({"name": qsTr("Content sensitive message"), "icon": "features/icons/content-sens-message.png", "component": sens_msg_component, "description": qsTr("Send word sensitive messages automatically.")})
         listv.model.append({"name": qsTr("Backup")                   , "icon": "features/icons/backup.png"              , "component": backuper_component, "description": qsTr("Backup from a special contacts.")})
         listv.model.append({"name": qsTr("Sticker manager")          , "icon": "features/icons/sticker-manager.png"     , "component": sticker_component , "description": qsTr("Manage your installed sticker sets.")})
+        listv.model.append({"name": qsTr("Sticker store")            , "icon": "features/icons/sticker-store.png"       , "component": sstore_component  , "description": qsTr("Sticker store, contains many sticker.")})
         listv.model.append({"name": qsTr("Profile picture changer")  , "icon": "features/icons/profile-pic-changer.png" , "component": prof_pic_component, "description": qsTr("Change your profile picture frequently.")})
         listv.model.append({"name": qsTr("Send to all")              , "icon": "features/icons/send-to-all.png"         , "component": s2all_component   , "description": qsTr("Send a message to all or selected contacts.")})
         listv.model.append({"name": qsTr("Save avatars")             , "icon": "features/icons/save-avatars.png"        , "component": null, "description": qsTr("Save contact avatars automatically.")})
+        listv.model.append({"name": qsTr("Sticker creator")          , "icon": "features/icons/sticker-manager.png"     , "component": null, "description": qsTr("Tool to create your own stickers.")})
         listv.model.append({"name": qsTr("Usage info")               , "icon": "features/icons/usage-info.png"          , "component": null, "description": qsTr("Your usage informations.")})
         listv.model.append({"name": qsTr("Auto check-in")            , "icon": "features/icons/auto-checkin.png"        , "component": null, "description": qsTr("Send your geo position to selected contacts automatically.")})
         listv.model.append({"name": qsTr("Mute timer")               , "icon": "features/icons/mute-timer.png"          , "component": null, "description": qsTr("Mute a contact in the special day time.")})
@@ -178,6 +180,10 @@ Item {
     SmartComponent {
         id: sticker_component
         source: "features/StickerManager.qml"
+    }
+    SmartComponent {
+        id: sstore_component
+        source: "features/StickerStorePage.qml"
     }
     SmartComponent {
         id: backuper_component

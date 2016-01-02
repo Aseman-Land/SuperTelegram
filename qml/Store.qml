@@ -77,14 +77,17 @@ Rectangle {
 
     Text {
         anchors.centerIn: parent
-        width: parent.width - 20*Devices.density
-        horizontalAlignment: Text.AlignHCenter
+        width: parent.width - 60*Devices.density
         color: "#555555"
         font.family: AsemanApp.globalFont.family
         font.pixelSize: 11*fontRatio*Devices.fontDensity
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        text: qsTr("Can't find Logged-in Bazaar on your device!")
         visible: listv.count==0 && listv.visible
+        text: qsTr("Can not connect to the Bazaar. Please check:<ul>" +
+                   "<li>Bazaar is installed in your device.</li>" +
+                   "<li>You are logged in to the bazaar.</li>" +
+                   "<li>Your device connected to the internet.</li>" +
+                   "</ul>")
     }
 
     AsemanListView {
