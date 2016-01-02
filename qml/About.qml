@@ -15,7 +15,7 @@ Rectangle {
 
     AboutPageItem {
         id: stg_component
-        title: "Application"
+        title: qsTr("Application")
         color: "#2CA5E0"
         icon: "img/simple-icon.png"
         delegate: AboutStg{}

@@ -4,6 +4,11 @@
 <context>
     <name>About</name>
     <message>
+        <location filename="../qml/About.qml" line="18"/>
+        <source>Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/About.qml" line="25"/>
         <source>Nile Group</source>
         <translation type="unfinished"></translation>
@@ -190,7 +195,7 @@ When you&apos;re at meeting, driving or …, you can enable auto message to send
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/features/AutoMessage.qml" line="113"/>
+        <location filename="../qml/features/AutoMessage.qml" line="114"/>
         <source>Your Message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -379,17 +384,17 @@ It means you can use our unlimited and premium features free.</source>
 <context>
     <name>DialogButtons</name>
     <message>
-        <location filename="../qml/DialogButtons.qml" line="22"/>
+        <location filename="../qml/DialogButtons.qml" line="23"/>
         <source>DELETE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/DialogButtons.qml" line="22"/>
+        <location filename="../qml/DialogButtons.qml" line="23"/>
         <source>CANCEL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/DialogButtons.qml" line="47"/>
+        <location filename="../qml/DialogButtons.qml" line="49"/>
         <source>DONE</source>
         <translation type="unfinished"></translation>
     </message>
@@ -956,12 +961,32 @@ It switch your telegram profile picture in the selected period and from the sele
     <name>SendToAllPage</name>
     <message>
         <location filename="../qml/features/SendToAllPage.qml" line="15"/>
-        <source>Insert Message</source>
+        <source>Enter Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/features/SendToAllPage.qml" line="17"/>
+        <location filename="../qml/features/SendToAllPage.qml" line="18"/>
+        <source>%1 contact selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/SendToAllPage.qml" line="20"/>
         <source>Send To All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/SendToAllPage.qml" line="59"/>
+        <source>Please select contacts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/SendToAllPage.qml" line="95"/>
+        <source>Your Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/features/SendToAllPage.qml" line="103"/>
+        <source>SEND</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

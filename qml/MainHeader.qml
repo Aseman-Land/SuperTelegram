@@ -95,10 +95,21 @@ Item {
     }
 
     Text {
-        text: main.telegram.myUser? (main.telegram.myUser.firstName + " " + main.telegram.myUser.lastName).trim() : qsTr("Updating...")
         font.pixelSize: 14*fontRatio*Devices.fontDensity
 //        font.family: AsemanApp.globalFont.family
         color: "#ffffff"
+        text: {
+            if(!hostChecker.available)
+                return qsTr("Waiting for network...")
+            else
+            if(!main.telegram.authLoggedIn)
+                return qsTr("Connecting...")
+            else
+            if(!main.telegram.myUser)
+                return qsTr("Updating...")
+            else
+                return (main.telegram.myUser.firstName + " " + main.telegram.myUser.lastName).trim()
+        }
         y: {
             var second = minHeaderHeight/2-height/2+statusBarHeight/2
             var first = parent.height*0.75+statusBarHeight*0.75

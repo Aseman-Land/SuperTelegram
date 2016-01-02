@@ -9,12 +9,13 @@ Item {
     property alias stg: s_tg
     property alias telegram: tg
     property alias service: stgService
+    property alias hostChecker: host_checker
 
     property ClassicLoginScreen loginScreen
     property TelegramMain superTelegram
 
     NetworkSleepManager {
-        id: hostChecker
+        id: host_checker
         host: s_tg.defaultHostAddress
         port: s_tg.defaultHostPort
         interval: 5000
@@ -88,12 +89,13 @@ Item {
 
             loginScreen.moveToCode(phoneNumber)
         }
-        onTelegramChanged: if(telegram) service.start(telegram, s_tg, hostChecker, store)
         onAuthLoggedOut: {
             s_tg.phoneNumber = ""
             View.tryClose()
 //            Tools.jsDelayCall(100, main.restart)
         }
+        onTelegramChanged: if(telegram) service.start(telegram, s_tg, hostChecker, store)
+        onDatabaseChanged: if(database) database.readFullDialogs()
     }
 
     function refresh() {

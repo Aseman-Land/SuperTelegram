@@ -18,6 +18,7 @@ AsemanMain {
     property alias store: str_mgr
     property alias emojis: emjs
     property alias service: stg_core.service
+    property alias hostChecker: stg_core.hostChecker
 
     property color backButtonColor: "#ffffff"
     property bool fontsLoaded: false

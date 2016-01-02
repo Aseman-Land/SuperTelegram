@@ -30,7 +30,7 @@ FeaturePageType1 {
 
     itemDelegate: Item {
         width: amp.width
-        height: 52*Devices.density
+        height: row.height + 30*Devices.density
 
         Rectangle {
             anchors.fill: parent
@@ -41,12 +41,14 @@ FeaturePageType1 {
         }
 
         Row {
+            id: row
             width: parent.width - 40*Devices.density
             anchors.centerIn: parent
             spacing: 10*Devices.density
             layoutDirection: View.layoutDirection
 
             Item {
+                id: logo_item
                 anchors.verticalCenter: parent.verticalCenter
                 width: 22*Devices.density
                 height: width
@@ -60,11 +62,13 @@ FeaturePageType1 {
             }
 
             Text {
+                width: parent.width - logo_item.width - parent.spacing
                 anchors.verticalCenter: parent.verticalCenter
                 text: model.message
                 color: "#333333"
                 font.pixelSize: 11*fontRatio*Devices.fontDensity
                 font.family: AsemanApp.globalFont.family
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             }
         }
 

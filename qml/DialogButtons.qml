@@ -8,6 +8,7 @@ Row {
     layoutDirection: View.layoutDirection
 
     property bool edit
+    property alias doneText: doneBtn.text
 
     signal deleteRequest()
     signal cancel()
@@ -44,6 +45,7 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
 
         Text {
+            id: doneBtn
             text: qsTr("DONE")
             anchors.centerIn: parent
             font.pixelSize: 10*fontRatio*Devices.fontDensity

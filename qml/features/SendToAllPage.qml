@@ -12,7 +12,10 @@ FeaturePageType1 {
 
     text: {
         if(editMode)
-            return dialogIsNull? qsTr("Insert Message") : dialogName
+            return dialogIsNull? qsTr("Enter Message") : dialogName
+        else
+        if(list.count > 0)
+            return qsTr("%1 contact selected").arg(list.count)
         else
             return qsTr("Send To All")
     }
@@ -42,6 +45,18 @@ FeaturePageType1 {
         visible: !editMode && !activeIndicator && list.count>0 && !indicator.running
         z: 100
         onClicked: editMode = true
+    }
+
+    headerDelegate: Text {
+        height: 30*Devices.density
+        width: bmng.width - 20*Devices.density
+        anchors.horizontalCenter: parent.horizontalCenter
+        verticalAlignment: Text.AlignVCenter
+        font.family: AsemanApp.globalFont.family
+        font.pixelSize: 9*fontRatio*Devices.fontDensity
+        color: "#333333"
+        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        text: qsTr("Please select contacts...")
     }
 
     itemDelegate: DialogListItem {
@@ -77,6 +92,7 @@ FeaturePageType1 {
             anchors.right: parent.right
             anchors.margins: 10*Devices.density
             height: 160*Devices.density
+            placeholder: qsTr("Your Message")
         }
 
         DialogButtons {
@@ -84,6 +100,7 @@ FeaturePageType1 {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: 10*Devices.density
+            doneText: qsTr("SEND")
             onCancel: editMode = false
             onDone: {
                 progress_area.start(txt.text)

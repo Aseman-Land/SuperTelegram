@@ -21,6 +21,7 @@ PageManagerItem {
 
     property Component editDelegate
     property alias itemDelegate: listv.delegate
+    property alias headerDelegate: listv.header
     property alias model: listv.model
 
     property alias currentDialog: add_dialog.currentDialog
