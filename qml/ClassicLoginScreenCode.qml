@@ -107,6 +107,10 @@ Rectangle {
         color: "#88000000"
         visible: false
 
+        MouseArea {
+            anchors.fill: parent
+        }
+
         Rectangle {
             width: wait_row.width + 40*Devices.density
             height: wait_row.height + 40*Devices.density
