@@ -10,6 +10,7 @@ StgStoreManagerCore {
     property bool isPremiumNumber: stg && telegram? stg.checkPremiumNumber(telegram.phoneNumber) : false
     property bool is30DayTrialNumber: stg && telegram? stg.check30DayTrialNumber(telegram.phoneNumber) : false
 
-    property bool premium: isPremiumNumber || (stg_premium_pack == StoreManager.InventoryStatePurchased)
+    property bool premium: isPremiumNumber || (stg_premium_pack == StoreManager.InventoryStatePurchased) ||
+                           (stg && stg.freeStore)
 }
 

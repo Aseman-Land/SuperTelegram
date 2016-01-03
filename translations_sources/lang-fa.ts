@@ -510,10 +510,10 @@ It means you can use our unlimited and premium features free.</source>
     <message>
         <location filename="../qml/FavoriteMessage.qml" line="5"/>
         <source>Thank you for choosing SuperTelegram.
-If you are like this app, please rate us on Google play or Bazaar.
+If you are like this app, please rate us on Google play or %1.
 Thank you.</source>
         <translation>از اینکه از سوپرتلگرام استفاده می کنید از شما ممنونیم.
-در صورتی که از برنامه رضایت دارید، لطفا در بازار به ما امتیاز دهید. همچنین از طریق درج نظر با ما در ارتباط باشید.
+در صورتی که از برنامه رضایت دارید، لطفا در %1 به ما امتیاز دهید. همچنین از طریق درج نظر با ما در ارتباط باشید.
 ممنون.</translation>
     </message>
     <message>
@@ -1262,8 +1262,8 @@ I can&apos;t find the location :(</source>
     <name>StgRateMessage</name>
     <message>
         <location filename="../qml/StgRateMessage.qml" line="5"/>
-        <source>&lt;b&gt;Thank you for choosing SuperTelegram&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;SuperTelegram is a newly released application. If you like it please rate us on the Bazaar.&lt;br /&gt;You can also send your feature request as comment. We&apos;ll add them in the future.&lt;br /&gt;Thank you for your kindness.</source>
-        <translation>&lt;b&gt;از اینکه از سوپرتلگرام استفاده می کنید ممنونیم&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;سوپرتلگرام یک برنامه تازه منتشر شده است. در صورتی که از برنامه رضایت دارید از طریق درج امتیاز در کافه بازار از ما حمایت کنید.&lt;br /&gt;همچنین می توانید از راه ثبت نظر، انتقادات و پیشنهادات و قابلیتهای مورد نظر خود را برای ما بنویسید تا در نسخه های بعدی به آنها رسیدگی شود&lt;br /&gt;از لطف و حمایت شما سپاسگذاریم.</translation>
+        <source>&lt;b&gt;Thank you for choosing SuperTelegram&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;SuperTelegram is a newly released application. If you like it please rate us on the %1.&lt;br /&gt;You can also send your feature request as comment. We&apos;ll add them in the future.&lt;br /&gt;Thank you for your kindness.</source>
+        <translation>&lt;b&gt;از اینکه از سوپرتلگرام استفاده می کنید ممنونیم&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;سوپرتلگرام یک برنامه تازه منتشر شده است. در صورتی که از برنامه رضایت دارید از طریق درج امتیاز در کافه %1 از ما حمایت کنید.&lt;br /&gt;همچنین می توانید از راه ثبت نظر، انتقادات و پیشنهادات و قابلیتهای مورد نظر خود را برای ما بنویسید تا در نسخه های بعدی به آنها رسیدگی شود&lt;br /&gt;از لطف و حمایت شما سپاسگذاریم.</translation>
     </message>
 </context>
 <context>
@@ -1365,15 +1365,15 @@ It provides to you tools to show and remove installed stickers on your telegram 
     </message>
     <message>
         <location filename="../qml/Store.qml" line="86"/>
-        <source>Can not connect to the Bazaar. Please check:&lt;ul&gt;&lt;li&gt;Bazaar is installed in your device.&lt;/li&gt;&lt;li&gt;You are logged in to the bazaar.&lt;/li&gt;&lt;li&gt;Your device connected to the internet.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>&lt;ul&gt;خطا در برقراری ارتباط با بازار، لطفا بررسی کنید که:
-&lt;li&gt;بازار بر روی دستگاه شما نصب باشد&lt;/li&gt;
-&lt;li&gt;شما در بازار با شناسه کاربری خود وارد شده باشید.&lt;/li&gt;
+        <source>Can not connect to the %1. Please check:&lt;ul&gt;&lt;li&gt;%1 is installed in your device.&lt;/li&gt;&lt;li&gt;You are logged in to the bazaar.&lt;/li&gt;&lt;li&gt;Your device connected to the internet.&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>&lt;ul&gt;خطا در برقراری ارتباط با %1، لطفا بررسی کنید که:
+&lt;li&gt;%1 بر روی دستگاه شما نصب باشد&lt;/li&gt;
+&lt;li&gt;شما در %1 با شناسه کاربری خود وارد شده باشید.&lt;/li&gt;
 &lt;li&gt;دستگاه شما به اینترنت متصل باشد&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <source>Can&apos;t find Logged-in Bazaar on your device!</source>
-        <translation>اکانت بازار لاگین شده یافت نشد!</translation>
+        <source>Can&apos;t find Logged-in %1 on your device!</source>
+        <translation>اکانت %1 لاگین شده یافت نشد!</translation>
     </message>
     <message>
         <location filename="../qml/Store.qml" line="207"/>

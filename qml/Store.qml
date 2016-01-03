@@ -83,11 +83,11 @@ Rectangle {
         font.pixelSize: 11*fontRatio*Devices.fontDensity
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
         visible: listv.count==0 && listv.visible
-        text: qsTr("Can not connect to the Bazaar. Please check:<ul>" +
-                   "<li>Bazaar is installed in your device.</li>" +
+        text: qsTr("Can not connect to the %1. Please check:<ul>" +
+                   "<li>%1 is installed in your device.</li>" +
                    "<li>You are logged in to the bazaar.</li>" +
                    "<li>Your device connected to the internet.</li>" +
-                   "</ul>")
+                   "</ul>").arg(stg.storeName)
     }
 
     AsemanListView {

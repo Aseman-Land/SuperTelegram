@@ -337,7 +337,7 @@ QString SuperTelegram::nativeLanguageName(const QString &lang)
 
 bool SuperTelegram::bazaarBuild() const
 {
-#ifdef BAZAAR_BUILD
+#ifdef STG_STORE_BAZAAR
     return true;
 #else
     return false;
@@ -346,16 +346,27 @@ bool SuperTelegram::bazaarBuild() const
 
 bool SuperTelegram::googlePlayBuild() const
 {
-#ifdef GOOGLE_PLAY_BUILD
+#ifdef STG_STORE_GOOGLE
     return true;
 #else
     return false;
 #endif
 }
 
-bool SuperTelegram::freeBuild() const
+bool SuperTelegram::freeStore() const
 {
     return !bazaarBuild() && !googlePlayBuild();
+}
+
+QString SuperTelegram::storeName() const
+{
+#if defined(STG_STORE_BAZAAR)
+    return tr("Bazaar");
+#elif defined(STG_STORE_GOOGLE)
+    return tr("Google Play");
+#else
+    return QString();
+#endif
 }
 
 bool SuperTelegram::startService()

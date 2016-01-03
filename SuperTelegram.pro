@@ -26,6 +26,20 @@ qtcAddDeployment()
 
 include(telegram/telegram.pri)
 
+android {
+    contains(STORE,google) {
+#        DEFINES += STG_STORE_GOOGLE
+        DEFINES += STG_STORE_DISABLED
+        message(Google store is not supported currently. Faledback to disable mod.)
+    } else: contains(STORE,bazaar) {
+        DEFINES += STG_STORE_BAZAAR
+    } else: {
+        DEFINES += STG_STORE_DISABLED
+    }
+} else {
+    DEFINES += STG_STORE_DISABLED
+}
+
 SOURCES += main.cpp \
     supertelegram.cpp \
     supertelegramservice.cpp \

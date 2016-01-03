@@ -29,7 +29,8 @@ class SuperTelegram : public QObject
 
     Q_PROPERTY(bool bazaarBuild READ bazaarBuild NOTIFY fakeSignal)
     Q_PROPERTY(bool googlePlayBuild READ googlePlayBuild NOTIFY fakeSignal)
-    Q_PROPERTY(bool freeBuild READ freeBuild NOTIFY fakeSignal)
+    Q_PROPERTY(bool freeStore READ freeStore NOTIFY fakeSignal)
+    Q_PROPERTY(QString storeName READ storeName NOTIFY fakeSignal)
 
 public:
     SuperTelegram(QObject *parent = 0);
@@ -83,7 +84,8 @@ public:
 
     bool bazaarBuild() const;
     bool googlePlayBuild() const;
-    bool freeBuild() const;
+    bool freeStore() const;
+    QString storeName() const;
 
 public slots:
     bool startService();
