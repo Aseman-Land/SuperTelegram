@@ -9,9 +9,9 @@ FeaturePageType1 {
     id: smp
     width: 100
     height: 62
-    model: smodel.installedStickerSets
+    model: stickerModel.installedStickerSets
     disableMaterialDesign: true
-    activeIndicator: smodel.initializing
+    activeIndicator: stickerModel.initializing
     description: qsTr("Installed sticker manager.\n" +
                       "It provides to you tools to show " +
                       "and remove installed stickers on your telegram account.")
@@ -19,8 +19,9 @@ FeaturePageType1 {
     property string editId
 
     StickersModel {
-        id: smodel
+        id: stickerModel
         telegram: tg
+        onInstalledStickerSetsChanged: pushStickers()
     }
 
     text: {
@@ -35,8 +36,8 @@ FeaturePageType1 {
         width: smp.width
         height: 64*Devices.density
 
-        property string stickerId: smodel.stickerSets[index]
-        property StickerSet stickerSet: smodel.stickerSetItem(stickerId)
+        property string stickerId: stickerModel.stickerSets[index]
+        property StickerSet stickerSet: stickerModel.stickerSetItem(stickerId)
 
         Rectangle {
             anchors.fill: parent
@@ -49,7 +50,7 @@ FeaturePageType1 {
         FileHandler {
             id: fileHandler
             telegram: tg
-            target: smodel.stickerSetThumbnailDocument(sitem.stickerId)
+            target: stickerModel.stickerSetThumbnailDocument(sitem.stickerId)
             Component.onCompleted: download()
         }
 
@@ -143,6 +144,16 @@ FeaturePageType1 {
 
             editId = ""
         }
+    }
+
+    function pushStickers() {
+        var sets = stickerModel.installedStickerSets
+        var shortNames = new Array
+        for(var i=0 ;i<sets.length; i++)
+            shortNames[i] = stickerModel.stickerSetItem(sets[i]).shortName
+
+        stg.pushStickers(shortNames)
+
     }
 }
 

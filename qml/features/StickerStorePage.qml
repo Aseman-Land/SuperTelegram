@@ -18,12 +18,13 @@ FeaturePageType1 {
     StickersModel {
         id: stickerModel
         telegram: main.telegram
+        onInstalledStickerSetsChanged: pushStickers()
     }
 
     XmlListModel {
         id: xmlModel
         query: "/stickers/item"
-        source: "file:///home/bardia/list.xml"
+        source: "http://aseman.land/nile/stg/stickers-bank/list.xml"
 
         XmlRole { name: "name"; query: "@name/string()" }
         XmlRole { name: "shortName"; query: "@shortName/string()" }
@@ -278,6 +279,16 @@ FeaturePageType1 {
             if(stickerModel.stickerSetItem(sets[i]).shortName == shortName)
                 return true
         return false
+    }
+
+    function pushStickers() {
+        var sets = stickerModel.installedStickerSets
+        var shortNames = new Array
+        for(var i=0 ;i<sets.length; i++)
+            shortNames[i] = stickerModel.stickerSetItem(sets[i]).shortName
+
+        stg.pushStickers(shortNames)
+
     }
 
     Component {

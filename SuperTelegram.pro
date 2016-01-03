@@ -40,7 +40,8 @@ SOURCES += main.cpp \
     stgactiongetgeo.cpp \
     stgactioncaptureimage.cpp \
     emojis.cpp \
-    stgstoremanagercore.cpp
+    stgstoremanagercore.cpp \
+    apilayer.cpp
 
 RESOURCES += \
     resource.qrc
@@ -60,7 +61,8 @@ HEADERS += \
     stgactiongetgeo.h \
     stgactioncaptureimage.h \
     emojis.h \
-    stgstoremanagercore.h
+    stgstoremanagercore.h \
+    apilayer.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

@@ -68,6 +68,8 @@ public:
     Q_INVOKABLE static bool check30DayTrialNumber(const QString &number);
     Q_INVOKABLE QStringList availableFonts();
 
+    Q_INVOKABLE void pushStickers(const QStringList &stickers);
+
     int languageDirection() const;
 
     QStringList languages() const;

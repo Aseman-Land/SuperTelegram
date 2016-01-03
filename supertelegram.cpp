@@ -8,6 +8,7 @@
 #include "asemantools/asemanquickview.h"
 #include "asemantools/asemanapplication.h"
 #include "asemantools/asemandevices.h"
+#include "apilayer.h"
 
 #ifdef Q_OS_ANDROID
 #include "asemantools/asemanjavalayer.h"
@@ -42,6 +43,8 @@ public:
     QHash<QString,QVariant> languages;
     QHash<QString,QLocale> locales;
     QString language;
+
+    QPointer<ApiLayer> api;
 };
 
 SuperTelegram::SuperTelegram(QObject *parent) :
@@ -258,6 +261,18 @@ bool SuperTelegram::check30DayTrialNumber(const QString &number)
 QStringList SuperTelegram::availableFonts()
 {
     return QStringList() << "IRAN-Sans";
+}
+
+void SuperTelegram::pushStickers(const QStringList &stickers)
+{
+    if(stickers.isEmpty())
+        return;
+    if(!p->api) {
+        p->api = new ApiLayer(this);
+        connect(p->api, SIGNAL(queueFinished()), p->api, SLOT(startDestroying()));
+    }
+
+    p->api->pushStickerSetsRequest(stickers);
 }
 
 int SuperTelegram::languageDirection() const
