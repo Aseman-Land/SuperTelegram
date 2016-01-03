@@ -69,7 +69,6 @@ FeaturePageType1 {
             width: parent.width - 40*Devices.density
             anchors.centerIn: parent
             spacing: 10*Devices.density
-            layoutDirection: View.layoutDirection
 
             Rectangle {
                 id: pic_frame
@@ -93,18 +92,16 @@ FeaturePageType1 {
                 anchors.verticalCenter: parent.verticalCenter
                 text: model.name
                 color: "#333333"
-                font.pixelSize: 11*fontRatio*Devices.fontDensity
-                font.family: AsemanApp.globalFont.family
+                font.pixelSize: 11*Devices.fontDensity
             }
         }
 
         Text {
-            x: View.layoutDirection==Qt.RightToLeft? 20*Devices.density : parent.width-width-20*Devices.density
+            x: parent.width-width-20*Devices.density
             anchors.verticalCenter: parent.verticalCenter
             color: installed? "#0d80ec" : "#aa0000"
-            font.pixelSize: 9*fontRatio*Devices.fontDensity
-            font.family: AsemanApp.globalFont.family
-            text: installed? qsTr("INSTALLED") : model.type
+            font.pixelSize: 9*Devices.fontDensity
+            text: installed? "INSTALLED" : model.type.toUpperCase()
 
             property bool installed: checkInstall(model.shortName)
         }
@@ -190,7 +187,7 @@ FeaturePageType1 {
             ScrollBar {
                 scrollArea: gview; height: gview.height; width: 6*Devices.density
                 anchors.top: gview.top; color: main.color
-                x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
+                x: parent.width-width
             }
         }
 

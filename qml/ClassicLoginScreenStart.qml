@@ -101,25 +101,6 @@ Rectangle {
                 }
             }
         }
-
-        Item { width: 2; height: 4*Devices.density }
-
-        Text {
-            width: classic_login.width - 20*Devices.density
-            font.pixelSize: 8*Devices.fontDensity
-            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            horizontalAlignment: Text.AlignHCenter
-            color: "#000000"
-            opacity: 0.4
-            text: qsTr("By pressing start button, you accept SuperTelegram's <a href=\"%1\">privacy and terms</a>.").arg(pplink)
-            onLinkActivated: Qt.openUrlExternally(link)
-
-            MouseArea {
-                anchors.fill: parent
-                anchors.margins: -4*Devices.density
-                onClicked: Qt.openUrlExternally(pplink)
-            }
-        }
     }
 }
 

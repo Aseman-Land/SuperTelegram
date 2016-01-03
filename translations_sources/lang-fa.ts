@@ -363,7 +363,6 @@ It is free and secure.</source>
         <translation>با کلیک بر روی کلید شروع، شما &lt;a href=&quot;%1&quot;&gt;شرایط و حریم خصوصی&lt;/a&gt; این برنامه را می‌پذیرید.</translation>
     </message>
     <message>
-        <location filename="../qml/ClassicLoginScreenStart.qml" line="111"/>
         <source>By pressing start button, you accept SuperTelegram&apos;s &lt;a href=&quot;%1&quot;&gt;privacy and terms&lt;/a&gt;.</source>
         <translation>با کلیک بر روی کلید شروع، شما &lt;a href=&quot;%1&quot;&gt;شرایط و حریم خصوصی&lt;/a&gt; این برنامه را می‌پذیرید.</translation>
     </message>
@@ -371,19 +370,29 @@ It is free and secure.</source>
 <context>
     <name>Configure</name>
     <message>
-        <location filename="../qml/Configure.qml" line="117"/>
+        <location filename="../qml/Configure.qml" line="151"/>
+        <source>Send ananymous data to help improve SuperTelegram.</source>
+        <translation>ارسال داده‌های ناشناس به منظور کمک به توسعه‌ی برنامه.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Configure.qml" line="170"/>
         <source>Log out</source>
         <translation>خروج</translation>
     </message>
     <message>
-        <location filename="../qml/Configure.qml" line="150"/>
+        <location filename="../qml/Configure.qml" line="203"/>
         <source>Configure</source>
         <translation>تنظیمات</translation>
     </message>
     <message>
-        <location filename="../qml/Configure.qml" line="151"/>
+        <location filename="../qml/Configure.qml" line="204"/>
         <source>Languages</source>
         <translation>زبان‌ها</translation>
+    </message>
+    <message>
+        <location filename="../qml/Configure.qml" line="205"/>
+        <source>Other</source>
+        <translation>دیگر تنظیمات</translation>
     </message>
 </context>
 <context>
@@ -1385,7 +1394,7 @@ It provides to you tools to show and remove installed stickers on your telegram 
 <context>
     <name>SuperTelegram</name>
     <message>
-        <location filename="../supertelegram.cpp" line="228"/>
+        <location filename="../supertelegram.cpp" line="245"/>
         <source>Expired</source>
         <translation>تمام شده</translation>
     </message>

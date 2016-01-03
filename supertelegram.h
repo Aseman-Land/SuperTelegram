@@ -14,6 +14,7 @@ class SuperTelegram : public QObject
     Q_PROPERTY(int defaultHostPort READ defaultHostPort WRITE setDefaultHostPort NOTIFY defaultHostPortChanged)
     Q_PROPERTY(int defaultHostDcId READ defaultHostDcId WRITE setDefaultHostDcId NOTIFY defaultHostDcIdChanged)
     Q_PROPERTY(int appId READ appId WRITE setAppId NOTIFY appIdChanged)
+    Q_PROPERTY(bool allowSendData READ allowSendData WRITE setAllowSendData NOTIFY allowSendDataChanged)
     Q_PROPERTY(QString appHash READ appHash WRITE setAppHash NOTIFY appHashChanged)
     Q_PROPERTY(QObject* view READ view WRITE setView NOTIFY viewChanged)
     Q_PROPERTY(QString phoneNumber READ phoneNumber WRITE setPhoneNumber NOTIFY phoneNumberChanged)
@@ -54,6 +55,9 @@ public:
 
     void setPhoneNumber(const QString &phoneNumber);
     QString phoneNumber() const;
+
+    void setAllowSendData(bool stt);
+    bool allowSendData() const;
 
     QString publicKey() const;
 
@@ -96,6 +100,7 @@ signals:
     void databaseChanged();
     void picturesLocationChanged();
     void publicKeyChanged();
+    void allowSendDataChanged();
 
     void currentLanguageChanged();
     void languageDirectionChanged();

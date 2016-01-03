@@ -314,28 +314,30 @@ You can make a backup from a specified converstion from a date and time using th
     </message>
 </context>
 <context>
-    <name>ClassicLoginScreenStart</name>
-    <message>
-        <location filename="../qml/ClassicLoginScreenStart.qml" line="111"/>
-        <source>By pressing start button, you accept SuperTelegram&apos;s &lt;a href=&quot;%1&quot;&gt;privacy and terms&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Configure</name>
     <message>
-        <location filename="../qml/Configure.qml" line="117"/>
+        <location filename="../qml/Configure.qml" line="151"/>
+        <source>Send ananymous data to help improve SuperTelegram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Configure.qml" line="170"/>
         <source>Log out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Configure.qml" line="150"/>
+        <location filename="../qml/Configure.qml" line="203"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/Configure.qml" line="151"/>
+        <location filename="../qml/Configure.qml" line="204"/>
         <source>Languages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Configure.qml" line="205"/>
+        <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1246,7 +1248,7 @@ It provides to you tools to show and remove installed stickers on your telegram 
 <context>
     <name>SuperTelegram</name>
     <message>
-        <location filename="../supertelegram.cpp" line="228"/>
+        <location filename="../supertelegram.cpp" line="245"/>
         <source>Expired</source>
         <translation type="unfinished"></translation>
     </message>

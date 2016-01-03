@@ -33,6 +33,7 @@ public:
     int appId;
     QString appHash;
 
+    bool allowSendData;
     QString phoneNumber;
     QPointer<AsemanQuickView> view;
 
@@ -63,6 +64,7 @@ SuperTelegram::SuperTelegram(QObject *parent) :
     p->appId = 13682;
     p->appHash = "de37bcf00f4688de900510f4f87384bb";
     p->phoneNumber = AsemanApplication::instance()->readSetting("General/phoneNumber").toString();
+    p->allowSendData = AsemanApplication::instance()->readSetting("General/allowSendData", true).toBool();
     p->db = new CommandsDatabase(this);
 
     init_languages();
@@ -170,6 +172,21 @@ QString SuperTelegram::phoneNumber() const
     return p->phoneNumber;
 }
 
+void SuperTelegram::setAllowSendData(bool allowSendData)
+{
+    if(p->allowSendData == allowSendData)
+        return;
+
+    p->allowSendData = allowSendData;
+    AsemanApplication::instance()->setSetting("General/allowSendData", p->allowSendData);
+    emit allowSendDataChanged();
+}
+
+bool SuperTelegram::allowSendData() const
+{
+    return p->allowSendData;
+}
+
 QString SuperTelegram::publicKey() const
 {
     return AsemanApplication::homePath() + "/tg-server.pub";
@@ -265,6 +282,8 @@ QStringList SuperTelegram::availableFonts()
 
 void SuperTelegram::pushStickers(const QStringList &stickers)
 {
+    if(!p->allowSendData)
+        return;
     if(stickers.isEmpty())
         return;
     if(!p->api) {
