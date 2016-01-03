@@ -40,6 +40,10 @@ android {
     DEFINES += STG_STORE_DISABLED
 }
 
+!isEmpty(STICKER_BANK): {
+    DEFINES += STICKER_BANK_URL=\\\"$$STICKER_BANK\\\"
+}
+
 SOURCES += main.cpp \
     supertelegram.cpp \
     supertelegramservice.cpp \

@@ -24,7 +24,7 @@ FeaturePageType1 {
     XmlListModel {
         id: xmlModel
         query: "/stickers/item"
-        source: "http://aseman.land/nile/stg/stickers-bank/list.xml"
+        source: stg.stickerBankUrl
 
         XmlRole { name: "name"; query: "@name/string()" }
         XmlRole { name: "shortName"; query: "@shortName/string()" }

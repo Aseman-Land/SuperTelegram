@@ -369,6 +369,15 @@ QString SuperTelegram::storeName() const
 #endif
 }
 
+QString SuperTelegram::stickerBankUrl() const
+{
+#if defined(STICKER_BANK_URL)
+    return STICKER_BANK_URL;
+#else
+    return QString();
+#endif
+}
+
 bool SuperTelegram::startService()
 {
 #ifndef STG_TEST_BUILD
