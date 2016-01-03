@@ -358,6 +358,15 @@ It is free and secure.</source>
         <source>START</source>
         <translation>شروع</translation>
     </message>
+    <message>
+        <source>By pressing start button, you accept SuperTelegram&apos;s &lt;a href=&quot;%1&quot;&gt;privacy &amp; terms&lt;/a&gt;.</source>
+        <translation>با کلیک بر روی کلید شروع، شما &lt;a href=&quot;%1&quot;&gt;شرایط و حریم خصوصی&lt;/a&gt; این برنامه را می‌پذیرید.</translation>
+    </message>
+    <message>
+        <location filename="../qml/ClassicLoginScreenStart.qml" line="111"/>
+        <source>By pressing start button, you accept SuperTelegram&apos;s &lt;a href=&quot;%1&quot;&gt;privacy and terms&lt;/a&gt;.</source>
+        <translation>با کلیک بر روی کلید شروع، شما &lt;a href=&quot;%1&quot;&gt;شرایط و حریم خصوصی&lt;/a&gt; این برنامه را می‌پذیرید.</translation>
+    </message>
 </context>
 <context>
     <name>Configure</name>
@@ -1022,6 +1031,10 @@ It switch your telegram profile picture in the selected period and from the sele
     </message>
     <message>
         <location filename="../qml/features/ProfilePicSwitcher.qml" line="280"/>
+        <source>&lt;b&gt;Store Message&lt;/b&gt;&lt;br /&gt;It&apos;s limited. You can buy below package or premium package from the store to set time to the more than 12 hours.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</source>
+        <translation>&lt;b&gt;پیغام فروشگاه&lt;/b&gt;&lt;br /&gt;برای برداشتن محدودیت زمانی در این بخش نیاز به خرید پکیج زیر و یا پکیج طلایی پریمیوم از فروشگاه برنامه دارید.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</translation>
+    </message>
+    <message>
         <source>&lt;b&gt;Store Message&lt;/b&gt;&lt;br /&gt;It&apos;s limited. You can buy below package or premium package from the store to create more than 3 item.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</source>
         <translation>&lt;b&gt;پیغام فروشگاه&lt;/b&gt;&lt;br /&gt;برای برداشتن محدودیت زمانی در این بخش نیاز به خرید پکیج زیر و یا پکیج طلایی پریمیوم از فروشگاه برنامه دارید.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</translation>
     </message>
@@ -1261,17 +1274,17 @@ It provides to you tools to show and remove installed stickers on your telegram 
         <translation>مدیریت استیکرهای نصب‌شده بر روی تلگرام. شما می‌توانید از این قابلیت برای بررسی استیکرهای نصب‌شده خود استفاده کنید و در صورت نیاز آنها را پاک کنید.</translation>
     </message>
     <message>
-        <location filename="../qml/features/StickerManager.qml" line="28"/>
+        <location filename="../qml/features/StickerManager.qml" line="29"/>
         <source>Delete Sticker</source>
         <translation>حذف استیکر</translation>
     </message>
     <message>
-        <location filename="../qml/features/StickerManager.qml" line="30"/>
+        <location filename="../qml/features/StickerManager.qml" line="31"/>
         <source>Sticker Manager</source>
         <translation>مدیریت استیکرها</translation>
     </message>
     <message>
-        <location filename="../qml/features/StickerManager.qml" line="117"/>
+        <location filename="../qml/features/StickerManager.qml" line="118"/>
         <source>Are you sure about removing this sticker set?</source>
         <translation>آیا از پاک کردن این استیکر مطمئن هستید؟</translation>
     </message>
@@ -1279,19 +1292,49 @@ It provides to you tools to show and remove installed stickers on your telegram 
 <context>
     <name>StickerStorePage</name>
     <message>
-        <location filename="../qml/features/StickerStorePage.qml" line="33"/>
+        <location filename="../qml/features/StickerStorePage.qml" line="39"/>
+        <source>Installed Successfully :)</source>
+        <translation>با موفقیت نصب شد :)</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="41"/>
+        <source>Installation Faild!</source>
+        <translation>خطا در نصب!</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="50"/>
         <source>Install Sticker</source>
         <translation>نصب استیکر</translation>
     </message>
     <message>
-        <location filename="../qml/features/StickerStorePage.qml" line="35"/>
+        <location filename="../qml/features/StickerStorePage.qml" line="52"/>
         <source>Sticker Store</source>
         <translation>فروشگاه استیکر</translation>
     </message>
     <message>
-        <location filename="../qml/features/StickerStorePage.qml" line="122"/>
-        <source>Are you sure about removing this sticker set?</source>
-        <translation type="unfinished"></translation>
+        <location filename="../qml/features/StickerStorePage.qml" line="107"/>
+        <source>INSTALLED</source>
+        <translation>نصب شده</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="202"/>
+        <source>DONE</source>
+        <translation>تمام</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="202"/>
+        <source>INSTALL</source>
+        <translation>نصب</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="270"/>
+        <source>Installing...</source>
+        <translation>در حال نصب...</translation>
+    </message>
+    <message>
+        <location filename="../qml/features/StickerStorePage.qml" line="297"/>
+        <source>&lt;b&gt;Store Message&lt;/b&gt;&lt;br /&gt;It&apos;s paid sticker. You need premium package to buy paid stickers.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</source>
+        <translation>&lt;b&gt;پیغام فروشگاه&lt;/b&gt;&lt;br /&gt;برای برداشتن استفاده از این محصول در این بخش نیاز به خرید پکیج طلایی پریمیوم از فروشگاه برنامه دارید.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</translation>
     </message>
 </context>
 <context>
@@ -1342,7 +1385,7 @@ It provides to you tools to show and remove installed stickers on your telegram 
 <context>
     <name>SuperTelegram</name>
     <message>
-        <location filename="../supertelegram.cpp" line="225"/>
+        <location filename="../supertelegram.cpp" line="228"/>
         <source>Expired</source>
         <translation>تمام شده</translation>
     </message>
@@ -1377,6 +1420,10 @@ by SuperTelegram</source>
     </message>
     <message>
         <location filename="../qml/TextsExtraTags.qml" line="27"/>
+        <source>&lt;b&gt;Store Message&lt;/b&gt;&lt;br /&gt;It&apos;s limited. You can buy below package or premium package from the store to using these tags.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</source>
+        <translation>&lt;b&gt;پیغام فروشگاه&lt;/b&gt;&lt;br /&gt;برای ساختن بیش از 3 پیغام حساس به متن نیاز به خرید پکیج زیر و یا پکیج طلایی پریمیوم از فروشگاه برنامه دارید.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</translation>
+    </message>
+    <message>
         <source>&lt;b&gt;Store Message&lt;/b&gt;&lt;br /&gt;It&apos;s limited. You can buy below package or premium package from the store to create more than 3 item.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</source>
         <translation>&lt;b&gt;پیغام فروشگاه&lt;/b&gt;&lt;br /&gt;برای ساختن بیش از 3 پیغام حساس به متن نیاز به خرید پکیج زیر و یا پکیج طلایی پریمیوم از فروشگاه برنامه دارید.&lt;br /&gt;&lt;br /&gt;&lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;%2</translation>
     </message>
