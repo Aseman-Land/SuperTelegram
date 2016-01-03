@@ -8,24 +8,40 @@ import "../"
 
 FeaturePageType1 {
     id: smp
-    width: 100
-    height: 62
-    model: smodel.installedStickerSets
+    model: xmlModel
     disableMaterialDesign: true
-    activeIndicator: smodel.initializing
+    activeIndicator: xmlModel.status == XmlListModel.Loading || stickerModel.initializing
 
     property string editId
+    property string editType
+
+    StickersModel {
+        id: stickerModel
+        telegram: main.telegram
+    }
 
     XmlListModel {
-        id: smodel
-        query: "/products/item"
+        id: xmlModel
+        query: "/stickers/item"
+        source: "file:///home/bardia/list.xml"
 
-        XmlRole { name: "name"; query: "info/@name/string()" }
-        XmlRole { name: "shortName"; query: "info/@version/string()" }
-        XmlRole { name: "publisher"; query: "info/@publisher/string()" }
-        XmlRole { name: "type"; query: "info/@type/string()" }
-        XmlRole { name: "description"; query: "description/string()" }
-        XmlRole { name: "icon"; query: "icon/@src/string()" }
+        XmlRole { name: "name"; query: "@name/string()" }
+        XmlRole { name: "shortName"; query: "@shortName/string()" }
+        XmlRole { name: "type"; query: "@type/string()" }
+        XmlRole { name: "icon"; query: "@icon/string()" }
+    }
+
+    Connections {
+        target: stickerModel.telegram
+        onStickerInstalled: {
+            if(ok)
+                showTooltip(qsTr("Installed Successfully :)"))
+            else
+                showTooltip(qsTr("Installation Faild!"))
+
+            wait_rect.visible = false
+            editMode = false
+        }
     }
 
     text: {
@@ -40,22 +56,12 @@ FeaturePageType1 {
         width: smp.width
         height: 64*Devices.density
 
-        property string stickerId: smodel.stickerSets[index]
-        property StickerSet stickerSet: smodel.stickerSetItem(stickerId)
-
         Rectangle {
             anchors.fill: parent
             anchors.margins: 6*Devices.density
             radius: 4*Devices.density
             color: "#0d80ec"
             opacity: marea.pressed? 0.2 : 0
-        }
-
-        FileHandler {
-            id: fileHandler
-            telegram: tg
-            target: smodel.stickerSetThumbnailDocument(sitem.stickerId)
-            Component.onCompleted: download()
         }
 
         Row {
@@ -78,75 +84,211 @@ FeaturePageType1 {
                     anchors.fill: parent
                     anchors.margins: 8*Devices.density
                     sourceSize: Qt.size(width, height)
-                    source: fileHandler.filePath
+                    source: model.icon==""? "" : Tools.fileParent(xmlModel.source) + "/" + model.icon
                 }
             }
 
             Text {
                 anchors.verticalCenter: parent.verticalCenter
-                text: sitem.stickerSet.title
+                text: model.name
                 color: "#333333"
                 font.pixelSize: 11*fontRatio*Devices.fontDensity
                 font.family: AsemanApp.globalFont.family
             }
         }
 
+        Text {
+            x: View.layoutDirection==Qt.RightToLeft? 20*Devices.density : parent.width-width-20*Devices.density
+            anchors.verticalCenter: parent.verticalCenter
+            color: installed? "#0d80ec" : "#aa0000"
+            font.pixelSize: 9*fontRatio*Devices.fontDensity
+            font.family: AsemanApp.globalFont.family
+            text: installed? qsTr("INSTALLED") : model.type
+
+            property bool installed: checkInstall(model.shortName)
+        }
+
         MouseArea {
             id: marea
             anchors.fill: parent
             onClicked: {
-                editId = sitem.stickerSet.shortName
+                editId = model.shortName
+                editType = model.type
+                stickerModel.currentStickerSet = model.shortName
                 editMode = true
             }
         }
     }
 
-    editDelegate: Item {
-        id: item
-        height: column.height
-        visible: parent.destHeight == parent.height
+    section.property: "type"
+    section.criteria: ViewSection.FullString
+    section.delegate: Rectangle {
         width: smp.width
-        y: headerY
+        height: 42*Devices.density
+
+        Text {
+            width: parent.width-20*Devices.density
+            anchors.centerIn: parent
+            font.family: AsemanApp.globalFont.family
+            font.pixelSize: 11*Devices.fontDensity
+            color: "#000000"
+            text: {
+                var txt = section.slice(0,1).toUpperCase() + section.slice(1)
+                return ("%1 stickers").arg(txt)
+            }
+        }
+    }
+
+    editDelegate: Column {
+        id: edit_panel
+        width: smp.width
+        y: Devices.standardTitleBarHeight + View.statusBarHeight
+        visible: parent.destHeight == parent.height
 
         property string stickerId
+        property string type
 
-        Column {
-            id: column
+        Item {
+            height: smp.height*0.5
+            width: parent.width
+            clip: true
+
+            AsemanGridView {
+                id: gview
+                anchors.fill: parent
+                model: stickerModel
+                cellHeight: cellWidth
+                cellWidth: width/Math.floor(width/(64*Devices.density))
+                delegate: Item {
+                    id: item
+                    width: gview.cellWidth
+                    height: gview.cellHeight
+
+                    property Document document: model.document
+
+                    FileHandler {
+                        id: handler
+                        target: item.document
+                        telegram: stickerModel.telegram
+                        Component.onCompleted: download()
+                    }
+
+                    Image {
+                        anchors.fill: parent
+                        anchors.margins: 4*Devices.density
+                        height: parent.height
+                        width: height
+                        fillMode: Image.PreserveAspectFit
+                        sourceSize: Qt.size(width, height)
+                        source: handler.downloaded? handler.filePath : handler.thumbPath
+                    }
+                }
+            }
+
+
+            ScrollBar {
+                scrollArea: gview; height: gview.height; width: 6*Devices.density
+                anchors.top: gview.top; color: main.color
+                x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
+            }
+        }
+
+        DialogButtons {
+            id: buttons_panel
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: 10*Devices.density
-
-            Text {
-                id: text_area
-                width: parent.width
-                text: qsTr("Are you sure about removing this sticker set?")
-                font.pixelSize: 11*fontRatio*Devices.fontDensity
-                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                color: "#333333"
+            doneText: edit? qsTr("DONE") : qsTr("INSTALL")
+            edit: checkInstall(stickerId)
+            onCancel: editMode = false
+            onDeleteRequest: {
+                tg.uninstallStickerSet(stickerId)
+                editMode = false
             }
-
-            Item {width: 1; height: 10*Devices.density}
-
-            DialogButtons {
-                id: buttons_panel
-                width: parent.width
-                edit: true
-                onDone: {
-                    editMode = false
+            onDone: {
+                if(!edit) {
+                    if(type == "paid" && !store.premium) {
+                        messageDialog.show(limit_warning_component)
+                        return
+                    }
+                    wait_rect.visible = true
+                    tg.installStickerSet(stickerId)
                 }
-                onDeleteRequest: {
-                    tg.uninstallStickerSet(item.stickerId)
-                    editMode = false
-                }
+
+                editMode = false
             }
         }
 
         Component.onCompleted: {
             if(editId.length != 0) {
                 stickerId = editId
+                type = editType
             }
 
             editId = ""
+            editType = ""
+        }
+    }
+
+    Rectangle {
+        id: wait_rect
+        anchors.fill: parent
+        color: "#88000000"
+        visible: false
+
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Rectangle {
+            width: wait_row.width + 40*Devices.density
+            height: wait_row.height + 40*Devices.density
+            radius: 5*Devices.density
+            anchors.centerIn: parent
+
+            Row {
+                id: wait_row
+                anchors.centerIn: parent
+                spacing: 8*Devices.density
+
+                Indicator {
+                    height: 22*Devices.density
+                    width: height
+                    indicatorSize: height
+                    light: false
+                    modern: true
+                    running: wait_rect.visible
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.family: AsemanApp.globalFont.family
+                    font.pixelSize: 9*Devices.fontDensity
+                    color: "#333333"
+                    text: qsTr("Installing...")
+                }
+            }
+        }
+    }
+
+    function checkInstall(shortName) {
+        var sets = stickerModel.installedStickerSets
+        for(var i=0 ;i<sets.length; i++)
+            if(stickerModel.stickerSetItem(sets[i]).shortName == shortName)
+                return true
+        return false
+    }
+
+    Component {
+        id: limit_warning_component
+        MessageDialogOkCancelWarning {
+            message: qsTr("<b>Store Message</b><br />It's paid sticker. You need premium package to buy paid stickers.<br /><br /><b>%1</b><br />%2")
+                         .arg(store.stg_premium_pack_Title).arg(store.stg_premium_pack_Description)
+            onOk: {
+                BackHandler.back()
+                showStore("")
+            }
         }
     }
 }

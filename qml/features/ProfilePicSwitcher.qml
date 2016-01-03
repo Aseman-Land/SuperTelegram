@@ -277,7 +277,7 @@ FeaturePageType2 {
     Component {
         id: limit_warning_component
         MessageDialogOkCancelWarning {
-            message: qsTr("<b>Store Message</b><br />It's limited. You can buy below package or premium package from the store to create more than 3 item.<br /><br /><b>%1</b><br />%2")
+            message: qsTr("<b>Store Message</b><br />It's limited. You can buy below package or premium package from the store to set time to the more than 12 hours.<br /><br /><b>%1</b><br />%2")
                          .arg(store.stg_ppic_unlimit_plus_Title).arg(store.stg_ppic_unlimit_plus_Description)
             onOk: {
                 BackHandler.back()

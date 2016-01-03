@@ -24,7 +24,7 @@ Text {
     Component {
         id: limit_warning_component
         MessageDialogOkCancelWarning {
-            message: qsTr("<b>Store Message</b><br />It's limited. You can buy below package or premium package from the store to create more than 3 item.<br /><br /><b>%1</b><br />%2")
+            message: qsTr("<b>Store Message</b><br />It's limited. You can buy below package or premium package from the store to using these tags.<br /><br /><b>%1</b><br />%2")
                          .arg(store.stg_txt_tags_Title).arg(store.stg_txt_tags_Description)
             onOk: {
                 BackHandler.back()

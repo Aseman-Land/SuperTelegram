@@ -23,6 +23,7 @@ PageManagerItem {
     property alias itemDelegate: listv.delegate
     property alias headerDelegate: listv.header
     property alias model: listv.model
+    property alias section: listv.section
 
     property alias currentDialog: add_dialog.currentDialog
     property alias dialogIsNull: add_dialog.dialogIsNull
