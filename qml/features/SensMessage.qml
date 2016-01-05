@@ -162,12 +162,13 @@ FeaturePageType1 {
                 width: parent.width
                 height: 100*Devices.density
                 placeholder: qsTr("Your Message")
+                onTextChanged: keywords.checkText(text)
             }
 
             TextsExtraTags {
                 id: keywords
                 width: parent.width
-                onActivated: text_area.text += (" " + tag + " ")
+                onActivated: text_area.text += tag
             }
 
             Item {width: 1; height: 10*Devices.density}

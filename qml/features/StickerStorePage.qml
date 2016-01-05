@@ -83,7 +83,7 @@ FeaturePageType1 {
                 Image {
                     anchors.fill: parent
                     anchors.margins: 8*Devices.density
-                    sourceSize: Qt.size(width, height)
+                    sourceSize: Qt.size(width*2, height*2)
                     source: model.icon==""? "" : Tools.fileParent(xmlModel.source) + "/" + model.icon
                 }
             }
@@ -177,7 +177,7 @@ FeaturePageType1 {
                         height: parent.height
                         width: height
                         fillMode: Image.PreserveAspectFit
-                        sourceSize: Qt.size(width, height)
+                        sourceSize: Qt.size(width*2, height*2)
                         source: handler.downloaded? handler.filePath : handler.thumbPath
                     }
                 }

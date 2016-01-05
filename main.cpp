@@ -33,7 +33,7 @@
 
 extern "C" int mainService(int argc, char *argv[])
 {
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_ANDROID) && defined(TEST_BUILD)
     AsemanQtLogger logger("/sdcard/stg.log");
     Q_UNUSED(logger)
 #endif
@@ -111,9 +111,11 @@ int main(int argc, char *argv[])
         qmlRegisterType<BackupManager>(QML_URI, 1, 0, "BackupManager");
         qmlRegisterType<ProfilePicSwitcherModel>(QML_URI, 1, 0, "ProfilePicSwitcherModel");
 
+#ifndef QT_DEBUG
         if(!parser.isSet(verboseOption))
             qputenv("QT_LOGGING_RULES", "tg.*=false");
         else
+#endif
             qputenv("QT_LOGGING_RULES", "tg.core.settings=false\n"
                                         "tg.core.outboundpkt=false\n"
                                         "tg.core.inboundpkt=false");

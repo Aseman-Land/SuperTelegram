@@ -5,10 +5,14 @@ Text {
     font.family: AsemanApp.globalFont.family
     font.pixelSize: 8*fontRatio*Devices.fontDensity
     color: "#888888"
-    text: qsTr("Available keywords: %1").arg(
-              "<a href=\"%location%\">%location%</a> " +
-              "<a href=\"%camera%\">%camera%</a>")
+    text: {
+        var links = ""
+        for(var i=0; i<tags.length; i++)
+            links += (" <a href=\"%1\">%1</a>").arg(tags[i])
+        return qsTr("Available keywords:%1").arg(links)
+    }
 
+    property variant tags: ["%location%", "%camera%"]
     property bool unlimited: store.premium || store.stg_txt_tags_IsPurchased
 
     signal activated(string tag)
@@ -17,8 +21,23 @@ Text {
         if(unlimited) {
             activated(link)
         } else {
-            messageDialog.show(limit_warning_component)
+            showLimit()
         }
+    }
+
+    function checkText(text) {
+        if(unlimited)
+            return
+
+        for(var i=0; i<tags.length; i++)
+            if(text.indexOf(tags[i]) >= 0) {
+                showLimit()
+                break
+            }
+    }
+
+    function showLimit() {
+        messageDialog.show(limit_warning_component)
     }
 
     Component {

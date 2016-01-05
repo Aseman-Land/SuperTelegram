@@ -73,7 +73,7 @@ FeaturePageType1 {
                 Image {
                     anchors.fill: parent
                     anchors.margins: 8*Devices.density
-                    sourceSize: Qt.size(width, height)
+                    sourceSize: Qt.size(width*2, height*2)
                     source: fileHandler.filePath
                 }
             }

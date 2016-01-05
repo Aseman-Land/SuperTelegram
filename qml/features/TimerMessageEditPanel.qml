@@ -62,6 +62,7 @@ Item {
                 anchors.margins: 10*Devices.density
                 height: 80*Devices.density
                 placeholder: qsTr("Your Message")
+                onTextChanged: keywords.checkText(text)
             }
 
             TextsExtraTags {
@@ -69,7 +70,7 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.margins: 10*Devices.density
-                onActivated: tarea.text += (" " + tag + " ")
+                onActivated: tarea.text += tag
             }
         }
     }
