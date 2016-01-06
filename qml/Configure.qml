@@ -209,5 +209,7 @@ Rectangle {
     Component.onCompleted: {
         initTranslations()
     }
+
+    ActivityAnalizer { object: configure; comment: stg.currentLanguage }
 }
 

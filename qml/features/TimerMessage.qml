@@ -123,5 +123,7 @@ FeaturePageType1 {
         database: stg.database
         telegram: main.telegram
     }
+
+    ActivityAnalizer { object: tmsg; comment: tmodel.count }
 }
 

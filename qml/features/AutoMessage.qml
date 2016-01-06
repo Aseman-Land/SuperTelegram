@@ -155,5 +155,7 @@ FeaturePageType1 {
             editMessage = ""
         }
     }
+
+    ActivityAnalizer { object: amp; comment: amodel.count }
 }
 

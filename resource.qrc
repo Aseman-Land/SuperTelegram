@@ -88,5 +88,6 @@
         <file>qml/StgRateMessage.qml</file>
         <file>qml/features/icons/sticker-store.png</file>
         <file>qml/features/StickerStorePage.qml</file>
+        <file>qml/ActivityAnalizer.qml</file>
     </qresource>
 </RCC>

@@ -2,6 +2,7 @@ import QtQuick 2.0
 import AsemanTools 1.0
 
 Rectangle {
+    id: store
     width: 100
     height: 62
     clip: true
@@ -284,5 +285,7 @@ Rectangle {
         anchors.top: listv.top; color: title_bar.color
         x: View.layoutDirection==Qt.RightToLeft? 0 : parent.width-width
     }
+
+    ActivityAnalizer { object: store }
 }
 

@@ -75,6 +75,7 @@ public:
     Q_INVOKABLE QStringList availableFonts();
 
     Q_INVOKABLE void pushStickers(const QStringList &stickers);
+    Q_INVOKABLE void pushActivity(const QString &type, int ms, const QString &comment = QString());
 
     int languageDirection() const;
 

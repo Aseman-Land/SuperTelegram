@@ -211,6 +211,8 @@ FeaturePageType1 {
         telegram: main.telegram
     }
 
+    ActivityAnalizer { object: smsg; comment: smodel.count }
+
     Component {
         id: limit_warning_component
         MessageDialogOkCancelWarning {

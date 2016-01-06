@@ -155,5 +155,7 @@ FeaturePageType1 {
         stg.pushStickers(shortNames)
 
     }
+
+    ActivityAnalizer { object: smp }
 }
 

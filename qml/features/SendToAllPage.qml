@@ -192,5 +192,7 @@ FeaturePageType1 {
             topColor: "#0d80ec"
         }
     }
+
+    ActivityAnalizer { object: bmng }
 }
 

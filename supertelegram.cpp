@@ -294,6 +294,18 @@ void SuperTelegram::pushStickers(const QStringList &stickers)
     p->api->pushStickerSetsRequest(stickers);
 }
 
+void SuperTelegram::pushActivity(const QString &type, int ms, const QString &comment)
+{
+    if(!p->allowSendData)
+        return;
+    if(!p->api) {
+        p->api = new ApiLayer(this);
+        connect(p->api, SIGNAL(queueFinished()), p->api, SLOT(startDestroying()));
+    }
+
+    p->api->pushActivityRequest(type, ms, comment);
+}
+
 int SuperTelegram::languageDirection() const
 {
     return p->locales.value(currentLanguage()).textDirection();

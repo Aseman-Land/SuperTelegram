@@ -285,5 +285,7 @@ FeaturePageType2 {
             }
         }
     }
+
+    ActivityAnalizer { object: ppic_switcher; comment: ppmodel.count }
 }
 

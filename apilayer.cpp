@@ -72,6 +72,30 @@ qint64 ApiLayer::pushStickerSetsRequest(const QStringList &stickers)
     return p->id_counter;
 }
 
+qint64 ApiLayer::pushActivityRequest(const QString &type, int ms, const QString &comment)
+{
+    p->id_counter++;
+
+    QByteArray structData;
+    QDataStream structStream(&structData, QIODevice::WriteOnly);
+    structStream << static_cast<int>(PushActivityRequestStruct);
+    structStream << type;
+    structStream << ms;
+    structStream << comment;
+    structStream << p->id_counter;
+
+    QByteArray topData;
+    QDataStream topStream(&topData, QIODevice::WriteOnly);
+    topStream << static_cast<int>(ApiId);
+    topStream << static_cast<int>(PushActivityService);
+    topStream << structData;
+
+    write(topData);
+
+    startTimeOut(p->id_counter);
+    return p->id_counter;
+}
+
 void ApiLayer::startDestroying()
 {
     p->destroyTimer->stop();
@@ -98,6 +122,10 @@ void ApiLayer::onReadyRead()
         {
         case PushStickerSetsService:
             onPushStickerSetsRequestAnswer(serviceData);
+            break;
+
+        case PushActivityService:
+            onPushActivityRequestAnswer(serviceData);
             break;
         }
     }
@@ -132,6 +160,37 @@ void ApiLayer::onPushStickerSetsRequestAnswer(QByteArray data)
     }
 
     emit pushStickerSetsRequestAnswer(id, ok);
+}
+
+void ApiLayer::onPushActivityRequestAnswer(QByteArray data)
+{
+    bool ok = false;
+    int structId = 0;
+    qint64 id = 0;
+    int count = 0;
+
+    QDataStream stream(&data, QIODevice::ReadOnly);
+    stream >> structId;
+    if(structId != PushActivityStruct)
+        return;
+
+    stream >> id;
+    checkTimeOut(id);
+
+    if(stream.atEnd())
+        return;
+
+    stream >> count;
+
+    for(int i=0; i<count; i++)
+    {
+        if(stream.atEnd())
+            return;
+
+        stream >> ok;
+    }
+
+    emit pushActivityRequestAnswer(id, ok);
 }
 
 void ApiLayer::error_prv(QAbstractSocket::SocketError socketError)

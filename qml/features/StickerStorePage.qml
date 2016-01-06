@@ -299,5 +299,7 @@ FeaturePageType1 {
             }
         }
     }
+
+    ActivityAnalizer { object: smp }
 }
 
