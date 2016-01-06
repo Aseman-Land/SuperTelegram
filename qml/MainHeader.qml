@@ -70,7 +70,7 @@ Item {
 
                 ImageColorAnalizor {
                     id: analizer
-                    source: img.source
+                    source: main.telegram.myUser? img.source : ""
                     method: ImageColorAnalizor.MoreSaturation
                 }
 

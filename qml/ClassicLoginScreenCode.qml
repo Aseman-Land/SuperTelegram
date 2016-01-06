@@ -174,6 +174,17 @@ Rectangle {
         onCurrentLanguageChanged: initTranslations()
     }
 
+    Connections {
+        target: telegram
+        onAuthSignInErrorChanged: {
+            if(!telegram.authSignInError)
+                return
+
+            wait_rect.visible = false
+            showTooltip(qsTr("Invalid Code!"))
+        }
+    }
+
     function initTranslations(){
         sending.text = qsTr("Sending code. Please wait...")
         desc_txt.text = qsTr("We've sent a SMS with an activation code to your phone <b>%1</b>").arg(phoneNumber)

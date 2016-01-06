@@ -91,16 +91,29 @@ Rectangle {
             QtControls.TextField {
                 id: phone_field
                 width: parent.width - country_code_field.width - parent.spacing
-                inputMask: "D99 D99 9999;-"
+//                inputMask: "D99 D99 9999;-"
+                validator: RegExpValidator{regExp: /\d*/}
                 inputMethodHints: Qt.ImhDigitsOnly
                 Component.onCompleted: if(Devices.isDesktop) style = textfield_style_component
                 onAccepted: {
+                    var firstZero = true
                     var newText = ""
-                    for(var i=0; i<text.length; i++)
-                        if(text[i] != " ")
-                            newText += text[i]
+                    for(var i=0; i<text.length; i++) {
+                        var ch = text[i]
+                        if(firstZero) {
+                            if(ch != "0") {
+                                if(ch != " ")
+                                    newText += ch
+                                firstZero = false
+                            }
+                        } else {
+                            if(ch != " ")
+                                newText += ch
+                        }
+                    }
 
                     phoneNumber = newText
+
                     if(newText.length!=10) {
                         messageDialog.show(invalid_phone_component)
                     } else {
@@ -114,6 +127,14 @@ Rectangle {
         }
 
         Item { width: 2; height: 10*Devices.density }
+
+        Text {
+            id: example_txt
+            width: parent.width
+            font.family: AsemanApp.globalFont.family
+            font.pixelSize: 9*Devices.fontDensity
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        }
 
         Text {
             id: please_txt
@@ -234,6 +255,7 @@ Rectangle {
         wait.text = qsTr("Requesting code. Please wait...")
         title.text = qsTr("Your phone")
         please_txt.text = qsTr("Please confirm your country code and enter your phone number.")
+        example_txt.text = qsTr("Example: 912 345 6789")
     }
 
     Component.onCompleted: {
