@@ -125,6 +125,14 @@ Rectangle {
         source: "StgRateMessage.qml"
     }
 
+    Timer {
+        id: start_action_timer
+        interval: 1000
+        repeat: false
+        onTriggered: stg.pushAction("app-started")
+        Component.onCompleted: start()
+    }
+
     function showStore(sku) {
         slave_scene.item = store_component.createLocalComponent().createObject(slave_scene)
         slave_scene.item.anchors.fill = slave_scene

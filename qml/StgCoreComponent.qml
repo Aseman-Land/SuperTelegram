@@ -75,8 +75,11 @@ Item {
         onAuthLoggedInChanged: {
             if(authLoggedIn) {
                 s_tg.phoneNumber = phoneNumber
-                if(loginScreen)
+                if(loginScreen) {
                     loginScreen.finish()
+                    stg.pushAction("login-finished")
+                    loginScreen = null
+                }
             }
 
             refresh()
@@ -112,8 +115,10 @@ Item {
         } else {
             if(superTelegram)
                 return
-            if(loginScreen)
+            if(loginScreen) {
                 loginScreen.destroy()
+                stg.pushAction("login-finished")
+            }
 
             tg.phoneNumber = phoneNumber
             var component = tgmain_component.createLocalComponent()

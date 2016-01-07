@@ -31,7 +31,10 @@ Rectangle {
         height: parent.height
         scale: step<1? 1 : 0.9
         transformOrigin: Item.Bottom
-        onStart: moveToNumber()
+        onStart: {
+            stg.pushAction("login-start")
+            moveToNumber()
+        }
 
         Behavior on scale {
             NumberAnimation {easing.type: Easing.OutCubic; duration: 400}
@@ -56,7 +59,10 @@ Rectangle {
         scale: step<2? 1 : 0.9
         transformOrigin: Item.Bottom
         visible: !init_timer.running
-        onDone: moveToCode(countryCode + phoneNumber)
+        onDone: {
+            moveToCode(countryCode + phoneNumber)
+            stg.pushAction("login-phone-done")
+        }
 
         Behavior on y {
             NumberAnimation {easing.type: Easing.OutCubic; duration: 400}
@@ -82,7 +88,10 @@ Rectangle {
         height: parent.height
         y: step<2? height: 0
         visible: !init_timer.running
-        onDone: telegram.authSignIn(code)
+        onDone: {
+            telegram.authSignIn(code)
+            stg.pushAction("login-code-done")
+        }
 
         Behavior on y {
             NumberAnimation {easing.type: Easing.OutCubic; duration: 400}
@@ -124,6 +133,10 @@ Rectangle {
     function finish() {
         y = height
         destroy_timer.restart()
+    }
+
+    Component.onCompleted: {
+        stg.pushAction("login-begin")
     }
 }
 

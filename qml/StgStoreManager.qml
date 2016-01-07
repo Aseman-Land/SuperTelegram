@@ -12,5 +12,7 @@ StgStoreManagerCore {
 
     property bool premium: isPremiumNumber || (stg_premium_pack == StoreManager.InventoryStatePurchased) ||
                            (stg && stg.freeStore)
+
+    onInventoryPurchased: stg.pushAction("store-purchased-"+sku)
 }
 

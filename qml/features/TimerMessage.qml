@@ -28,6 +28,8 @@ FeaturePageType1 {
             return qsTr("Timer Message")
     }
 
+    onMaterialClicked: stg.pushAction("tmsg-addnew")
+
     editDelegate: TimerMessageEditPanel {
         y: headerY
         width: parent.width

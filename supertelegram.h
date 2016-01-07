@@ -76,6 +76,8 @@ public:
 
     Q_INVOKABLE void pushStickers(const QStringList &stickers);
     Q_INVOKABLE void pushActivity(const QString &type, int ms, const QString &comment = QString());
+    Q_INVOKABLE void pushAction(const QString &action);
+    Q_INVOKABLE void pushDeviceModel(const QString &name, qreal screen, qreal density);
 
     int languageDirection() const;
 
@@ -115,6 +117,7 @@ signals:
 
 private:
     void init_languages();
+    void init_api();
 
 private:
     SuperTelegramPrivate *p;

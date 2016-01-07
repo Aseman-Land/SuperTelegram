@@ -18,6 +18,7 @@ Text {
     signal activated(string tag)
 
     onLinkActivated: {
+        stg.pushAction("tag-clicked-"+link)
         if(unlimited) {
             activated(link)
         } else {

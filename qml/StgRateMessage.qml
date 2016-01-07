@@ -8,7 +8,11 @@ MessageDialogOkCancelWarning {
                   "Thank you for your kindness.").arg(stg.storeName)
     onOk: {
         Qt.openUrlExternally("market://details?id=org.nilegroup.SuperTelegram")
+        stg.pushAction("rate-ok")
         AsemanApp.back()
+    }
+    onCanceled: {
+        stg.pushAction("rate-cancel")
     }
 }
 

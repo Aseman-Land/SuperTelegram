@@ -20,6 +20,7 @@ FeaturePageType1 {
 
     property bool unlimited: store.premium || store.stg_sens_msg_3plus_IsPurchased
 
+    onMaterialClicked: stg.pushAction("sens-addnew")
     onEditModeChanged: {
         if(!editMode)
             return

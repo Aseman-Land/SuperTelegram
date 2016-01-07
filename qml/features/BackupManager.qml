@@ -46,6 +46,7 @@ FeaturePageType1 {
         onClicked: {
             bmng.currentDialog = dialog
             editMode = true
+            stg.pushAction("backup-addnew")
         }
     }
 
@@ -77,6 +78,7 @@ FeaturePageType1 {
                 backuper.startDate = datetime.date
                 backuper.destination = Devices.downloadsLocation + "/" + dialogName + " - " + dateName + ".txt"
                 backuper.start()
+                stg.pushAction("backup-start-create")
             }
         }
     }

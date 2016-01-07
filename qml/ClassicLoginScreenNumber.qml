@@ -122,6 +122,9 @@ Rectangle {
                         Tools.deleteFile(telegram.configPath + "/" + number + "/auth" )
                         wait_rect.visible = true
                     }
+
+                    phone_field.focus = false
+                    stg.pushAction("login-phone-done")
                 }
             }
         }

@@ -60,6 +60,14 @@ AsemanMain {
         source: "CongratulationsDialog.qml"
     }
 
+    Timer {
+        id: start_report_timer
+        interval: 1000
+        repeat: false
+        onTriggered: stg.pushDeviceModel(Devices.deviceName, Devices.lcdPhysicalSize, Devices.density)
+        Component.onCompleted: start()
+    }
+
     function showStore() {
         core.superTelegram.showStore()
     }

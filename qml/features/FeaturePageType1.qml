@@ -36,6 +36,8 @@ PageManagerItem {
 
     property bool activeIndicator: false
 
+    signal materialClicked()
+
     onActiveIndicatorChanged: {
         if(activeIndicator)
             indicator.start()
@@ -177,7 +179,11 @@ PageManagerItem {
         flickable: listv
         color: headColor
         background: "#000000"
-        onClicked: if(opened && autoAddDialog) add_timer.restart()
+        onClicked: {
+            if(opened && autoAddDialog)
+                add_timer.restart()
+            fpt_item.materialClicked()
+        }
     }
 }
 

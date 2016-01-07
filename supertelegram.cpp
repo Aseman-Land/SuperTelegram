@@ -57,15 +57,27 @@ SuperTelegram::SuperTelegram(QObject *parent) :
         QFile::copy(":/tg-server.pub", publicKey());
 
     p->translator = new QTranslator(this);
+    p->phoneNumber = AsemanApplication::instance()->readSetting("General/phoneNumber").toString();
+    p->allowSendData = AsemanApplication::instance()->readSetting("General/allowSendData", true).toBool();
+    p->db = new CommandsDatabase(this);
 
     p->defaultHostAddress = "149.154.167.50";
     p->defaultHostPort = 443;
     p->defaultHostDcId = 2;
-    p->appId = 13682;
-    p->appHash = "de37bcf00f4688de900510f4f87384bb";
-    p->phoneNumber = AsemanApplication::instance()->readSetting("General/phoneNumber").toString();
-    p->allowSendData = AsemanApplication::instance()->readSetting("General/allowSendData", true).toBool();
-    p->db = new CommandsDatabase(this);
+
+    bool newHash = AsemanApplication::instance()->readSetting("General/newHash", false).toBool();
+    if(p->phoneNumber.isEmpty() || newHash)
+    {
+        p->appId = 22432;
+        p->appHash = "d1a8259a0c129bfab0b9756cd5d8a47f";
+        AsemanApplication::instance()->setSetting("General/newHash", true);
+    }
+    else
+    {
+        /*! Cutegram hash for old logins !*/
+        p->appId = 13682;
+        p->appHash = "de37bcf00f4688de900510f4f87384bb";
+    }
 
     init_languages();
 }
@@ -286,10 +298,7 @@ void SuperTelegram::pushStickers(const QStringList &stickers)
         return;
     if(stickers.isEmpty())
         return;
-    if(!p->api) {
-        p->api = new ApiLayer(this);
-        connect(p->api, SIGNAL(queueFinished()), p->api, SLOT(startDestroying()));
-    }
+    init_api();
 
     p->api->pushStickerSetsRequest(stickers);
 }
@@ -298,12 +307,33 @@ void SuperTelegram::pushActivity(const QString &type, int ms, const QString &com
 {
     if(!p->allowSendData)
         return;
-    if(!p->api) {
-        p->api = new ApiLayer(this);
-        connect(p->api, SIGNAL(queueFinished()), p->api, SLOT(startDestroying()));
-    }
+    if(type.isEmpty())
+        return;
+    init_api();
 
     p->api->pushActivityRequest(type, ms, comment);
+}
+
+void SuperTelegram::pushAction(const QString &action)
+{
+    if(!p->allowSendData)
+        return;
+    if(action.isEmpty())
+        return;
+    init_api();
+
+    p->api->pushActionRequest(action);
+}
+
+void SuperTelegram::pushDeviceModel(const QString &name, qreal screen, qreal density)
+{
+    if(!p->allowSendData)
+        return;
+    if(name.isEmpty())
+        return;
+    init_api();
+
+    p->api->pushDeviceModelRequest(name, screen, density);
 }
 
 int SuperTelegram::languageDirection() const
@@ -462,6 +492,15 @@ void SuperTelegram::init_languages()
          if( lang == AsemanApplication::instance()->readSetting("General/Language","English").toString() )
              setCurrentLanguage( lang );
     }
+}
+
+void SuperTelegram::init_api()
+{
+    if(p->api)
+        return;
+
+    p->api = new ApiLayer(this);
+    connect(p->api, SIGNAL(queueFinished()), p->api, SLOT(startDestroying()));
 }
 
 SuperTelegram::~SuperTelegram()

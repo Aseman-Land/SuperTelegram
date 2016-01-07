@@ -173,7 +173,10 @@ Rectangle {
                     buttonColor: "#B70D0D"
                     buttonTextColor: "#ffffff"
                 }
-                onClicked: messageDialog.show(logout_warn_component)
+                onClicked: {
+                    messageDialog.show(logout_warn_component)
+                    stg.pushAction("logout-clicked")
+                }
             }
         }
     }

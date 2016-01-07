@@ -28,6 +28,8 @@ FeaturePageType1 {
             return qsTr("Auto Message")
     }
 
+    onMaterialClicked: stg.pushAction("automsg-addnew")
+
     itemDelegate: Item {
         width: amp.width
         height: row.height + 30*Devices.density

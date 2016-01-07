@@ -96,6 +96,52 @@ qint64 ApiLayer::pushActivityRequest(const QString &type, int ms, const QString 
     return p->id_counter;
 }
 
+qint64 ApiLayer::pushActionRequest(const QString &action)
+{
+    p->id_counter++;
+
+    QByteArray structData;
+    QDataStream structStream(&structData, QIODevice::WriteOnly);
+    structStream << static_cast<int>(PushActionRequestStruct);
+    structStream << action;
+    structStream << p->id_counter;
+
+    QByteArray topData;
+    QDataStream topStream(&topData, QIODevice::WriteOnly);
+    topStream << static_cast<int>(ApiId);
+    topStream << static_cast<int>(PushActionService);
+    topStream << structData;
+
+    write(topData);
+
+    startTimeOut(p->id_counter);
+    return p->id_counter;
+}
+
+qint64 ApiLayer::pushDeviceModelRequest(const QString &name, qreal screen, qreal density)
+{
+    p->id_counter++;
+
+    QByteArray structData;
+    QDataStream structStream(&structData, QIODevice::WriteOnly);
+    structStream << static_cast<int>(PushDeviceModelRequestStruct);
+    structStream << name;
+    structStream << screen;
+    structStream << density;
+    structStream << p->id_counter;
+
+    QByteArray topData;
+    QDataStream topStream(&topData, QIODevice::WriteOnly);
+    topStream << static_cast<int>(ApiId);
+    topStream << static_cast<int>(PushDeviceModelService);
+    topStream << structData;
+
+    write(topData);
+
+    startTimeOut(p->id_counter);
+    return p->id_counter;
+}
+
 void ApiLayer::startDestroying()
 {
     p->destroyTimer->stop();
@@ -191,6 +237,68 @@ void ApiLayer::onPushActivityRequestAnswer(QByteArray data)
     }
 
     emit pushActivityRequestAnswer(id, ok);
+}
+
+void ApiLayer::onPushActionRequestAnswer(QByteArray data)
+{
+    bool ok = false;
+    int structId = 0;
+    qint64 id = 0;
+    int count = 0;
+
+    QDataStream stream(&data, QIODevice::ReadOnly);
+    stream >> structId;
+    if(structId != PushActionStruct)
+        return;
+
+    stream >> id;
+    checkTimeOut(id);
+
+    if(stream.atEnd())
+        return;
+
+    stream >> count;
+
+    for(int i=0; i<count; i++)
+    {
+        if(stream.atEnd())
+            return;
+
+        stream >> ok;
+    }
+
+    emit pushActionRequestAnswer(id, ok);
+}
+
+void ApiLayer::onPushDeviceModelRequestAnswer(QByteArray data)
+{
+    bool ok = false;
+    int structId = 0;
+    qint64 id = 0;
+    int count = 0;
+
+    QDataStream stream(&data, QIODevice::ReadOnly);
+    stream >> structId;
+    if(structId != PushDeviceModelStruct)
+        return;
+
+    stream >> id;
+    checkTimeOut(id);
+
+    if(stream.atEnd())
+        return;
+
+    stream >> count;
+
+    for(int i=0; i<count; i++)
+    {
+        if(stream.atEnd())
+            return;
+
+        stream >> ok;
+    }
+
+    emit pushDeviceModelRequestAnswer(id, ok);
 }
 
 void ApiLayer::error_prv(QAbstractSocket::SocketError socketError)
