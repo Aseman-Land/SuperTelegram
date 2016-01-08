@@ -124,6 +124,7 @@ Rectangle {
                     }
 
                     phone_field.focus = false
+                    retry_timer.restart()
                     stg.pushAction("login-phone-done")
                 }
             }
@@ -250,6 +251,16 @@ Rectangle {
     }
 
     Connections {
+        target: telegram
+        onAuthPasswordNeeded: {
+            showTooltip(qsTr("2step auth does not supported.\n"+
+                             "Failed to login"))
+            wait_rect.visible = false
+            core.reinitTelegram()
+        }
+    }
+
+    Connections {
         target: stg
         onCurrentLanguageChanged: initTranslations()
     }
@@ -259,6 +270,23 @@ Rectangle {
         title.text = qsTr("Your phone")
         please_txt.text = qsTr("Please confirm your country code and enter your phone number.")
         example_txt.text = qsTr("Example: 912 345 6789")
+    }
+
+    function stopProgress() {
+        wait_rect.visible = false
+        retry_timer.stop()
+    }
+
+    Timer {
+        id: retry_timer
+        interval: 20000
+        repeat: false
+        onTriggered: {
+            var number = telegram.phoneNumber
+            wait.text = qsTr("Error! Retrying. Please wait...")
+            core.reinitTelegram()
+            telegram.phoneNumber = number
+        }
     }
 
     Component.onCompleted: {

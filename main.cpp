@@ -111,11 +111,11 @@ int main(int argc, char *argv[])
         qmlRegisterType<BackupManager>(QML_URI, 1, 0, "BackupManager");
         qmlRegisterType<ProfilePicSwitcherModel>(QML_URI, 1, 0, "ProfilePicSwitcherModel");
 
-#ifndef QT_DEBUG
-        if(!parser.isSet(verboseOption))
-            qputenv("QT_LOGGING_RULES", "tg.*=false");
-        else
-#endif
+//#ifndef QT_DEBUG
+//        if(!parser.isSet(verboseOption))
+//            qputenv("QT_LOGGING_RULES", "tg.*=false");
+//        else
+//#endif
             qputenv("QT_LOGGING_RULES", "tg.core.settings=false\n"
                                         "tg.core.outboundpkt=false\n"
                                         "tg.core.inboundpkt=false");

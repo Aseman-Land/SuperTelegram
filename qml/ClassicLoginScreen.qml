@@ -14,10 +14,18 @@ Rectangle {
     onStepChanged: {
         if(step > lastStep)
             BackHandler.pushHandler(classic_login, function(){step--})
-        if(step == 1)
+        if(step == 1) {
             cls_number.start()
-        if(step == 2)
+        }
+        if(step == 2) {
             cls_code.start()
+            cls_number.stopProgress()
+        }
+        if(step < lastStep) {
+            cls_number.stopProgress()
+            cls_code.stopProgress()
+            core.reinitTelegram()
+        }
 
         lastStep = step
     }

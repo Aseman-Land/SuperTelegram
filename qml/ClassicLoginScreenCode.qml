@@ -191,6 +191,10 @@ Rectangle {
         title.text = qsTr("Your code")
     }
 
+    function stopProgress() {
+        wait_rect.visible = false
+    }
+
     Component.onCompleted: {
         initTranslations()
     }

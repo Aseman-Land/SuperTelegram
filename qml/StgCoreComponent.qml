@@ -7,7 +7,7 @@ Item {
     id: core_object
 
     property alias stg: s_tg
-    property alias telegram: tg
+    property Telegram telegram
     property alias service: stgService
     property alias hostChecker: host_checker
 
@@ -61,46 +61,6 @@ Item {
         id: stgService
     }
 
-    Telegram {
-        id: tg
-        defaultHostAddress: s_tg.defaultHostAddress
-        defaultHostDcId: s_tg.defaultHostDcId
-        defaultHostPort: s_tg.defaultHostPort
-        appId: s_tg.appId
-        appHash: s_tg.appHash
-        configPath: AsemanApp.homePath
-        publicKeyFile: s_tg.publicKey
-        autoCleanUpMessages: true
-        autoRewakeInterval: 30*60*1000
-        onAuthLoggedInChanged: {
-            if(authLoggedIn) {
-                s_tg.phoneNumber = phoneNumber
-                if(loginScreen) {
-                    loginScreen.finish()
-                    stg.pushAction("login-finished")
-                    loginScreen = null
-                }
-            }
-
-            refresh()
-        }
-        onAuthCodeRequested: {
-            if(!loginScreen) {
-                s_tg.phoneNumber = ""
-                refresh()
-            }
-
-            loginScreen.moveToCode(phoneNumber)
-        }
-        onAuthLoggedOut: {
-            s_tg.phoneNumber = ""
-            View.tryClose()
-//            Tools.jsDelayCall(100, main.restart)
-        }
-        onTelegramChanged: if(telegram) service.start(telegram, s_tg, hostChecker, store)
-        onDatabaseChanged: if(database) database.readFullDialogs()
-    }
-
     function refresh() {
         var phoneNumber = s_tg.phoneNumber
         if(phoneNumber == null || phoneNumber == "") {
@@ -120,10 +80,26 @@ Item {
                 stg.pushAction("login-finished")
             }
 
-            tg.phoneNumber = phoneNumber
+            telegram.phoneNumber = phoneNumber
             var component = tgmain_component.createLocalComponent()
             superTelegram = component.createObject(main)
         }
+    }
+
+    function initTelegram() {
+        if(telegram)
+            return
+
+        telegram = telegram_component.createObject(core_object)
+    }
+
+    function reinitTelegram() {
+        console.debug("reinit")
+        if(telegram) {
+            telegram.destroy()
+            telegram = null
+        }
+        initTelegram()
     }
 
     SmartComponent {
@@ -134,6 +110,48 @@ Item {
     SmartComponent {
         id: tgmain_component
         source: "TelegramMain.qml"
+    }
+
+    Component {
+        id: telegram_component
+        Telegram {
+            id: tg
+            defaultHostAddress: s_tg.defaultHostAddress
+            defaultHostDcId: s_tg.defaultHostDcId
+            defaultHostPort: s_tg.defaultHostPort
+            appId: s_tg.appId
+            appHash: s_tg.appHash
+            configPath: AsemanApp.homePath
+            publicKeyFile: s_tg.publicKey
+            autoCleanUpMessages: true
+            autoRewakeInterval: 30*60*1000
+            onAuthLoggedInChanged: {
+                if(authLoggedIn) {
+                    s_tg.phoneNumber = phoneNumber
+                    if(loginScreen) {
+                        loginScreen.finish()
+                        stg.pushAction("login-finished")
+                        loginScreen = null
+                    }
+                }
+
+                refresh()
+            }
+            onAuthCodeRequested: {
+                if(!loginScreen) {
+                    s_tg.phoneNumber = ""
+                    refresh()
+                }
+
+                loginScreen.moveToCode(phoneNumber)
+            }
+            onAuthLoggedOut: {
+                s_tg.phoneNumber = ""
+                View.tryClose()
+            }
+            onTelegramChanged: if(telegram) service.start(telegram, s_tg, hostChecker, store)
+            onDatabaseChanged: if(database) database.readFullDialogs()
+        }
     }
 
     Component {
@@ -162,6 +180,7 @@ Item {
     }
 
     Component.onCompleted: {
+        initTelegram()
         if(Devices.isAndroid)
             activity_connections_component.createObject(core_object)
     }

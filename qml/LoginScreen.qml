@@ -14,8 +14,8 @@ Rectangle {
     property real maxHeaderHeight: ls_country.height
     property real statusBarHeight: View.statusBarHeight
 
-    property bool needLogin: (tg.authNeeded || tg.authSignInError.length!=0 ||
-              tg.authSignUpError.length != 0) && tg.authPhoneChecked
+    property bool needLogin: (telegram.authNeeded || telegram.authSignInError.length!=0 ||
+              telegram.authSignUpError.length != 0) && telegram.authPhoneChecked
 
     Item {
         id: header
@@ -98,7 +98,7 @@ Rectangle {
                     return -100*Devices.density
             }
             onNumberChanged: {
-                Tools.deleteFile(tg.configPath + "/" + number + "/auth" )
+                Tools.deleteFile(telegram.configPath + "/" + number + "/auth" )
                 telegram.phoneNumber = number
             }
 
@@ -125,7 +125,7 @@ Rectangle {
                 else
                     return 0
             }
-            onCodeChanged: if(code) tg.authSignIn(code)
+            onCodeChanged: if(code) telegram.authSignIn(code)
 
             Behavior on opacity {
                 NumberAnimation{easing.type: Easing.OutCubic; duration: 300}

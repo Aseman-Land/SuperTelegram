@@ -8,7 +8,7 @@ android {
     QT += widgets
 }
 
-DEFINES += QT_MESSAGELOGCONTEXT
+DEFINES += QT_MESSAGELOGCONTEXT LQTG_DISABLE_ASSERTS
 
 server.source = tg-server.pub
 server.target = $${DESTDIR}

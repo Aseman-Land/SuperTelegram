@@ -30,7 +30,7 @@ FeaturePageType1 {
 
     ContactsModel {
         id: dmodel
-        telegram: tg
+        telegram: main.telegram
     }
 
     Button {

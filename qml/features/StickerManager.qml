@@ -20,7 +20,7 @@ FeaturePageType1 {
 
     StickersModel {
         id: stickerModel
-        telegram: tg
+        telegram: main.telegram
         onInstalledStickerSetsChanged: pushStickers()
     }
 
@@ -49,7 +49,7 @@ FeaturePageType1 {
 
         FileHandler {
             id: fileHandler
-            telegram: tg
+            telegram: main.telegram
             target: stickerModel.stickerSetThumbnailDocument(sitem.stickerId)
             Component.onCompleted: download()
         }
@@ -131,7 +131,7 @@ FeaturePageType1 {
                     editMode = false
                 }
                 onDeleteRequest: {
-                    tg.uninstallStickerSet(item.stickerId)
+                    telegram.uninstallStickerSet(item.stickerId)
                     editMode = false
                 }
             }

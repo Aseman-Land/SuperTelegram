@@ -158,6 +158,8 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetwork
                                    p->stg->publicKey());
 
         connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
+        connect(p->telegram, SIGNAL(authCheckedPhoneError(qint64)), SLOT(authCheckedPhoneError_slt(qint64)));
+
         QTimer::singleShot(1000, this, SLOT(initTelegram()));
 
         p->sleepManager->setHost(p->stg->defaultHostAddress());
@@ -353,6 +355,12 @@ void SuperTelegramService::photosUploadProfilePhotoAnswer(qint64 id, const Photo
     acs_hash.accessHash = photo.accessHash();
 
     p->db->addAccessHash(hash, acs_hash);
+}
+
+void SuperTelegramService::authCheckedPhoneError_slt(qint64 msgId)
+{
+    Q_UNUSED(msgId)
+    p->telegram->authCheckPhone();
 }
 
 void SuperTelegramService::processOnTheMessage(qint32 id, const InputPeer &input, const QString &msg)

@@ -200,7 +200,7 @@ FeaturePageType1 {
             edit: checkInstall(stickerId)
             onCancel: editMode = false
             onDeleteRequest: {
-                tg.uninstallStickerSet(stickerId)
+                telegram.uninstallStickerSet(stickerId)
                 editMode = false
             }
             onDone: {
@@ -210,7 +210,7 @@ FeaturePageType1 {
                         return
                     }
                     wait_rect.visible = true
-                    tg.installStickerSet(stickerId)
+                    telegram.installStickerSet(stickerId)
                 }
 
                 editMode = false

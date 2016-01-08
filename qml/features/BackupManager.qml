@@ -22,7 +22,7 @@ FeaturePageType1 {
 
     BackupManager {
         id: backuper
-        telegram: tg
+        telegram: main.telegram
         dialog: bmng.currentDialog
         onProcessingChanged: {
             if(processing)
@@ -35,7 +35,7 @@ FeaturePageType1 {
 
     DialogsModel {
         id: dmodel
-        telegram: tg
+        telegram: main.telegram
     }
 
     itemDelegate: DialogListItem {
