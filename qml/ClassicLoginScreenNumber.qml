@@ -124,7 +124,7 @@ Rectangle {
                     }
 
                     phone_field.focus = false
-                    retry_timer.restart()
+                    retry_timer.go()
                     stg.pushAction("login-phone-done")
                 }
             }
@@ -280,12 +280,26 @@ Rectangle {
     Timer {
         id: retry_timer
         interval: 20000
-        repeat: false
+        repeat: true
         onTriggered: {
-            var number = telegram.phoneNumber
-            wait.text = qsTr("Error! Retrying. Please wait...")
-            core.reinitTelegram()
-            telegram.phoneNumber = number
+            if(count < 3) {
+                var number = telegram.phoneNumber
+                wait.text = qsTr("Error! Retrying #%1. Please wait...").arg(count+1)
+                core.reinitTelegram()
+                telegram.phoneNumber = number
+            } else {
+                core.reinitTelegram()
+                wait_rect.visible = false
+                stop()
+            }
+
+            count++
+        }
+        property int count
+
+        function go() {
+            count = 0
+            restart()
         }
     }
 

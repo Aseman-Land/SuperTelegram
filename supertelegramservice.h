@@ -53,6 +53,7 @@ private slots:
     void messagesGetDialogsAnswer(qint64 id, qint32 sliceCount, const QList<Dialog> &dialogs, const QList<Message> &messages, const QList<Chat> &chats, const QList<User> &users);
     void photosUploadProfilePhotoAnswer(qint64 id, const Photo &photo, const QList<User> &users);
     void authCheckedPhoneError_slt(qint64 msgId);
+    void fatalError();
 
     void updateAutoMessage();
     void updateSensMessage();
@@ -72,6 +73,9 @@ private:
     void processOnTheMessage(qint32 id, const InputPeer &input, const QString &msg);
 
     QString getNextProfilePicture() const;
+
+    Telegram *initTelegramObject();
+    void initTelegramSignal(Telegram *telegram);
 
 private:
     SuperTelegramServicePrivate *p;

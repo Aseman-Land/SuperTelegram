@@ -69,6 +69,7 @@ public:
 
     AsemanNetworkSleepManager *sleepManager;
     bool external;
+    bool inited;
     qint64 profilePictureEstimatedTime;
 
     QSet<qint64> answeredMessages;
@@ -84,6 +85,7 @@ SuperTelegramService::SuperTelegramService(QObject *parent) :
     p->tgSleepTimer = 0;
     p->tgWakeTimer = 0;
     p->sleepManager = 0;
+    p->inited = false;
     p->profilePictureInterval = 0;
     p->external = false;
     p->uptime = QDateTime::currentDateTime();
@@ -138,66 +140,46 @@ void SuperTelegramService::start(Telegram *tg, SuperTelegram *stg, AsemanNetwork
         p->sleepManager = new AsemanNetworkSleepManager(this);
         p->db = p->stg->database();
 
-        const QString phoneNumber = p->stg->phoneNumber();
-        const QString configPath = AsemanApplication::homePath();
-        if(!QFileInfo::exists(configPath + "/" + phoneNumber + "/auth"))
-        {
-            QTimer::singleShot(1, AsemanApplication::instance(), SLOT(exit()));
+
+        p->telegram = initTelegramObject();
+        if(!p->telegram)
             return;
-        }
-
-        QDir().mkpath(configPath);
-
-        p->telegram = new Telegram(p->stg->defaultHostAddress(),
-                                   p->stg->defaultHostPort(),
-                                   p->stg->defaultHostDcId(),
-                                   p->stg->appId(),
-                                   p->stg->appHash(),
-                                   phoneNumber,
-                                   configPath,
-                                   p->stg->publicKey());
-
-        connect(p->telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
-        connect(p->telegram, SIGNAL(authCheckedPhoneError(qint64)), SLOT(authCheckedPhoneError_slt(qint64)));
-
-        QTimer::singleShot(1000, this, SLOT(initTelegram()));
 
         p->sleepManager->setHost(p->stg->defaultHostAddress());
         p->sleepManager->setPort(p->stg->defaultHostPort());
         p->sleepManager->setInterval(5000);
     }
 
-    p->tgWakeTimer = new QTimer(this);
-    p->tgWakeTimer->setInterval(1000);
-    p->tgWakeTimer->setSingleShot(true);
+    initTelegramSignal(p->telegram);
 
-    p->tgSleepTimer = new QTimer(this);
-    p->tgSleepTimer->setInterval(30*60*1000);
-    p->tgSleepTimer->setSingleShot(false);
-    p->tgSleepTimer->start();
+    if(!p->inited)
+    {
+        p->tgWakeTimer = new QTimer(this);
+        p->tgWakeTimer->setInterval(1000);
+        p->tgWakeTimer->setSingleShot(true);
 
-    connect(p->tgSleepTimer, SIGNAL(timeout()), this, SLOT(sleep()));
-    connect(p->tgSleepTimer, SIGNAL(timeout()), p->tgWakeTimer, SLOT(start()));
-    connect(p->tgWakeTimer, SIGNAL(timeout()), this, SLOT(wake()));
+        p->tgSleepTimer = new QTimer(this);
+        p->tgSleepTimer->setInterval(30*60*1000);
+        p->tgSleepTimer->setSingleShot(false);
+        p->tgSleepTimer->start();
 
-    connect(p->db, SIGNAL(autoMessageChanged())        , SLOT(updateAutoMessage()));
-    connect(p->db, SIGNAL(sensMessageChanged())        , SLOT(updateSensMessage()));
-    connect(p->db, SIGNAL(profilePictureTimerChanged()), SLOT(updatePPicChanged()));
+        connect(p->tgSleepTimer, SIGNAL(timeout()), this, SLOT(sleep()));
+        connect(p->tgSleepTimer, SIGNAL(timeout()), p->tgWakeTimer, SLOT(start()));
+        connect(p->tgWakeTimer, SIGNAL(timeout()), this, SLOT(wake()));
 
-    connect(p->telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
-    connect(p->telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),
-            SLOT(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)));
-    connect(p->telegram, SIGNAL(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)),
-            SLOT(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)));
-    connect(p->telegram, SIGNAL(photosUploadProfilePhotoAnswer(qint64,Photo,QList<User>)),
-            SLOT(photosUploadProfilePhotoAnswer(qint64,Photo,QList<User>)));
+        connect(p->db, SIGNAL(autoMessageChanged())        , SLOT(updateAutoMessage()));
+        connect(p->db, SIGNAL(sensMessageChanged())        , SLOT(updateSensMessage()));
+        connect(p->db, SIGNAL(profilePictureTimerChanged()), SLOT(updatePPicChanged()));
 
-    connect(p->sleepManager, SIGNAL(availableChanged()), SLOT(hostCheckerStateChanged()));
+        connect(p->sleepManager, SIGNAL(availableChanged()), SLOT(hostCheckerStateChanged()));
 
-    updateAutoMessage();
-    updateSensMessage();
-    updatePPicChanged();
-    startClock();
+        updateAutoMessage();
+        updateSensMessage();
+        updatePPicChanged();
+        startClock();
+
+        p->inited = true;
+    }
 }
 
 void SuperTelegramService::stop()
@@ -363,6 +345,17 @@ void SuperTelegramService::authCheckedPhoneError_slt(qint64 msgId)
     p->telegram->authCheckPhone();
 }
 
+void SuperTelegramService::fatalError()
+{
+    delete p->telegram;
+
+    p->telegram = initTelegramObject();
+    if(!p->telegram)
+        return;
+
+    initTelegramSignal(p->telegram);
+}
+
 void SuperTelegramService::processOnTheMessage(qint32 id, const InputPeer &input, const QString &msg)
 {
     QString attachedText = msg;
@@ -421,6 +414,46 @@ QString SuperTelegramService::getNextProfilePicture() const
         return QString();
 
     return p->stg->profilePicSwitcherLocation() + "/" + files[qrand()%files.length()];
+}
+
+Telegram *SuperTelegramService::initTelegramObject()
+{
+    const QString phoneNumber = p->stg->phoneNumber();
+    const QString configPath = AsemanApplication::homePath();
+    if(!QFileInfo::exists(configPath + "/" + phoneNumber + "/auth"))
+    {
+        QTimer::singleShot(1, AsemanApplication::instance(), SLOT(exit()));
+        return 0;
+    }
+
+    QDir().mkpath(configPath);
+
+    Telegram *telegram = new Telegram(p->stg->defaultHostAddress(),
+                                      p->stg->defaultHostPort(),
+                                      p->stg->defaultHostDcId(),
+                                      p->stg->appId(),
+                                      p->stg->appHash(),
+                                      phoneNumber,
+                                      configPath,
+                                      p->stg->publicKey());
+
+    connect(telegram, SIGNAL(authNeeded()), SLOT(authNeeded()));
+    connect(telegram, SIGNAL(authCheckedPhoneError(qint64)), SLOT(authCheckedPhoneError_slt(qint64)));
+    connect(telegram, SIGNAL(fatalError()), SLOT(fatalError()), Qt::QueuedConnection);
+
+    QTimer::singleShot(1000, this, SLOT(initTelegram()));
+    return telegram;
+}
+
+void SuperTelegramService::initTelegramSignal(Telegram *telegram)
+{
+    connect(telegram, SIGNAL(authLoggedIn()), SLOT(authLoggedIn()));
+    connect(telegram, SIGNAL(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)),
+            SLOT(updateShortMessage(qint32,qint32,QString,qint32,qint32,qint32,qint32,qint32,qint32,bool,bool)));
+    connect(telegram, SIGNAL(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)),
+            SLOT(messagesGetDialogsAnswer(qint64,qint32,QList<Dialog>,QList<Message>,QList<Chat>,QList<User>)));
+    connect(telegram, SIGNAL(photosUploadProfilePhotoAnswer(qint64,Photo,QList<User>)),
+            SLOT(photosUploadProfilePhotoAnswer(qint64,Photo,QList<User>)));
 }
 
 void SuperTelegramService::updateAutoMessage()
